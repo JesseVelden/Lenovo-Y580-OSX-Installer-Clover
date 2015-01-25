@@ -1,0 +1,23 @@
+#!/bin/bash
+set -x
+
+while read line; do
+mountpoint=`echo "$line" | awk -F'%' '{print substr($3, 4)}'`
+bsdname=`echo "$line" | awk '{print $1}'`
+efidevice=`diskutil list $bsdname | grep EFI | tr -s ' ' | awk '{print $NF}'`
+if [ "$mountpoint" = "${3}" -o "$mountpoint/" = "${3}" ]
+then
+	case "$efidevice" in
+	"")	echo "This drive has no EFI partition.";;
+	*)	echo "Found EFI partition at /dev/$efidevice."
+		if [ "`df -h | grep /dev/$efidevice`" != "" ]
+		then
+			diskutil unmount "/dev/$efidevice" && mkdir -p /Volumes/EFI && mount -t msdos "/dev/$efidevice" /Volumes/EFI
+			echo "Mounted /dev/$efidevice at /Volumes/EFI."
+		else
+			mkdir -p /Volumes/EFI && mount -t msdos "/dev/$efidevice" /Volumes/EFI
+		fi;;
+	esac
+	break
+fi
+done < <(df -h | grep "/dev/")

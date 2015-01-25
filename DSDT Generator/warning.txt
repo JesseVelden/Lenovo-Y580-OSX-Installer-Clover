@@ -1,0 +1,10 @@
+Lenovo Y580 Yosemite Clover Installer
+======================================
+If you see this warning message, that means:
+
+You're trying to patch already patched DSDT.
+
+If you want to make yourself a new patched DSDT, you should do the following:
+
+Press F4 at Clover screen
+Run Lenovo Y580 Installer Clover Edition again and select correct DSDT options.

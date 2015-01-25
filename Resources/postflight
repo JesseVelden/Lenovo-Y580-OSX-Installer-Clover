@@ -1,0 +1,20 @@
+#!/bin/bash
+# rebilding the kext cache, if triggered
+RebuildOn=`/usr/libexec/PlistBuddy -c "Print :KextCacheRebuild" /tmp/L580CI.plist`
+if [ "$RebuildOn" == "yes" ]
+then
+	touch "${3}/System/Library/Extensions"
+fi
+# setting the Installer Backups folder's owner to the current user
+if [ -e "$HOME/Desktop/Installer Backups" ]
+then
+	chown -R $USER "$HOME/Desktop/Installer Backups"
+fi
+# deleting temporary files
+rm -rf /tmp/L580CI.plist
+rm -rf /tmp/Apps
+# enabling AirDrop
+pmset -a hibernatemode 0
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
+#enabling Diskutility Debug to let users easier mount hidden partitions (e.g. the EFI partition)
+defaults write com.apple.DiskUtility DUDebugMenuEnabled 1

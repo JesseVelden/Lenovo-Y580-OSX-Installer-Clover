@@ -1,0 +1,38 @@
+#!/bin/bash
+set -x
+
+if [ -e /Volumes/EFI/EFI/Boot/BOOTX64.efi ]
+then
+	cp -f /Volumes/EFI/EFI/Boot/BOOTX64.efi /Volumes/EFI/EFI/CLOVER/CLOVERX64.efi
+fi
+
+if [ -e "/Volumes/EFI/EFI/CLOVER/themes/Yosemite/Yosemite all blur.png" ]
+then
+	cp -f "/Volumes/EFI/EFI/CLOVER/themes/Yosemite/Yosemite all blur.png" "/Volumes/EFI/EFI/CLOVER/themes/Yosemite S/"
+fi
+
+if [ ! -d /Volumes/EFI/EFI/CLOVER/kexts/10.10 ]
+then
+	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/10.10
+fi
+
+if [ ! -d "$HOME"/Library/LaunchAgents ]
+then
+	mkdir -p "$HOME"/Library/LaunchAgents
+fi
+
+if [ -e "/etc/rc.local" ]
+then
+	rm -f "/etc/rc.local"
+fi
+
+if [ -e "/etc/rc.shutdown.local" ]
+then
+	rm -f "/etc/rc.shutdown.local"
+fi
+
+defaults delete com.apple.loginwindow LogoutHook
+
+rm -f "$HOME"/Library/LaunchAgents/com.projectosx.Clover.Updater.plist
+cp ./CloverUpdaterUtility.plist "$HOME"/Library/LaunchAgents/com.projectosx.Clover.Updater.plist
+chown -R "$USER" "$HOME"/Library/LaunchAgents

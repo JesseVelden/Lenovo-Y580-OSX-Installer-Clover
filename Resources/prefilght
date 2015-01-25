@@ -1,0 +1,36 @@
+#!/bin/bash
+set -x
+L580plist="/tmp/L580CI.plist"
+if [ -e "$L580plist" ]
+then
+	rm -rf "$L580plist"
+fi
+/usr/libexec/PlistBuddy -c "Add :CurrentDateTime string `date '+%Y-%m-%d %H-%M'`" "$L580plist"
+/usr/libexec/PlistBuddy -c "Add :KextCacheRebuild string 'no'" "$L580plist"
+/usr/libexec/PlistBuddy -c "Add :CloverResolution string 'no'" "$L580plist"
+/usr/libexec/PlistBuddy -c "Add :CloverConfigGenerate string 'no'" "$L580plist"
+/usr/libexec/PlistBuddy -c "Add :PatchDSDT string 'no'" "$L580plist"
+/usr/libexec/PlistBuddy -c "Add :PatchAppleHDA string 'no'" "$L580plist"
+
+if [ -d "/Volumes/EFI" ]
+then
+    if mount | grep /Volumes/EFI > /dev/null; then
+		diskutil unmount /Volumes/EFI
+	else
+		rm -rf /Volumes/EFI
+	fi
+fi
+
+if [ -d "/Volumes/ESP" ]
+then
+	if mount | grep /Volumes/ESP > /dev/null; then
+		diskutil unmount /Volumes/ESP
+	else
+		rm -rf /Volumes/ESP
+	fi
+fi
+
+if [ -d "/tmp/tempDSDT" ]
+then
+	rm -rf /tmp/tempDSDT
+fi

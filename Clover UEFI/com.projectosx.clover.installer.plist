@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CloverRevision</key>
+	<integer>3027</integer>
+	<key>InstalledThemes</key>
+	<array>
+		<string>Yosemite</string>
+		<string>Yosemite S</string>
+	</array>
+	<key>org.clover.bootloader.bootno</key>
+	<true/>
+	<key>org.clover.cloverprefpane</key>
+	<true/>
+	<key>org.clover.drivers64uefi.osxaptiofixdrv-64</key>
+	<true/>
+	<key>org.clover.rc.scripts.on.target</key>
+	<true/>
+	<key>org.clover.special.themes.christmas</key>
+	<false/>
+	<key>org.clover.special.themes.newyear</key>
+	<false/>
+	<key>org.clover.target.esp</key>
+	<true/>
+	<key>org.clover.uefi.only</key>
+	<true/>
+</dict>
+</plist>

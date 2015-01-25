@@ -1,0 +1,178 @@
+#!/bin/bash
+set -x
+./BackupESP "$1" "$2" "$3"
+
+CloverConfigGenerate=`/usr/libexec/PlistBuddy -c "Print :CloverConfigGenerate" /tmp/L580CI.plist`
+PatchDSDT=`/usr/libexec/PlistBuddy -c "Print :PatchDSDT" /tmp/L580CI.plist`
+CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580CI.plist`
+
+
+if [ "$CloverConfigGenerate" != "no" ]
+then
+	if [ "$CloverResolution" != "no" ]
+	then
+		./Generate
+		cp /tmp/config.plist /Volumes/EFI/EFI/CLOVER/
+		rm /tmp/config.plist
+	else
+		/usr/bin/osascript <<EOT
+tell application "Finder"
+    activate
+    display dialog "If you see this warning message, that means:
+
+You haven't selected any screen resolution. A config.plist for Clover will NOT be generated.
+
+In order to generate a config.plist for Clover, you have to do the following:
+Run Lenovo Y580 Clover Edition again and select correct options with a correct Screen resolution this time ;)." buttons {"OK"} default button "OK" with icon note with title "No Display Type selected!"
+end tell
+EOT
+	fi
+fi
+
+if [ "$PatchDSDT" != "no" ]
+then
+	cd /tmp/tempDSDT
+
+
+	if [ -f /Volumes/CLOVER/EFI/CLOVER/ACPI/origin/DSDT.aml ]
+	then
+		# get original DSDT from CLOVER USB
+		cp /Volumes/CLOVER/EFI/CLOVER/ACPI/origin/DSDT.aml .
+		cp /Volumes/CLOVER/EFI/CLOVER/ACPI/origin/SSDT*.aml .
+
+	elif [ -f /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml ]
+	then
+		# get original DSDT from EFI partition
+		cp /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml .
+		cp /Volumes/EFI/EFI/CLOVER/ACPI/origin/SSDT*.aml .
+	else
+		./patchmatic -extract
+	fi
+
+	./iasl -da *.aml
+
+	if [[ ! -f ./DSDT.dsl ]]
+	then
+		list="DSDT.aml"
+		for file in ./SSDT*.aml; do
+			rm -rf ./*.dsl
+			./iasl -da $list $file
+
+	        if [[ -f ./DSDT.dsl ]]
+	        then
+	        	list="$list $file"
+	        fi
+		done
+
+		./iasl -da $list
+	fi
+
+	if [ ! -f ./DSDT.dsl ]
+	then
+	/usr/bin/osascript <<EOT
+tell application "Finder"
+activate
+display dialog "If you see this warning message, that means:
+
+You haven't pressed F4 at Clover screen.
+
+If you want to make yourself a new patched DSDT, you should do the following:
+
+Press F4 at Clover screen
+Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "Non-vanilla DSDT!"
+end tell
+EOT
+	else
+
+		VanillaCheck=`cat ./DSDT.dsl | grep 'Device (GFX0)'`
+
+		if [ "$VanillaCheck" == "" ]
+		then
+			/usr/bin/osascript <<EOT
+tell application "Finder"
+activate
+display dialog "If you see this warning message, that means:
+
+You haven't pressed F4 at Clover screen.
+
+If you want to make yourself a new patched DSDT, you should do the following:
+
+Press F4 at Clover screen
+Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "Non-vanilla DSDT!"
+end tell
+EOT
+		else
+			cp ./*.aml /Volumes/EFI/EFI/CLOVER/acpi/origin/
+
+			for patch in "09_USB3_4x40s_Mieze.txt" \
+				"Graphics_High.txt" \
+				"Graphics_Low.txt" \
+				"L580.txt" \
+				"OPT_AR9285.txt" \
+				"OPT_BCM4322xtxt"
+			do
+				./patchmatic ./DSDT.dsl ./$patch ./DSDT.dsl
+			done
+
+			if [ ! -f ./SSDT-4.dsl ]
+			then
+				/usr/bin/osascript <<EOT
+tell application "Finder"
+activate
+display dialog "If you see this warning message, that means:
+
+You haven't pressed F4 at Clover screen.
+
+If you want to make yourself a new patched DSDT+SSDT, you should do the following:
+
+Press F4 at Clover screen
+Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "SSDT-4 NOT FOUND!"
+end tell
+EOT
+			else
+				./patchmatic $file ./NVIDIA_OFF_SSDT.txt ./SSDT-4.dsl
+				./iasl -p SSDT-4 $file
+				if [ ! -f  "SSDT-4.aml" ]
+				then
+			/usr/bin/osascript <<EOT
+tell application "Finder"
+activate
+display dialog "If you see this warning message, that means:
+
+You haven't pressed F4 at Clover screen.
+
+If you want to make yourself a new patched DSDT+SSDT, you should do the following:
+
+Press F4 at Clover screen
+Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "CANNOT PATCH SSDT-4!"
+end tell
+EOT
+				else
+					cp ./SSDT-4.aml /Volumes/EFI/EFI/CLOVER/acpi/patched/SSDT-4.aml
+				fi
+			fi
+
+			rm ./DSDT.aml
+			./iasl -p DSDT ./DSDT.dsl
+			if [ ! -f  "DSDT.aml" ]
+			then
+			/usr/bin/osascript <<EOT
+tell application "Finder"
+activate
+display dialog "If you see this warning message, that means:
+
+You haven't pressed F4 at Clover screen.
+
+If you want to make yourself a new patched DSDT, you should do the following:
+
+Press F4 at Clover screen
+Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "Non-vanilla DSDT!"
+end tell
+EOT
+			else
+				cp ./DSDT.aml /Volumes/EFI/EFI/CLOVER/acpi/patched/DSDT.aml
+			fi
+		fi
+	fi
+	rm -rf /tmp/tempDSDT
+fi

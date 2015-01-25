@@ -1,0 +1,7 @@
+#!/bin/bash
+#This will copy your DSDT & SSDTs from the Extra folder to clover
+if [ -f /Extra/DSDT.aml ]
+then
+	cp /Extra/DSDT.aml /Volumes/EFI/EFI/CLOVER/ACPI/patched/DSDT.aml
+fi
+cp /Extra/SSDT* /Volumes/EFI/EFI/CLOVER/ACPI/patched

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+RightNowIs=`/usr/libexec/PlistBuddy -c "Print :CurrentDateTime" /tmp/L580CI.plist`
+patchAppleHDA=`/usr/libexec/PlistBuddy -c "Print :patchAppleHDA" /tmp/L580CI.plist`
+BackupDir="$HOME/Desktop/Installer Backups/Backup $RightNowIs"
+
+
+if [ ! -d /Volumes/EFI/EFI/CLOVER/kexts/10.10 ]
+then
+	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/10.10
+fi
+
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/*
+cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/* /Volumes/EFI/EFI/CLOVER/kexts/10.10
+
+systemsetup -setwakeonnetworkaccess off
+/usr/libexec/PlistBuddy -c "Set :KextCacheRebuild yes" /tmp/L580CI.plist
+
+if [ "$patchAppleHDA" != "yes" ]
+	then
+	cp -rf "$BackupDir/AppleHDA.kext" /System/Library/Extensions/AppleHDA.kext
+	rm -rf /System/Library/Extensions/DummyHDA.kext
+fi

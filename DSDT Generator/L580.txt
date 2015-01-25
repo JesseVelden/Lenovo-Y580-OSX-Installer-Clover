@@ -1,0 +1,500 @@
+#Just copy everything in here to the patch box in MaciASL and press patch.
+#Then save it with file format  'ACPI ...' in the '/Extra' folder with the name: 'DSDT' 
+#
+#Full DSDT patch *******************WITHOUT GRAPHICS!!!!!!*****************************
+#Brought to you by: Jessers123. Have fun!
+#Huge thanks to RehabMan for all his fixes!
+
+#NEEDED FOR COMPILATION ERROR
+#Maintained by: RehabMan for: Laptop Patches
+#fix_TNOT.txt
+
+#  TNOT fix
+into definitionblock code_regex External\s+\(\\TNOT\) remove_matched;
+into_all all code_regex CondRefOf\s+\(\\TNOT\) replaceall_matched begin CondRefOf(TNOT) end;
+
+
+#ALSO NEEDED FOR GRAPHICS
+#Maintained by: RehabMan for: Laptop Patches
+#graphics_Rename-GFX0.txt
+
+# Note: Most DSDT/SSDTs use GFX0 for the integrated graphics device,
+#  but there are few renegades that use VID or AGP1.
+#  If your DSDT uses VID or AGP1 instead of GFX0, see the 
+#  alternate patch "Rename VID/AGP1 to IGPU"
+
+# sometimes there is already IGPU used for other things
+into_all all code_regex IGPU, replaceall_matched begin IGFX, end;
+
+# rename GFX0 -> IGPU for better power management
+into_all all code_regex GFX0\. replaceall_matched begin IGPU. end;
+into_all all code_regex \.GFX0 replaceall_matched begin .IGPU end;
+into_all all code_regex \sGFX0, replaceall_matched begin IGPU, end;
+into_all all code_regex \(GFX0 replaceall_matched begin (IGPU end;
+into_all all label GFX0 set_label begin IGPU end;
+into_all all label _SB.PCI0.GFX0 set_label begin _SB.PCI0.IGPU end;
+into_all all label \_SB.PCI0.GFX0 set_label begin \_SB.PCI0.IGPU end;
+into_all all label _SB.PCI0.GFX0.DD02 set_label begin _SB.PCI0.IGPU.DD02 end;
+into_all all label \_SB.PCI0.GFX0.DD02 set_label begin \_SB.PCI0.IGPU.DD02 end;
+into_all all label ^^GFX0 set_label begin ^^IGPU end;
+into_all all label ^GFX0 set_label begin ^IGPU end;
+
+#THIS IS ALSO NEEDED FOR GRAPHICS
+#Maintained by: RehabMan for: Laptop Patches
+#graphics_PNLF_ivy_sandy.txt
+
+# This patch enables the brightness slider in SysPrefs->Displays
+# and will also enable activation of sleep mode by closing
+# the laptop lid.
+#
+# This particular version is intended to be used with ACPIBacklight.kext
+# although it can also be used with AppleBacklight.kext,
+# provided AppleBacklight.kext is patched to recognize your 
+# display or an injector is used to set brightness levels.
+#
+#
+# See this thread for more information:
+#     http://www.tonymacx86.com/hp-probook-mavericks/121031-native-brightness-working-without-blinkscreen-using-patched-applebacklight-kext.html
+# (also read any linked threads)
+#
+
+#
+# Note: This patch assumes you have already applied "Rename GFX0 to IGPU"
+# and that the IGPU device is accessible.  For some computers this should
+# be applied to one of the SSDTs, not DSDT.
+#
+
+into device label IGPU code_regex (OperationRegion\s\(IGD2,\sPCI_Config[^\}]*\}) remove_matched;
+into device label IGPU code_regex (OperationRegion\s\(IGDP,\sPCI_Config[^\}]*\}) replace_matched
+begin
+%1\n
+OperationRegion (IGD2, PCI_Config, 0x10, 4)\n
+Field (IGD2, AnyAcc, NoLock, Preserve)\n
+{\n
+	BAR1,32,\n
+}\n
+end;
+
+# duplicated for case it is in separate scope
+into scope label _SB.PCI0.IGPU code_regex (OperationRegion\s\(IGD2,\sPCI_Config[^\}]*\}) remove_matched;
+into scope label _SB.PCI0.IGPU code_regex (OperationRegion\s\(IGDP,\sPCI_Config[^\}]*\}) replace_matched
+begin
+%1\n
+OperationRegion (IGD2, PCI_Config, 0x10, 4)\n
+Field (IGD2, AnyAcc, NoLock, Preserve)\n
+{\n
+	BAR1,32,\n
+}\n
+end;
+
+into device label PNLF remove_entry;
+into definitionblock code_regex . insert
+begin
+Scope (\_SB)\n
+{\n
+    Device (PNLF)\n
+    {\n
+        // normal PNLF declares (note some of this probably not necessary)\n
+        Name (_HID, EisaId ("APP0002"))\n
+        Name (_CID, "backlight")\n
+        Name (_UID, 10)\n
+        Name (_STA, 0x0B)\n
+        //define hardware register access for brightness\n
+        // you can see BAR1 value in RW-Everything under Bus00,02 Intel VGA controler PCI\n
+        // Note: Not sure which one is right here... for now, going with BAR1 masked\n
+        //OperationRegion (BRIT, SystemMemory, Subtract(\_SB.PCI0.IGPU.BAR1, 4), 0xe1184)\n
+        OperationRegion (BRIT, SystemMemory, And(\_SB.PCI0.IGPU.BAR1, Not(0xF)), 0xe1184)\n
+        Field (BRIT, AnyAcc, Lock, Preserve)\n
+        {\n
+            Offset(0x48250),\n
+            LEV2, 32,\n
+            LEVL, 32,\n
+            Offset(0x70040),\n
+            P0BL, 32,\n
+            Offset(0xc8250),\n
+            LEVW, 32,\n
+            LEVX, 32,\n
+            Offset(0xe1180),\n
+            PCHL, 32,\n
+        }\n
+        // DEB1 special for setting KLVX at runtime...\n
+        //Method (DEB1, 1, NotSerialized)\n
+        //{\n
+        //    Store(Arg0, KLVX)\n
+        //}\n
+        Name(KPCH, 0)\n
+        // _INI deals with differences between native setting and desired\n
+        Method (_INI, 0, NotSerialized)\n
+        {\n
+            Store(PCHL, KPCH)\n
+            Store(ShiftRight(KLVX,16), Local0)\n
+            Store(ShiftRight(LEVX,16), Local1)\n
+            if (LNotEqual(Local0, Local1))\n
+            {\n
+                Divide(Multiply(LEVL, Local0), Local1,, Local0)\n
+                //Store(P0BL, Local1)\n
+                //While(LEqual (P0BL, Local1)) {}\n
+                Store(Local0, LEVL)\n
+                Store(KLVX, LEVX)\n
+            }\n
+        }\n
+        // _BCM/_BQC: set/get for brightness level\n
+        Method (_BCM, 1, NotSerialized)\n
+        {\n
+            // initialize for consistent backlight level before/after sleep\n
+            if (LNotEqual(PCHL, KPCH)) { Store(KPCH, PCHL) }\n
+            If (LNotEqual(LEVW, 0x80000000)) { Store (0x80000000, LEVW) }\n
+            If (LNotEqual(LEVX, KLVX)) { Store (KLVX, LEVX) }\n
+            // store new backlight level\n
+            Store(Match(_BCL, MGE, Arg0, MTR, 0, 2), Local0)\n
+            If (LEqual(Local0, Ones)) { Subtract(SizeOf(_BCL), 1, Local0) }\n
+            If (LNotEqual(LEV2, 0x80000000)) { Store(0x80000000, LEV2) }\n
+            Store(DerefOf(Index(_BCL, Local0)), LEVL)\n
+        }\n
+        Method (_BQC, 0, NotSerialized)\n
+        {\n
+            Store(Match(_BCL, MGE, LEVL, MTR, 0, 2), Local0)\n
+            If (LEqual(Local0, Ones)) { Subtract(SizeOf(_BCL), 1, Local0) }\n
+            Return(DerefOf(Index(_BCL, Local0)))\n
+        }\n
+        Method (_DOS, 1, NotSerialized)\n
+        {\n
+            ^^PCI0.IGPU._DOS(Arg0)\n
+        }\n
+        // extended _BCM/_BQC for setting "in between" levels\n
+        Method (XBCM, 1, NotSerialized)\n
+        {\n
+            // initialize for consistent backlight level before/after sleep\n
+            if (LNotEqual(PCHL, KPCH)) { Store(KPCH, PCHL) }\n
+            If (LNotEqual(LEVW, 0x80000000)) { Store (0x80000000, LEVW) }\n
+            If (LNotEqual(LEVX, KLVX)) { Store (KLVX, LEVX) }\n
+            // store new backlight level\n
+            If (LGreater(Arg0, XRGH)) { Store(XRGH, Arg0) }\n
+            If (LAnd(Arg0, LLess(Arg0, XRGL))) { Store(XRGL, Arg0) }\n
+            If (LNotEqual(LEV2, 0x80000000)) { Store(0x80000000, LEV2) } \n
+            Store(Arg0, LEVL)\n
+        }\n
+        Method (XBQC, 0, NotSerialized)\n
+        {\n
+            Store(LEVL, Local0)\n
+            If (LGreater(Local0, XRGH)) { Store(XRGH, Local0) }\n
+            If (LAnd(Local0, LLess(Local0, XRGL))) { Store(XRGL, Local0) }\n
+            Return(Local0)\n
+        }\n
+    }\n
+}\n
+end;
+
+into device label PNLF code_regex Name\s\(_BCL,\sPackage[^\}]*\}\) remove_matched;
+into device label PNLF code_regex Name\s\(XOPT,.*\)\n removeall_matched;
+into device label PNLF code_regex Name\s\(XRGL,.*\)\n removeall_matched;
+into device label PNLF code_regex Name\s\(XRGH,.*\)\n removeall_matched;
+into device label PNLF code_regex Name\s\(KLVX,.*\)\n removeall_matched;
+into device label PNLF code_regex . insert
+begin
+    // Use XOPT=1 to disable smooth transitions\n
+    Name (XOPT, Zero)\n
+    // XRGL/XRGH: defines the valid range\n
+    Name (XRGL, 40)\n
+    Name (XRGH, 1808)\n
+    // KLVX is initialization value for LEVX\n
+    Name (KLVX, 0x7100000)\n
+    // _BCL: returns list of valid brightness levels\n
+    // first two entries describe ac/battery power levels\n
+    Name (_BCL, Package()\n
+    {\n
+        1808,\n
+        479,\n
+        0,\n
+        53, 55, 57, 59,\n
+        62, 66, 71, 77,\n
+        83, 91, 99, 108,\n
+        119, 130, 142, 154,\n
+        168, 183, 198, 214,\n
+        232, 250, 269, 289,\n
+        309, 331, 354, 377,\n
+        401, 426, 453, 479,\n
+        507, 536, 566, 596,\n
+        627, 660, 693, 727,\n
+        762, 797, 834, 872,\n
+        910, 949, 990, 1031,\n
+        1073, 1115, 1159, 1204,\n
+        1249, 1296, 1343, 1391,\n
+        1440, 1490, 1541, 1592,\n
+        1645, 1698, 1753, 1808,\n
+    })\n
+end;
+
+#Maintained by: RehabMan for: Laptop Patches
+#battery_Lenovo-y580.txt
+
+# created by RehabMan 2013-09-23
+# created originally for korapi
+
+# works for:
+#  Lenovo y580
+
+into definitionblock code_regex External\s+\(\\TNOT\) remove_matched;
+
+into method label B1B2 remove_entry;
+into definitionblock code_regex . insert
+begin
+Method (B1B2, 2, NotSerialized) { Return (Or (Arg0, ShiftLeft (Arg1, 8))) }\n
+end;
+
+# 16-bit EC
+
+into device label EC0 code_regex ENIB,\s+16 replace_matched begin ENI0,8,ENI1,8 end;
+into device label EC0 code_regex ERIB,\s+16 replace_matched begin ERI0,8,ERI1,8 end;
+
+into method label _TMP code_regex Store\s+\(0x8400,\s+\\_SB\.PCI0\.LPCB\.EC0\.ENIB\) replace_matched 
+begin 
+Store(0x84, \\_SB.PCI0.LPCB.EC0.ENI1) Store(Zero, \\_SB.PCI0.LPCB.EC0.ENI0)
+end;
+
+into method label FANG code_regex Store\s+\(Arg0,\s+ERIB\) replace_matched 
+begin
+Store(ShiftRight(Arg0, 8), ERI1) Store(Arg0, ERI0)
+end;
+
+into method label FANW code_regex Store\s+\(Arg0,\s+ERIB\) replace_matched
+begin
+Store(ShiftRight(Arg0, 8), ERI1) Store(Arg0, ERI0)
+end;
+
+
+# deal with 256-bit SMD0
+
+into device label EC0 code_regex SMD0,\s+256 replace_matched 
+begin
+//SMD0, 256,\n
+SD00,8,SD01,8,SD02,8,SD03,8,\n
+SD04,8,SD05,8,SD06,8,SD07,8,\n
+SD08,8,SD09,8,SD0A,8,SD0B,8,\n
+SD0C,8,SD0D,8,SD0E,8,SD0F,8,\n
+SD10,8,SD11,8,SD12,8,SD13,8,\n
+SD14,8,SD15,8,SD16,8,SD17,8,\n
+SD18,8,SD19,8,SD1A,8,SD1B,8,\n
+SD1C,8,SD1D,8,SD1E,8,SD1F,8
+end;
+
+
+into device label EC0 insert
+begin
+Method (RSMD, 0, Serialized)\n
+{\n
+    Name (TEMP, Buffer(0x20) { })\n
+    Store (SD00, Index(TEMP, 0x00))\n
+    Store (SD01, Index(TEMP, 0x01))\n
+    Store (SD02, Index(TEMP, 0x02))\n
+    Store (SD03, Index(TEMP, 0x03))\n
+    Store (SD04, Index(TEMP, 0x04))\n
+    Store (SD05, Index(TEMP, 0x05))\n
+    Store (SD06, Index(TEMP, 0x06))\n
+    Store (SD07, Index(TEMP, 0x07))\n
+    Store (SD08, Index(TEMP, 0x08))\n
+    Store (SD09, Index(TEMP, 0x09))\n
+    Store (SD0A, Index(TEMP, 0x0A))\n
+    Store (SD0B, Index(TEMP, 0x0B))\n
+    Store (SD0C, Index(TEMP, 0x0C))\n
+    Store (SD0D, Index(TEMP, 0x0D))\n
+    Store (SD0E, Index(TEMP, 0x0E))\n
+    Store (SD0F, Index(TEMP, 0x0F))\n
+    Store (SD10, Index(TEMP, 0x10))\n
+    Store (SD11, Index(TEMP, 0x11))\n
+    Store (SD12, Index(TEMP, 0x12))\n
+    Store (SD13, Index(TEMP, 0x13))\n
+    Store (SD14, Index(TEMP, 0x14))\n
+    Store (SD15, Index(TEMP, 0x15))\n
+    Store (SD16, Index(TEMP, 0x16))\n
+    Store (SD17, Index(TEMP, 0x17))\n
+    Store (SD18, Index(TEMP, 0x18))\n
+    Store (SD19, Index(TEMP, 0x19))\n
+    Store (SD1A, Index(TEMP, 0x1A))\n
+    Store (SD1B, Index(TEMP, 0x1B))\n
+    Store (SD1C, Index(TEMP, 0x1C))\n
+    Store (SD1D, Index(TEMP, 0x1D))\n
+    Store (SD1E, Index(TEMP, 0x1E))\n
+    Store (SD1F, Index(TEMP, 0x1F))\n
+    Return (TEMP)\n
+}\n
+end;
+
+into device label EC0 insert
+begin
+Method (WSMD, 1, Serialized)\n
+{\n
+    Name (TEMP, Buffer(0x20) { })\n
+    Store (Arg0, TEMP)\n
+    Store (DerefOf(Index(TEMP, 0x00)), SD00)\n
+    Store (DerefOf(Index(TEMP, 0x01)), SD01)\n
+    Store (DerefOf(Index(TEMP, 0x02)), SD02)\n
+    Store (DerefOf(Index(TEMP, 0x03)), SD03)\n
+    Store (DerefOf(Index(TEMP, 0x04)), SD04)\n
+    Store (DerefOf(Index(TEMP, 0x05)), SD05)\n
+    Store (DerefOf(Index(TEMP, 0x06)), SD06)\n
+    Store (DerefOf(Index(TEMP, 0x07)), SD07)\n
+    Store (DerefOf(Index(TEMP, 0x08)), SD08)\n
+    Store (DerefOf(Index(TEMP, 0x09)), SD09)\n
+    Store (DerefOf(Index(TEMP, 0x0A)), SD0A)\n
+    Store (DerefOf(Index(TEMP, 0x0B)), SD0B)\n
+    Store (DerefOf(Index(TEMP, 0x0C)), SD0C)\n
+    Store (DerefOf(Index(TEMP, 0x0D)), SD0D)\n
+    Store (DerefOf(Index(TEMP, 0x0E)), SD0E)\n
+    Store (DerefOf(Index(TEMP, 0x0F)), SD0F)\n
+    Store (DerefOf(Index(TEMP, 0x10)), SD10)\n
+    Store (DerefOf(Index(TEMP, 0x11)), SD11)\n
+    Store (DerefOf(Index(TEMP, 0x12)), SD12)\n
+    Store (DerefOf(Index(TEMP, 0x13)), SD13)\n
+    Store (DerefOf(Index(TEMP, 0x14)), SD14)\n
+    Store (DerefOf(Index(TEMP, 0x15)), SD15)\n
+    Store (DerefOf(Index(TEMP, 0x16)), SD16)\n
+    Store (DerefOf(Index(TEMP, 0x17)), SD17)\n
+    Store (DerefOf(Index(TEMP, 0x18)), SD18)\n
+    Store (DerefOf(Index(TEMP, 0x19)), SD19)\n
+    Store (DerefOf(Index(TEMP, 0x1A)), SD1A)\n
+    Store (DerefOf(Index(TEMP, 0x1B)), SD1B)\n
+    Store (DerefOf(Index(TEMP, 0x1C)), SD1C)\n
+    Store (DerefOf(Index(TEMP, 0x1D)), SD1D)\n
+    Store (DerefOf(Index(TEMP, 0x1E)), SD1E)\n
+    Store (DerefOf(Index(TEMP, 0x1F)), SD1F)\n
+}\n
+end;
+
+into method label CFUN code_regex Store\s+\(Zero,\s+SMD0\) replaceall_matched begin \\_SB.PCI0.LPCB.EC0.WSMD(Zero) end;
+into method label CFUN code_regex Store\s+\(SMD0,\s+Local3\) replaceall_matched begin Store(\\_SB.PCI0.LPCB.EC0.RSMD(), Local3) end;
+
+into method label MHPF code_regex Store\s+\(FB4,\s+SMD0\) replaceall_matched begin \\_SB.PCI0.LPCB.EC0.WSMD(FB4) end;
+into method label MHPF code_regex Store\s+\(SMD0,\s+FB4\) replaceall_matched begin Store(\\_SB.PCI0.LPCB.EC0.RSMD(), FB4) end;
+
+#NEEDED FOR SLEEP
+#Maintained by: RehabMan for: Laptop Patches
+#system_RTC.txt
+
+#   RTC fix
+into device name_hid PNP0B00 code_regex (IO\s\((?:\s*[^,]+,\s*(?:\/\/\s.*)?\s*\n)+\s*)(\dx\d+)(,\s*(?:\/\/\s.*)?\s*\n\s*\)) replace_matched begin %10x02%3 end;
+
+#NEEDED FOR SLEEP
+#Maintained by: RehabMan for: Laptop Patches
+#usb_USB_7-series.txt
+
+# USB property injection for 7-series boards (originally HM76)
+
+# Insert Apple USB properties into EHC1
+into method label _DSM parent_adr 0x001D0000 remove_entry;
+into device name_adr 0x001D0000 insert
+begin
+Method (_DSM, 4, NotSerialized)\n
+{\n
+    If (LEqual (Arg2, Zero)) { Return (Buffer() { 0x03 } ) }\n
+    Return (Package()\n
+    {\n
+        "AAPL,clock-id", Buffer() { 0x01 },\n
+        "built-in", Buffer() { 0x00 },\n
+        "subsystem-id", Buffer() { 0x70, 0x72, 0x00, 0x00 },\n
+        "subsystem-vendor-id", Buffer() { 0x86, 0x80, 0x00, 0x00 },\n
+        "AAPL,current-available", 2100,\n
+        "AAPL,current-extra", 2200,\n
+        "AAPL,current-extra-in-sleep", 1600,\n
+        "AAPL,device-internal", 0x02,\n
+        "AAPL,max-port-current-in-sleep", 2100,\n
+    })\n
+}\n
+end;
+
+# Insert Apple USB properties into EHC2
+into method label _DSM parent_adr 0x001A0000 remove_entry;
+into device name_adr 0x001A0000 insert
+begin
+Method (_DSM, 4, NotSerialized)\n
+{\n
+    If (LEqual (Arg2, Zero)) { Return (Buffer() { 0x03 } ) }\n
+    Return (Package()\n
+    {\n
+        "AAPL,clock-id", Buffer() { 0x01 },\n
+        "built-in", Buffer() { 0x00 },\n
+        "subsystem-id", Buffer() { 0x70, 0x72, 0x00, 0x00 },\n
+        "subsystem-vendor-id", Buffer() { 0x86, 0x80, 0x00, 0x00 },\n
+        "AAPL,current-available", 2100,\n
+        "AAPL,current-extra", 2200,\n
+        "AAPL,current-extra-in-sleep", 1600,\n
+        "AAPL,device-internal", 0x02,\n
+        "AAPL,max-port-current-in-sleep", 2100,\n
+    })\n
+}\n
+end;
+
+# Insert Apple USB properties into USB 3.0 XHC
+into method label _DSM parent_adr 0x00140000 remove_entry;
+into device name_adr 0x00140000 insert
+begin
+Method (_DSM, 4, NotSerialized)\n
+{\n
+    If (LEqual (Arg2, Zero)) { Return (Buffer() { 0x03 } ) }\n
+    Return (Package()\n
+    {\n
+        "AAPL,clock-id", Buffer() { 0x02 },\n
+        "built-in", Buffer() { 0x00 },\n
+        "subsystem-id", Buffer() { 0x70, 0x72, 0x00, 0x00 },\n
+        "subsystem-vendor-id", Buffer() { 0x86, 0x80, 0x00, 0x00 },\n
+        "AAPL,current-available", 2100,\n
+        "AAPL,current-extra", 2200,\n
+        "AAPL,current-extra-in-sleep", 1600,\n
+        "AAPL,device-internal", 0x02,\n
+        "AAPL,max-port-current-in-sleep", 2100,\n
+    })\n
+}\n
+end;
+
+#NEEDED FOR SLEEP WHEN THE LID IS CLOSED
+#Remove _PRW statement in LID0 - idea from RehabMan
+#Fixes sleep issue, when lid is closed, because Mac thinks actually it should wake
+#With this patch we remove that part.
+#But Mac wouldn't know that the lid is opened, therefore you need to press a key to wake
+into device label LID0 code_regex Name\s+\(_PRW,[\s\S]*\}\) remove_matched;
+
+#NEEDED FOR AUDIO & SLEEP
+#Maintained by: RehabMan for: Laptop Patches
+#system_IRQ.txt
+
+# This can fix non-working audio and also has an affect on HPET.
+#
+# Use this if you have issues with patched AppleHDA (required on almost all laptops)
+# or if you have issues with HPET (restart after wake).
+
+# IRQ fix
+into device name_hid PNP0000 code_regex IRQNoFlags\s\(\)\n\s+\{(\d+)\} remove_matched;
+into device name_hid PNP0100 code_regex IRQNoFlags\s\(\)\n\s+\{(\d+)\} remove_matched;
+into device name_hid PNP0B00 code_regex IRQNoFlags\s\(\)\n\s+\{(\d+)\} remove_matched;
+into device name_hid PNP0103 code_regex IRQNoFlags\s\(\)\n\s+\{.*\} removeall_matched;
+into device name_hid PNP0103 code_regex Name\s\(([^,]+),\sResourceTemplate\s\(\).*\n\s+\{((?:.|\n)*)\}\) replace_matched
+begin
+Name (%1, ResourceTemplate()\n
+{\n
+    IRQNoFlags() { 0, 8, 11, 15 }\n
+%2
+})\n
+end;
+
+#NEEDED FOR AUDIO
+#Maintained by: RehabMan for: Laptop Patches
+#audio_HDEF-layout12.txt
+
+# Note: Change your layout ID if you need something different
+# Note 2: Changed it to layout ID: 1 to work with our AppleHDA by Jessers123
+#   Inject Audio info
+into method label _DSM parent_label HDEF remove_entry;
+into device label HDEF insert
+begin
+Method (_DSM, 4, NotSerialized)\n
+{\n
+    If (LEqual (Arg2, Zero)) { Return (Buffer() { 0x03 } ) }\n
+    Return (Package()\n
+    {\n
+        "layout-id", Buffer() { 1, 0x00, 0x00, 0x00 },\n
+        "hda-gfx", Buffer() { "onboard-1" },\n
+        "PinConfigurations", Buffer() { },\n
+        //"MaximumBootBeepVolume", 77,\n
+    })\n
+}\n
+end;

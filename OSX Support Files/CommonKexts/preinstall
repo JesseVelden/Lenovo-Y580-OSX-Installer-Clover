@@ -1,0 +1,9 @@
+#!/bin/bash
+
+RightNowIs=`/usr/libexec/PlistBuddy -c "Print :CurrentDateTime" /tmp/L580CI.plist`
+BackupDir="$HOME/Desktop/Installer Backups/Backup $RightNowIs"
+
+./BackupESP "$1" "$2" "$3"
+./Backup.sh ./list_common ${3}
+
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/*

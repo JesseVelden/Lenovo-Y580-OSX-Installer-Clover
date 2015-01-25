@@ -1,0 +1,546 @@
+#!/bin/sh
+
+# generate Clover config file
+CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580CI.plist`
+osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
+patchAppleHDA=`/usr/libexec/PlistBuddy -c "Print :patchAppleHDA" /tmp/L580CI.plist`
+
+config="/tmp/config.plist"	
+# header 
+printf '<?xml version="1.0" encoding="UTF-8"?>\n' > $config
+printf '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n' >> $config
+printf '<plist version="1.0">\n' >> $config
+printf '<dict>\n' >> $config
+
+# graphics section
+printf '\t<key>Graphics</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+
+case $CloverResolution in 
+	low)
+		printf '\t\t<key>DualLink</key>\n' >> $config
+		printf '\t\t<integer>0</integer>\n' >> $config
+		printf '\t\t<key>ig-platform-id</key>\n' >> $config
+		printf '\t\t<string>0x01660003</string>\n' >> $config
+		printf '\t\t<key>Inject</key>\n' >> $config
+		printf '\t\t<dict>\n' >> $config
+		printf '\t\t\t<key>Intel</key>\n' >> $config
+		printf '\t\t\t<false/>\n' >> $config
+		printf '\t\t\t<key>ATI</key>\n' >> $config
+		printf '\t\t\t<false/>\n' >> $config
+		printf '\t\t\t<key>NVidia</key>\n' >> $config
+		printf '\t\t\t<false/>\n' >> $config
+		printf '\t\t</dict>\n' >> $config
+		;;
+	high)
+		printf '\t\t<key>DualLink</key>\n' >> $config
+		printf '\t\t<integer>1</integer>\n' >> $config
+		printf '\t\t<key>ig-platform-id</key>\n' >> $config
+		printf '\t\t<string>0x01660004</string>\n' >> $config
+		printf '\t\t<key>Inject</key>\n' >> $config
+		printf '\t\t<dict>\n' >> $config
+		printf '\t\t\t<key>Intel</key>\n' >> $config
+		printf '\t\t\t<false/>\n' >> $config
+		printf '\t\t\t<key>ATI</key>\n' >> $config
+		printf '\t\t\t<false/>\n' >> $config
+		printf '\t\t\t<key>NVidia</key>\n' >> $config
+		printf '\t\t\t<false/>\n' >> $config
+		printf '\t\t</dict>\n' >> $config
+		;;
+esac
+
+printf '\t</dict>\n' >> $config
+
+# smbios section
+week=CDFGHJKLMNPQRTVWXY12345678
+week2=012345678
+chars=ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+week_letter=`echo ${week:$(($RANDOM%${#week})):1}`
+week_letter2=`echo ${week:$(($RANDOM%${#week2})):2}`
+
+boardserial=""
+mlb=""
+rom=""
+
+function random_char { echo ${chars:$(($RANDOM%${#chars})):1}; }
+
+if [ -f /Volumes/EFI/EFI/CLOVER/config.plist ]
+then
+	mlb=$(/usr/libexec/PlistBuddy -c 'Print :RtVariables:MLB' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
+	rom=$(/usr/libexec/PlistBuddy -c 'Print :RtVariables:ROM' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
+	boardserial=$(/usr/libexec/PlistBuddy -c 'Print :SMBIOS:BoardSerialNumber' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
+	if [[ "$boardserial" == "" ]]
+	then
+		if [[ "$mlb" == "" ]]
+		then
+			boardserial="$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)"
+		else
+			boardserial="$mlb"
+		fi
+	fi
+else
+	boardserial="$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)"
+fi
+
+boardtype="10"
+chassistype="8"
+chassis="MacBook-Aluminum"
+family="MacBook Pro"
+mobile="true"
+
+biosdate="08/08/12"
+biosversion="MBP91.88Z.00D3.B08.1208081132"
+boardprod="Mac-6F01561E16C75D06"
+prodname="MacBookPro9,2"
+serial="C02L"$week_letter$(random_char)$(random_char)$(random_char)"DTY3"
+
+# check existing serial number
+if [ -f /Volumes/EFI/EFI/CLOVER/config.plist ]
+then
+	oldprodname=$(/usr/libexec/PlistBuddy -c 'Print :SMBIOS:ProductName' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
+	if [ "$oldprodname" == "$prodname" ]
+	then
+		oldserial=$(/usr/libexec/PlistBuddy -c 'Print :SMBIOS:SerialNumber' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
+		if ! [[ "$oldserial" == "" ]]
+		then
+			serial=$oldserial
+		fi
+	fi
+fi
+
+printf '\t<key>SMBIOS</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+printf '\t\t<key>BoardType</key>\n' >> $config
+printf '\t\t<integer>'"$boardtype"'</integer>\n' >> $config
+printf '\t\t<key>ChassisType</key>\n' >> $config
+printf '\t\t<integer>'"$chassistype"'</integer>\n' >> $config
+printf '\t\t<key>BiosReleaseDate</key>\n' >> $config
+printf '\t\t<string>'"$biosdate"'</string>\n' >> $config
+printf '\t\t<key>Version</key>\n' >> $config
+printf '\t\t<string>1.0</string>\n' >> $config
+printf '\t\t<key>SerialNumber</key>\n' >> $config
+printf '\t\t<string>'"$serial"'</string>\n' >> $config
+printf '\t\t<key>Manufacturer</key>\n' >> $config
+printf '\t\t<string>Apple Inc.</string>\n' >> $config
+printf '\t\t<key>BoardManufacturer</key>\n' >> $config
+printf '\t\t<string>Apple Inc.</string>\n' >> $config
+printf '\t\t<key>ChassisAssetTag</key>\n' >> $config
+printf '\t\t<string>'"$chassis"'</string>\n' >> $config
+printf '\t\t<key>BiosVendor</key>\n' >> $config
+printf '\t\t<string>Apple Inc.</string>\n' >> $config
+printf '\t\t<key>ChassisManufacturer</key>\n' >> $config
+printf '\t\t<string>Apple Inc.</string>\n' >> $config
+printf '\t\t<key>BiosVersion</key>\n' >> $config
+printf '\t\t<string>'"$biosversion"'</string>\n' >> $config
+printf '\t\t<key>Board-ID</key>\n' >> $config
+printf '\t\t<string>'"$boardprod"'</string>\n' >> $config
+printf '\t\t<key>Family</key>\n' >> $config
+printf '\t\t<string>'"$family"'</string>\n' >> $config
+printf '\t\t<key>ProductName</key>\n' >> $config
+printf '\t\t<string>'"$prodname"'</string>\n' >> $config
+
+if ! [[ "$boardserial" == '' ]]
+	then
+		printf '\t\t<key>BoardSerialNumber</key>\n' >> $config
+		printf '\t\t<string>'"$boardserial"'</string>\n' >> $config
+	fi
+
+printf '\t\t<key>Mobile</key>\n' >> $config
+printf '\t\t<'"$mobile"'/>\n' >> $config
+printf '\t\t<key>Trust</key>\n' >> $config
+printf '\t\t<false/>\n' >> $config
+printf '\t</dict>\n' >> $config
+
+# boot section
+
+printf '\t<key>Boot</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+
+printf '\t\t<key>Arguments</key>\n' >> $config
+printf '\t\t<string>dart=0 nv_disable=1 kext-dev-mode=1</string>\n' >> $config
+
+printf '\t\t<key>Debug</key>\n' >> $config
+printf '\t\t<false/>\n' >> $config
+printf '\t\t<key>Legacy</key>\n' >> $config
+printf '\t\t<string>LegacyBiosDefault</string>\n' >> $config
+printf '\t\t<key>Log</key>\n' >> $config
+printf '\t\t<false/>\n' >> $config
+printf '\t\t<key>NeverHibernate</key>\n' >> $config
+printf '\t\t<false/>\n' >> $config
+printf '\t\t<key>Timeout</key>\n' >> $config
+printf '\t\t<integer>5</integer>\n' >> $config
+printf '\t\t<key>XMPDetection</key>\n' >> $config
+printf '\t\t<string>Yes</string>\n' >> $config
+printf '\t\t<key>Secure</key>\n' >> $config
+printf '\t\t<false/>\n' >> $config
+printf '\t</dict>\n' >> $config
+
+# acpi section
+printf '\t<key>ACPI</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+printf '\t\t<key>DSDT</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>Debug</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<key>ReuseFFFF</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<key>DropOEM_DSM</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t</dict>\n' >> $config
+printf '\t\t<key>DropTables</key>\n' >> $config
+printf '\t\t<array>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Signature</key>\n' >> $config
+printf '\t\t\t\t<string>SSDT</string>\n' >> $config
+printf '\t\t\t\t<key>TableId</key>\n' >> $config
+printf '\t\t\t\t<string>ApCst</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Signature</key>\n' >> $config
+printf '\t\t\t\t<string>DMAR</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Signature</key>\n' >> $config
+printf '\t\t\t\t<string>SSDT</string>\n' >> $config
+printf '\t\t\t\t<key>TableId</key>\n' >> $config
+printf '\t\t\t\t<string>CpuPM</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Signature</key>\n' >> $config
+printf '\t\t\t\t<string>SSDT</string>\n' >> $config
+printf '\t\t\t\t<key>TableId</key>\n' >> $config
+printf '\t\t\t\t<string>Cpu0Ist</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Signature</key>\n' >> $config
+printf '\t\t\t\t<string>SSDT</string>\n' >> $config
+printf '\t\t\t\t<key>TableId</key>\n' >> $config
+printf '\t\t\t\t<string>ApIst</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Signature</key>\n' >> $config
+printf '\t\t\t\t<string>SSDT</string>\n' >> $config
+printf '\t\t\t\t<key>TableId</key>\n' >> $config
+printf '\t\t\t\t<string>Cpu0Cst</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t</array>\n' >> $config
+printf '\t\t<key>SSDT</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>DropOem</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<key>PluginType</key>\n' >> $config
+printf '\t\t\t<integer>1</integer>\n' >> $config
+printf '\t\t\t<key>Generate</key>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>PStates</key>\n' >> $config
+printf '\t\t\t\t<false/>\n' >> $config
+printf '\t\t\t\t<key>CStates</key>\n' >> $config
+printf '\t\t\t\t<false/>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+printf '\t\t</dict>\n' >> $config
+printf '\t</dict>\n' >> $config
+
+# kernel and kext patches section
+printf '\t<key>KernelAndKextPatches</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+
+printf '\t\t<key>AppleRTC</key>\n' >> $config
+printf '\t\t<true/>\n' >> $config
+
+printf '\t\t<key>KernelPm</key>\n' >> $config
+printf '\t\t<false/>\n' >> $config
+printf '\t\t<key>AsusAICPUPM</key>\n' >> $config
+printf '\t\t<true/>\n' >> $config
+
+printf '\t\t<key>KextsToPatch</key>\n' >> $config
+printf '\t\t<array>\n' >> $config
+
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>IOAHCIBlockStorage</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tQVBQTEUgU1NE\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAAAAAAAAAAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Enable Trim on SSD</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\thcB0XUg=\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tMcB0W0g=\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Second Stage patch 1 10.10</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tQYjE6wM=\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tQYjE6yM=\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Second Stage patch 2 10.10</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+findsmbios=$(printf "Mac-2E6FAB96566FE58C" | base64)
+patchsmbios=$(printf "$boardprod" | base64)
+
+#TODO: NEED THIS??? VVV
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\ti4eMAQAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tuA8AAACQ\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAgUAAAAEAAAHBAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAgUAAAAIAAAGAAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Patch audio HDMI HD4000 - port 0205</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAwQAAAAEAACBAAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAwQAAAAIAAAGAAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Patch audio HDMI HD4000 - port 0304</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tBAYAAAAEAACBAAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tBAYAAAAIAAAGAAAA\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Patch audio HDMI HD4000 -  port 0406</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
+
+if [ "$CloverResolution" == "high" ]
+then
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tBABmAQEDAQEAAAAC\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tBABmAQECBAIAAAAE\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>Patch HDMI-DP port HD4000 1600x900+ #1</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tMAIAAAAAAAABAAAAQAAAAAAAAAABAAAAQAAAAAAAAAABAAAAQAAAAAAAAAAAAAAA\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tMAIAAAIFAAAABAAABwQAAAMEAAAABAAAgQAAAAQGAAAACAAABgAAAAAAAAAAAgAR\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>Patch HDMI-DP port HD4000 1600x900+ #2</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+fi
+
+if [ "$patchAppleHDA" != "no" ]
+	then
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\thAjsEA==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tAAAAAA==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\thQjsEA==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tAAAAAA==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\thBnUEQ==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\taQLsEA==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+fi
+
+printf '\t\t</array>\n' >> $config
+
+printf '\t</dict>\n' >> $config
+
+# gui section
+printf '\t<key>GUI</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+CurrentTheme=''
+if [ -f /Volumes/EFI/EFI/CLOVER/config.plist ]
+then
+	CurrentTheme=$(/usr/libexec/PlistBuddy -c 'Print :GUI:Theme' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
+fi
+
+case $CloverResolution in 
+	low)
+		if [[ "$CurrentTheme" == '' ]]
+		then
+			CurrentTheme='Yosemite S'
+		fi
+
+		printf '\t\t<key>ScreenResolution</key>\n' >> $config
+		printf '\t\t<string>1024x768</string>\n' >> $config
+		printf '\t\t<key>Theme</key>\n' >> $config
+		printf '\t\t<string>'"$CurrentTheme"'</string>\n' >> $config
+		;;
+	high)
+		if [[ "$CurrentTheme" == '' ]]
+		then
+			CurrentTheme='Yosemite'
+		fi
+
+		printf '\t\t<key>Theme</key>\n' >> $config
+		printf '\t\t<string>'"$CurrentTheme"'</string>\n' >> $config
+		;;
+esac
+
+printf '\t\t<key>Mouse</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>Enabled</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<key>Mirror</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t</dict>\n' >> $config
+printf '\t\t<key>Scan</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>Entries</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<key>Tool</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<key>Legacy</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t</dict>\n' >> $config
+printf '\t\t<key>Custom</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>Entries</key>\n' >> $config
+printf '\t\t\t<array>\n' >> $config
+printf '\t\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>FullTitle</key>\n' >> $config
+printf '\t\t\t\t<string>UEFI Internal</string>\n' >> $config
+printf '\t\t\t\t<key>Ignore</key>\n' >> $config
+printf '\t\t\t\t<false/>\n' >> $config
+printf '\t\t\t\t<key>Hidden</key>\n' >> $config
+printf '\t\t\t\t<string>Always</string>\n' >> $config
+printf '\t\t\t\t<key>Disabled</key>\n' >> $config
+printf '\t\t\t\t<false/>\n' >> $config
+printf '\t\t\t\t<key>Type</key>\n' >> $config
+printf '\t\t\t\t<string>Other</string>\n' >> $config
+printf '\t\t\t\t</dict>\n' >> $config
+printf '\t\t\t</array>\n' >> $config
+printf '\t\t</dict>\n' >> $config
+printf '\t</dict>\n' >> $config
+
+# devices section
+printf '\t<key>Devices</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+
+printf '\t\t<key>USB</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>Inject</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<key>FixOwnership</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<key>AddClockID</key>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
+printf '\t\t</dict>\n' >> $config
+printf '\t</dict>\n' >> $config
+
+# system parameters section
+printf '\t<key>SystemParameters</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+printf '\t\t<key>InjectKexts</key>\n' >> $config
+printf '\t\t<string>Detect</string>\n' >> $config
+printf '\t</dict>\n' >> $config
+
+# end
+printf '\t</dict>\n' >> $config
+printf '\t</plist>\n' >> $config
+
+chown "$USER" "$config"
