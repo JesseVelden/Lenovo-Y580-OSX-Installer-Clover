@@ -12,6 +12,11 @@ OS X support: Yosemite+
 
 ###C h a n g e l o g   
 
+**Version 0.9.5 (27 January 2015)**
+
+* DSDT patching fixed
+* Bluetooth patching added
+
 **Version 0.9 (25 January 2015)**
 
 * Initial release
