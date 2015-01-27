@@ -3,7 +3,7 @@
 # generate Clover config file
 CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580CI.plist`
 osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
-patchAppleHDA=`/usr/libexec/PlistBuddy -c "Print :patchAppleHDA" /tmp/L580CI.plist`
+PatchAppleHDA=`/usr/libexec/PlistBuddy -c "Print :PatchAppleHDA" /tmp/L580CI.plist`
 
 config="/tmp/config.plist"	
 # header 
@@ -397,7 +397,7 @@ then
 	printf '\t\t\t</dict>\n' >> $config
 fi
 
-if [ "$patchAppleHDA" != "no" ]
+if [ "$PatchAppleHDA" != "no" ]
 	then
 	printf '\t\t\t<dict>\n' >> $config
 	printf '\t\t\t\t<key>Name</key>\n' >> $config

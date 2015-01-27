@@ -1,18 +1,2 @@
 #!/bin/sh
-CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580CI.plist`
-if [ "$CloverResolution" != "no" ]
-then
-	/usr/libexec/PlistBuddy -c "Set :PatchDSDT yes" /tmp/L580CI.plist
-else
-	/usr/bin/osascript <<EOT
-tell application "Finder"
-    activate
-    display dialog "If you see this warning message, that means:
-
-You haven't selected any screen resolution. Your DSDT will NOT be patched.
-
-In order to patch your DSDT, you have to do the following:
-Run Lenovo Y580 Clover Edition again and select correct options with a correct Screen resolution this time ;)." buttons {"OK"} default button "OK" with icon note with title "No Display Type selected!"
-end tell
-EOT
-fi
+/usr/libexec/PlistBuddy -c "Set :PatchDSDT yes" /tmp/L580CI.plist

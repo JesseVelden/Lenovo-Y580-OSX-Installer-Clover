@@ -13,6 +13,8 @@
 into definitionblock code_regex External\s+\(\\TNOT\) remove_matched;
 into_all all code_regex CondRefOf\s+\(\\TNOT\) replaceall_matched begin CondRefOf(TNOT) end;
 
+#MHCF fix - brought to you by Jessers123 =P
+into method label MHCF code_regex And\s+\(Local0,\s+0x60\) remove_matched;
 
 #ALSO NEEDED FOR GRAPHICS
 #Maintained by: RehabMan for: Laptop Patches

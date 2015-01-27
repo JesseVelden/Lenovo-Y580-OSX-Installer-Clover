@@ -3455,22 +3455,6 @@
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
-													<string>OSX Support Files/CommonKexts/Extensions/ALXEthernet.kext</string>
-													<key>PATH_TYPE</key>
-													<integer>1</integer>
-													<key>PERMISSIONS</key>
-													<integer>493</integer>
-													<key>TYPE</key>
-													<integer>3</integer>
-													<key>UID</key>
-													<integer>0</integer>
-												</dict>
-												<dict>
-													<key>CHILDREN</key>
-													<array/>
-													<key>GID</key>
-													<integer>0</integer>
-													<key>PATH</key>
 													<string>OSX Support Files/CommonKexts/Extensions/DummyHDA.kext</string>
 													<key>PATH_TYPE</key>
 													<integer>1</integer>
@@ -3703,6 +3687,22 @@
 																			<integer>0</integer>
 																			<key>PATH</key>
 																			<string>OSX Support Files/CommonKexts/Extensions/AHCI_3rdParty_SATA.kext</string>
+																			<key>PATH_TYPE</key>
+																			<integer>1</integer>
+																			<key>PERMISSIONS</key>
+																			<integer>493</integer>
+																			<key>TYPE</key>
+																			<integer>3</integer>
+																			<key>UID</key>
+																			<integer>0</integer>
+																		</dict>
+																		<dict>
+																			<key>CHILDREN</key>
+																			<array/>
+																			<key>GID</key>
+																			<integer>0</integer>
+																			<key>PATH</key>
+																			<string>OSX Support Files/CommonKexts/Extensions/ALXEthernet.kext</string>
 																			<key>PATH_TYPE</key>
 																			<integer>1</integer>
 																			<key>PERMISSIONS</key>
@@ -11545,6 +11545,505 @@
 			<key>UUID</key>
 			<string>8D3F4BDD-40F2-4F5E-BCCB-2CCF52FF2D56</string>
 		</dict>
+		<dict>
+			<key>PACKAGE_FILES</key>
+			<dict>
+				<key>DEFAULT_INSTALL_LOCATION</key>
+				<string>/</string>
+				<key>HIERARCHY</key>
+				<dict>
+					<key>CHILDREN</key>
+					<array>
+						<dict>
+							<key>CHILDREN</key>
+							<array>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>80</integer>
+									<key>PATH</key>
+									<string>Utilities</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+							</array>
+							<key>GID</key>
+							<integer>80</integer>
+							<key>PATH</key>
+							<string>Applications</string>
+							<key>PATH_TYPE</key>
+							<integer>0</integer>
+							<key>PERMISSIONS</key>
+							<integer>509</integer>
+							<key>TYPE</key>
+							<integer>1</integer>
+							<key>UID</key>
+							<integer>0</integer>
+						</dict>
+						<dict>
+							<key>CHILDREN</key>
+							<array>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>80</integer>
+									<key>PATH</key>
+									<string>Application Support</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Automator</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Documentation</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Filesystems</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Frameworks</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Input Methods</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Internet Plug-Ins</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>LaunchAgents</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>LaunchDaemons</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>PreferencePanes</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Preferences</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>80</integer>
+									<key>PATH</key>
+									<string>Printers</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>PrivilegedHelperTools</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>QuickLook</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>QuickTime</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Screen Savers</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Scripts</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Services</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Widgets</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+							</array>
+							<key>GID</key>
+							<integer>0</integer>
+							<key>PATH</key>
+							<string>Library</string>
+							<key>PATH_TYPE</key>
+							<integer>0</integer>
+							<key>PERMISSIONS</key>
+							<integer>493</integer>
+							<key>TYPE</key>
+							<integer>1</integer>
+							<key>UID</key>
+							<integer>0</integer>
+						</dict>
+						<dict>
+							<key>CHILDREN</key>
+							<array>
+								<dict>
+									<key>CHILDREN</key>
+									<array>
+										<dict>
+											<key>CHILDREN</key>
+											<array/>
+											<key>GID</key>
+											<integer>0</integer>
+											<key>PATH</key>
+											<string>Extensions</string>
+											<key>PATH_TYPE</key>
+											<integer>0</integer>
+											<key>PERMISSIONS</key>
+											<integer>493</integer>
+											<key>TYPE</key>
+											<integer>1</integer>
+											<key>UID</key>
+											<integer>0</integer>
+										</dict>
+									</array>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Library</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>493</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+							</array>
+							<key>GID</key>
+							<integer>0</integer>
+							<key>PATH</key>
+							<string>System</string>
+							<key>PATH_TYPE</key>
+							<integer>0</integer>
+							<key>PERMISSIONS</key>
+							<integer>493</integer>
+							<key>TYPE</key>
+							<integer>1</integer>
+							<key>UID</key>
+							<integer>0</integer>
+						</dict>
+						<dict>
+							<key>CHILDREN</key>
+							<array>
+								<dict>
+									<key>CHILDREN</key>
+									<array/>
+									<key>GID</key>
+									<integer>0</integer>
+									<key>PATH</key>
+									<string>Shared</string>
+									<key>PATH_TYPE</key>
+									<integer>0</integer>
+									<key>PERMISSIONS</key>
+									<integer>1023</integer>
+									<key>TYPE</key>
+									<integer>1</integer>
+									<key>UID</key>
+									<integer>0</integer>
+								</dict>
+							</array>
+							<key>GID</key>
+							<integer>80</integer>
+							<key>PATH</key>
+							<string>Users</string>
+							<key>PATH_TYPE</key>
+							<integer>0</integer>
+							<key>PERMISSIONS</key>
+							<integer>493</integer>
+							<key>TYPE</key>
+							<integer>1</integer>
+							<key>UID</key>
+							<integer>0</integer>
+						</dict>
+					</array>
+					<key>GID</key>
+					<integer>0</integer>
+					<key>PATH</key>
+					<string>/</string>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+					<key>PERMISSIONS</key>
+					<integer>493</integer>
+					<key>TYPE</key>
+					<integer>1</integer>
+					<key>UID</key>
+					<integer>0</integer>
+				</dict>
+				<key>PAYLOAD_TYPE</key>
+				<integer>0</integer>
+				<key>VERSION</key>
+				<integer>3</integer>
+			</dict>
+			<key>PACKAGE_SCRIPTS</key>
+			<dict>
+				<key>PREINSTALL_PATH</key>
+				<dict>
+					<key>PATH</key>
+					<string>OSX Support Files/CommonKexts/PatchBluetooth</string>
+					<key>PATH_TYPE</key>
+					<integer>1</integer>
+				</dict>
+				<key>RESOURCES</key>
+				<array/>
+			</dict>
+			<key>PACKAGE_SETTINGS</key>
+			<dict>
+				<key>AUTHENTICATION</key>
+				<integer>1</integer>
+				<key>CONCLUSION_ACTION</key>
+				<integer>0</integer>
+				<key>IDENTIFIER</key>
+				<string>nl.JessevanderVelden.EnableBluetoothPatching</string>
+				<key>LOCATION</key>
+				<integer>0</integer>
+				<key>NAME</key>
+				<string>EnableBluetoothPatching</string>
+				<key>OVERWRITE_PERMISSIONS</key>
+				<false/>
+				<key>VERSION</key>
+				<string>1.0</string>
+			</dict>
+			<key>TYPE</key>
+			<integer>0</integer>
+			<key>UUID</key>
+			<string>FFFEED6C-E388-4050-ADEE-19F28F96B829</string>
+		</dict>
 	</array>
 	<key>PROJECT</key>
 	<dict>
@@ -11651,7 +12150,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Patches AppleHDA.kext for sound output support within Clover. You need to have a clean/ 'vanilla' 'AppleHDA' and 'DummyHDA' in the '/System/Library/Extensions' folder. If you don't have the DummyHDA.kext you must select 'Kexts - Common files'. For the actual patching you must select 'Generate Clover Config.plist' too.</string>
+										<string>You need to have a clean/ 'vanilla' 'AppleHDA' and 'DummyHDA' in the '/System/Library/Extensions' folder. If you don't have the DummyHDA.kext you must select 'Install Kexts'. For the actual patching you must select 'Generate Clover Config.plist' too.</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
@@ -11688,7 +12187,44 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Contains the common kexts AKA as drivers in the OS X world.</string>
+										<string>This will patch Bluetooth.</string>
+									</dict>
+								</array>
+								<key>OPTIONS</key>
+								<dict>
+									<key>HIDDEN</key>
+									<false/>
+									<key>STATE</key>
+									<integer>2</integer>
+								</dict>
+								<key>PACKAGE_UUID</key>
+								<string>FFFEED6C-E388-4050-ADEE-19F28F96B829</string>
+								<key>REQUIREMENTS</key>
+								<array/>
+								<key>TITLE</key>
+								<array>
+									<dict>
+										<key>LANGUAGE</key>
+										<string>English</string>
+										<key>VALUE</key>
+										<string>Patch Bluetooth</string>
+									</dict>
+								</array>
+								<key>TOOLTIP</key>
+								<array/>
+								<key>TYPE</key>
+								<integer>0</integer>
+								<key>UUID</key>
+								<string>F719AA40-7B43-4CA3-B709-9E8ED1DE07B1</string>
+							</dict>
+							<dict>
+								<key>DESCRIPTION</key>
+								<array>
+									<dict>
+										<key>LANGUAGE</key>
+										<string>English</string>
+										<key>VALUE</key>
+										<string>Contains the common kexts. - If you want to have a patched AppleHDA, you must select 'Patch AppleHDA' every time you want to reinstall these kexts!</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
@@ -11708,7 +12244,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Kexts</string>
+										<string>Install Kexts</string>
 									</dict>
 								</array>
 								<key>TOOLTIP</key>
@@ -12836,7 +13372,7 @@ Mostly for the 4x40s ProBooks, but should work on every ProBook model without Wi
 			<key>NAME</key>
 			<string>Lenovo Y580 Yosemite Clover Installer</string>
 			<key>REFERENCE_FOLDER_PATH</key>
-			<string>/Volumes/Documents/Clover Lenovo Y580/lenovo-y580-installer-clover-edition</string>
+			<string>/Users/jesse/Desktop/Clover Lenovo Y580/lenovo-y580-installer-clover-edition</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>
