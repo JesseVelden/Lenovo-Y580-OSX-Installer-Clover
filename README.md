@@ -1,8 +1,8 @@
 ##Lenovo Y580 OSX Installer w/ Clover
-**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
-**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
+###**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
 
-**Maintainer: Jessers123**
+**Maintainer: Jessers123**  
+**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8E4TFKGXLHJLU)
   
