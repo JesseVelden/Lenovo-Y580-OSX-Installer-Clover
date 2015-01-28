@@ -1,8 +1,8 @@
 ##Lenovo Y580 OSX Installer w/ Clover
-**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
-**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**  
+###**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
 
-**Maintainer: Jessers123**
+**Maintainer: Jessers123**  
+**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8E4TFKGXLHJLU)
   
@@ -30,25 +30,25 @@ This is based on the **HP ProBook Installer Clover edition** that is currently m
 **Clover Bootloader** is courtesy of the **Clover Team**.  
 [The Clover support thread](http://www.projectosx.com/forum/index.php?showtopic=2562)  
 
-The **VoodooPS2Controller** fork is courtesy of **RehabMan**.
+The **VoodooPS2Controller** fork is courtesy of **RehabMan**.  
 [The VoodooPS2Controller support thread](http://www.tonymacx86.com/hp-probook/75649-new-voodoops2controller-keyboard-trackpad.html)  
 
-The SSDT generator script is courtesy of **RevoGirl** and **PikeRAlpha**.  
+The **SSDT generator script** is courtesy of **RevoGirl** and **PikeRAlpha**.  
 [The SSDT generator support thread](http://www.tonymacx86.com/ssdt/86906-ssdt-generation-script-ivybridge-pm.html)  
 
 **MaciASL** is courtesy of **SJ_UnderWater** forked by **RehabMan**.  
 [The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html) 
-[MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic) 
+[MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic)     
 
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/93732-new-kexts-proposed-probook-installer-v6-1-a.html)  
-[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/)  
+[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/) 
 
-**ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**.  
-[ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)  
+**ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**  
+[ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)
 
-**ACPIBatteryManager** is modified by **RehabMan**.   
-[ACPIBatteryManager modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)  
+**ACPIBatteryManager** is modified by **RehabMan**  
+[ACPIBatteryManager modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)
 
 The AHCI patch, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of **bcc9**.  
 [The AHCI patch support thread](http://www.insanelymac.com/forum/topic/280062-waiting-for-root-device-when-kernel-cache-used-only-with-some-disks-fix/)  
@@ -73,8 +73,8 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 **EAPDFix.kext** is courtesy of **EMlyDinEsH**    
 [The EAPDFix support forum](http://forum.osxlatitude.com/index.php?/topic/3084-eapdjack-sense-fix-no-audiojack-sense-issue-after-sleep/)
 
-**ALXEthernet.kext** is courtsey of **Shailua**  modified by **Zephiris** and maintained by **Dolnor**
-[The ALXEthernet support thread](http://www.insanelymac.com/forum/topic/284119-experimental-atheros-ar813132515261627172-driver-for-107108/)
+**ALXEthernet.kext** is courtsey of **Shailua**  modified by **Zephiris** and maintained by **Dolnor**  
+[The ALXEthernet support thread](http://www.insanelymac.com/forum/topic/284119-experimental-atheros-ar813132515261627172-driver-for-107108/)  
 [The modified ALXEthernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
 
 **ACPIPoller.kext** and the fan reset driver for Clover are courtesy of **RehabMan**.  
