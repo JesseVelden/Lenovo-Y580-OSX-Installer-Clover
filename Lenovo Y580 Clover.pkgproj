@@ -12415,7 +12415,7 @@
 												<key>LANGUAGE</key>
 												<string>English</string>
 												<key>VALUE</key>
-												<string>This section contains the display-specific patches. THIS MUST BE SELECTED FOR PATCHING!</string>
+												<string>This section contains the display-specific patches. THIS MUST BE SELECTED FOR PATCHING! DON'T SELECT BOTH OPTIONS!</string>
 											</dict>
 										</array>
 										<key>OPTIONS</key>
@@ -12820,7 +12820,7 @@ After their installation, you may find them in a folder on your desktop called "
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>This will copy your patched DSDT &amp; SSDT(s) from the /Extra folder (from Chameleon or Chimera) to Clover.</string>
+										<string>This will copy your patched DSDT &amp; SSDT(s) from the /Extra folder (from Chameleon or Chimera) to Clover. Case sensitive!</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>

@@ -1,6 +1,6 @@
 ##Lenovo Y580 OSX Installer w/ Clover
-**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**
-**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
+**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
+**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**  
 
 **Maintainer: Jessers123**
 
@@ -38,17 +38,17 @@ The SSDT generator script is courtesy of **RevoGirl** and **PikeRAlpha**.
 
 **MaciASL** is courtesy of **SJ_UnderWater** forked by **RehabMan**.  
 [The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html) 
-[MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic)     
+[MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic) 
 
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/93732-new-kexts-proposed-probook-installer-v6-1-a.html)  
-[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/) 
+[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/)  
 
-**ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**
-[ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)
+**ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**.  
+[ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)  
 
-**ACPIBatteryManager** is modified by **RehabMan**
-[ACPIBatteryManager modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)
+**ACPIBatteryManager** is modified by **RehabMan**.   
+[ACPIBatteryManager modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)  
 
 The AHCI patch, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of **bcc9**.  
 [The AHCI patch support thread](http://www.insanelymac.com/forum/topic/280062-waiting-for-root-device-when-kernel-cache-used-only-with-some-disks-fix/)  
