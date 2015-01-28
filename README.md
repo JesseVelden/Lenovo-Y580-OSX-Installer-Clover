@@ -1,8 +1,8 @@
 ##Lenovo Y580 OSX Installer w/ Clover
-**[Yosemite thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
+**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**
+**[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
 **Maintainer: Jessers123**
-  
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8E4TFKGXLHJLU)
   
@@ -37,13 +37,18 @@ The SSDT generator script is courtesy of **RevoGirl** and **PikeRAlpha**.
 [The SSDT generator support thread](http://www.tonymacx86.com/ssdt/86906-ssdt-generation-script-ivybridge-pm.html)  
 
 **MaciASL** is courtesy of **SJ_UnderWater** forked by **RehabMan**.  
-[The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html)  
+[The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html) 
+[MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic)     
 
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  
-**RealtekRTL8111.kext** is courtesy of **Mieze** and **RehabMan**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/93732-new-kexts-proposed-probook-installer-v6-1-a.html)  
-[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/)  
-[The original RealtekRTL8111.kext support thread](http://www.insanelymac.com/forum/topic/287161-new-driver-for-realtek-rtl8111/)  
+[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/) 
+
+**ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**
+[ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)
+
+**ACPIBatteryManager** is modified by **RehabMan**
+[ACPIBatteryManager modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)
 
 The AHCI patch, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of **bcc9**.  
 [The AHCI patch support thread](http://www.insanelymac.com/forum/topic/280062-waiting-for-root-device-when-kernel-cache-used-only-with-some-disks-fix/)  
@@ -68,8 +73,9 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 **EAPDFix.kext** is courtesy of **EMlyDinEsH**    
 [The EAPDFix support forum](http://forum.osxlatitude.com/index.php?/topic/3084-eapdjack-sense-fix-no-audiojack-sense-issue-after-sleep/)
 
-**ALXEthernet.kext** is courtsey of **Shailua**   
+**ALXEthernet.kext** is courtsey of **Shailua**  modified by **Zephiris** and maintained by **Dolnor**
 [The ALXEthernet support thread](http://www.insanelymac.com/forum/topic/284119-experimental-atheros-ar813132515261627172-driver-for-107108/)
+[The modified ALXEthernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
 
 **ACPIPoller.kext** and the fan reset driver for Clover are courtesy of **RehabMan**.  
 The **patchmatic** utility by **RehabMan** is based of the **MaciASL** source code and uses **RegexKitLite** by **John Engelhart**.  
@@ -78,6 +84,7 @@ The **EDID generator** is courtesy of **philip_petev**.
 The 3rd party AHCI kext is courtesy of **MacMan**.  
 The colour profiles are courtesy of **metacollin** and several other sources.  
 The **display_color.py** script is courtesy of **Daniel Fairhead (danthedeckie)**.  
+The **Patching AppleHDA on the fly with Clover** are implemented by the idea of **pokenguyen**
 
 ###Special thanks to:
 
