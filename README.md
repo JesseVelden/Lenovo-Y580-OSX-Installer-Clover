@@ -12,7 +12,7 @@ OS X support: Yosemite+
 
 ###C h a n g e l o g   
 
-**Version 0.9.7 (27 January 2015)**
+**Version 0.9.7 (1 February 2015)**
 
 * Fixed Sound (AppleHDA) patching
 * Updated Clover to r3142
