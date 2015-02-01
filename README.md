@@ -12,6 +12,13 @@ OS X support: Yosemite+
 
 ###C h a n g e l o g   
 
+**Version 0.9.7 (27 January 2015)**
+
+* Fixed Sound (AppleHDA) patching
+* Updated Clover to r3142
+* Updated Clover config.plist generate (10.10.2 fixes)
+* Updated Extra Tools
+
 **Version 0.9.5 (27 January 2015)**
 
 * DSDT patching fixed
@@ -37,7 +44,7 @@ The **SSDT generator script** is courtesy of **RevoGirl** and **PikeRAlpha**.
 [The SSDT generator support thread](http://www.tonymacx86.com/ssdt/86906-ssdt-generation-script-ivybridge-pm.html)  
 
 **MaciASL** is courtesy of **SJ_UnderWater** forked by **RehabMan**.  
-[The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html) 
+[The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html)  
 [MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic)     
 
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  

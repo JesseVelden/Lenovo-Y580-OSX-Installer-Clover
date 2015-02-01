@@ -15,9 +15,3 @@ cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/* /Volumes/EFI/EFI/CLOVER/kexts/10.10
 
 systemsetup -setwakeonnetworkaccess off
 /usr/libexec/PlistBuddy -c "Set :KextCacheRebuild yes" /tmp/L580CI.plist
-
-if [ "$PatchAppleHDA" != "yes" ]
-	then
-	cp -rf "$BackupDir/AppleHDA.kext" /System/Library/Extensions/AppleHDA.kext
-	rm -rf /System/Library/Extensions/DummyHDA.kext
-fi

@@ -69,17 +69,17 @@ then
 	mlb=$(/usr/libexec/PlistBuddy -c 'Print :RtVariables:MLB' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
 	rom=$(/usr/libexec/PlistBuddy -c 'Print :RtVariables:ROM' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
 	boardserial=$(/usr/libexec/PlistBuddy -c 'Print :SMBIOS:BoardSerialNumber' /Volumes/EFI/EFI/CLOVER/config.plist 2>null)
-	if [[ "$boardserial" == "" ]]
+	if [[ "$boardserial" == "" ]] || [[ "$boardserial" == Error* ]]
 	then
-		if [[ "$mlb" == "" ]]
+		if [[ "$mlb" == "" ]] || [[ "$mlb" == Error* ]]
 		then
-			boardserial="$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)"
-		else
+			boardserial=""
+		else 
 			boardserial="$mlb"
 		fi
 	fi
 else
-	boardserial="$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)$(random_char)"
+	boardserial=""
 fi
 
 boardtype="10"
@@ -139,11 +139,38 @@ printf '\t\t<string>'"$family"'</string>\n' >> $config
 printf '\t\t<key>ProductName</key>\n' >> $config
 printf '\t\t<string>'"$prodname"'</string>\n' >> $config
 
-if ! [[ "$boardserial" == '' ]]
-	then
-		printf '\t\t<key>BoardSerialNumber</key>\n' >> $config
-		printf '\t\t<string>'"$boardserial"'</string>\n' >> $config
-	fi
+if [[ "$boardserial" == '' ]]
+then
+
+	WeekN=$(echo $[ ( $RANDOM % 53 ) ])
+	while [  $WeekN -eq 0 ]; do
+		WeekN=$(echo $[ ( $RANDOM % 53 ) ])
+	done
+	WeekNU=$(printf "%02d" $WeekN)
+
+	rm temp
+	BASE62=($(echo {0..9} {a..z} {A..Z}))
+	NUM=$(($RANDOM*7584284))
+	ProductionN=$(echo $NUM | cut -c 1-5)
+	for i in $(bc <<< "obase=36; $ProductionN"); do
+		echo ${BASE62[$(( 10#$i ))]} | tr "\\n" "," | tr -d , >> temp
+	done
+	SSS=$(cat temp | tr '[:lower:]' '[:upper:]')
+
+	rm tempy
+	NUMB=$(($RANDOM*7584284))
+	PartN=$(echo $NUMB | cut -c 1-8)
+	for m in $(bc <<< "obase=36; $PartN"); do
+		echo ${BASE62[$(( 10#$m ))]} | tr "\\n" "," | tr -d , >> tempy
+	done
+	CCCC=$(cat tempy | cut -c 1-4 | tr '[:lower:]' '[:upper:]')
+
+
+	boardserial="C02"$ModelY$WeekNU$SSS$CCCC
+fi
+
+printf '\t\t<key>BoardSerialNumber</key>\n' >> $config
+printf '\t\t<string>'"$boardserial"'</string>\n' >> $config
 
 printf '\t\t<key>Mobile</key>\n' >> $config
 printf '\t\t<'"$mobile"'/>\n' >> $config
@@ -275,49 +302,31 @@ printf '\t\t\t\t<key>Name</key>\n' >> $config
 printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
 printf '\t\t\t\t<key>Find</key>\n' >> $config
 printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\thcB0XUg=\n' >> $config
+printf '\t\t\t\tAQAAdRc=\n' >> $config
 printf '\t\t\t\t</data>\n' >> $config
 printf '\t\t\t\t<key>Replace</key>\n' >> $config
 printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tMcB0W0g=\n' >> $config
+printf '\t\t\t\tAQAAdBc=\n' >> $config
 printf '\t\t\t\t</data>\n' >> $config
 printf '\t\t\t\t<key>Comment</key>\n' >> $config
-printf '\t\t\t\t<string>Second Stage patch 1 10.10</string>\n' >> $config
+printf '\t\t\t\t<string>Second Stage patch 10.10</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Name</key>\n' >> $config
-printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
-printf '\t\t\t\t<key>Find</key>\n' >> $config
-printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tQYjE6wM=\n' >> $config
-printf '\t\t\t\t</data>\n' >> $config
-printf '\t\t\t\t<key>Replace</key>\n' >> $config
-printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tQYjE6yM=\n' >> $config
-printf '\t\t\t\t</data>\n' >> $config
-printf '\t\t\t\t<key>Comment</key>\n' >> $config
-printf '\t\t\t\t<string>Second Stage patch 2 10.10</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
-
-findsmbios=$(printf "Mac-2E6FAB96566FE58C" | base64)
-patchsmbios=$(printf "$boardprod" | base64)
-
-#TODO: NEED THIS??? VVV
 printf '\t\t\t<dict>\n' >> $config
 printf '\t\t\t\t<key>Name</key>\n' >> $config
 printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
 printf '\t\t\t\t<key>Find</key>\n' >> $config
 printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\ti4eMAQAA\n' >> $config
+printf '\t\t\t\tSIXAdFwPt0g=\n' >> $config
 printf '\t\t\t\t</data>\n' >> $config
 printf '\t\t\t\t<key>Replace</key>\n' >> $config
 printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tuA8AAACQ\n' >> $config
+printf '\t\t\t\tQb4PAAAA61k=\n' >> $config
 printf '\t\t\t\t</data>\n' >> $config
 printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
+
 
 printf '\t\t\t<dict>\n' >> $config
 printf '\t\t\t\t<key>Name</key>\n' >> $config
@@ -524,11 +533,11 @@ printf '\t<dict>\n' >> $config
 printf '\t\t<key>USB</key>\n' >> $config
 printf '\t\t<dict>\n' >> $config
 printf '\t\t\t<key>Inject</key>\n' >> $config
-printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
 printf '\t\t\t<key>FixOwnership</key>\n' >> $config
-printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
 printf '\t\t\t<key>AddClockID</key>\n' >> $config
-printf '\t\t\t<true/>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
 printf '\t\t</dict>\n' >> $config
 printf '\t</dict>\n' >> $config
 

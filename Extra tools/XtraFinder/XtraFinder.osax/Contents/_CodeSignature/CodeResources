@@ -10,23 +10,27 @@
 		</data>
 		<key>Resources/About.nib</key>
 		<data>
-		LyU7NEyHEIo4LrE8SGjRauoyWeg=
+		8lbeoO2g+ElnlMPyztBt/CmHeQU=
 		</data>
 		<key>Resources/AdjustWidthOfColumns.nib</key>
 		<data>
-		X5pwP9UEta2VdR2A946ZSSAwF7U=
+		ztf5k4KkGSMZxYpDMHYl1+wA2Ws=
 		</data>
 		<key>Resources/AttributesMenu.nib</key>
 		<data>
-		TFWxOKEyrUZRbQ0NSxaznqPY7jY=
+		8H2KT15ezPKNuOlho3ag4/GavvA=
 		</data>
 		<key>Resources/BrowserWindow.nib</key>
 		<data>
-		apGrSCdNOTrQ1irUo7XUhh+PzvE=
+		94clEKBlvT4sFrTmfzlTRKB1cfU=
 		</data>
 		<key>Resources/CopyPath.nib</key>
 		<data>
-		TmL9yeV3nF00Q7yp/LwNfR8IOwA=
+		Fipk7Okbje6dMMaTV2gNxBn/5Hg=
+		</data>
+		<key>Resources/CopyQueue.nib</key>
+		<data>
+		VZGt0gcw7edYqlK4bSpGLw+wDXo=
 		</data>
 		<key>Resources/DeletePernamentTemplate.png</key>
 		<data>
@@ -42,7 +46,7 @@
 		</data>
 		<key>Resources/EditWindows.nib</key>
 		<data>
-		yjFMCWhlkilLcnr03gyLiPa8/Js=
+		8zP7yyl/E1XCcFAZ2aY8AFcjnS0=
 		</data>
 		<key>Resources/GoUpTemplate.png</key>
 		<data>
@@ -62,11 +66,11 @@
 		</data>
 		<key>Resources/Main.nib</key>
 		<data>
-		QRSsah1paW942DQv+AI0nhOWgeI=
+		8THzKDxDpZzKpMYPyj4Zgshqses=
 		</data>
 		<key>Resources/NewFile.nib</key>
 		<data>
-		6aBLMIkeGu4P+eCigqZgzdFfCMg=
+		ttv777bevC132HAZsKKu8vhFVXI=
 		</data>
 		<key>Resources/NewFileTemplates/Untitled.html</key>
 		<data>
@@ -98,19 +102,27 @@
 		</data>
 		<key>Resources/PinnableBrowserWindow.nib</key>
 		<data>
-		kaS3JTWtN+C3TrmphIMcCKE28Ec=
+		CRBAaWDYU2nM+cZ784iUlmu2+F0=
 		</data>
 		<key>Resources/Preferences.nib</key>
 		<data>
-		wghhD2fvR8zyYISMgDBXTiK/nbM=
+		tvJyJW2sYFBKBW4gvxjTAPeSmfo=
+		</data>
+		<key>Resources/RightArrowTemplate.png</key>
+		<data>
+		H7vgX//mRlPqHxD9KqAC7Bg2K90=
+		</data>
+		<key>Resources/RightArrowTemplate@2x.png</key>
+		<data>
+		oOz0mpm9EMJEevPgUMbLdA3B6m0=
 		</data>
 		<key>Resources/SaveWindow.nib</key>
 		<data>
-		8vVW/gf45jNMc4Qxp/DKCKck04s=
+		DCi/PW/VMEtK6kcOuIWGAPUYjMc=
 		</data>
 		<key>Resources/Select.nib</key>
 		<data>
-		rRDY8CplAMnC8Ilsy5FAolxBONU=
+		cgRjxhojMdOPYBiFh7IAH+Q6ANY=
 		</data>
 		<key>Resources/SelectToolbarButtonTemplate.png</key>
 		<data>
@@ -126,7 +138,7 @@
 		</data>
 		<key>Resources/StatusItemHelp.nib</key>
 		<data>
-		AszT+6wAUKlD83A6sQJ6YpYyWFQ=
+		uyPbuy8KGD8+du6sy5zE1S8pegE=
 		</data>
 		<key>Resources/SymbolicLinkTemplate.png</key>
 		<data>
@@ -142,15 +154,15 @@
 		</data>
 		<key>Resources/TabView.nib</key>
 		<data>
-		AQMl8QMaIGd2KMsqG2aDbg0RS4o=
+		qROuntgyRnBshq9PKByTYzpLN1M=
 		</data>
 		<key>Resources/TabViewOpera.nib</key>
 		<data>
-		fWJA7cnyDZ7MAHddieehszIj+aw=
+		+lAEwBW6nyAXhxkNzEwcq02rjfY=
 		</data>
 		<key>Resources/Tabs.nib</key>
 		<data>
-		jV0CASC7Engfn4IeVcQzfRT8V6U=
+		3rXN2/Q/EqA6wMo4xEwr80Xi/ho=
 		</data>
 		<key>Resources/TerminalToolbarButtonTemplate.png</key>
 		<data>
@@ -162,7 +174,7 @@
 		</data>
 		<key>Resources/TextAndBackgroundColor.nib</key>
 		<data>
-		6oAcBc8Oq3yLFw19N+8PgshuFTE=
+		+qIXXzVraDLIEz+d5hCJzQXZiHE=
 		</data>
 		<key>Resources/Tip.png</key>
 		<data>
@@ -170,11 +182,11 @@
 		</data>
 		<key>Resources/Toolbar.nib</key>
 		<data>
-		wEQvEcPMSvg/WRZ2s5B9IWreGGQ=
+		j/mHsudWQMl5oWKNQk5OfWI1Z/o=
 		</data>
 		<key>Resources/ToolbarItemSplitButtonView.nib</key>
 		<data>
-		nVzwAMyxE4QbfXvCS2IFsXwNti4=
+		YxW+mvq6UOIMX4N6Hhn8wW80HTI=
 		</data>
 		<key>Resources/Window.png</key>
 		<data>
@@ -213,7 +225,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -258,7 +270,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kPhpmQB428KOjleuRl0sBa2dk5c=
+			yM1f8yaow/7BOM/9AnP+qGcJm9U=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -338,7 +350,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -383,7 +395,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Wc8b5fmALfmia82aJtFsBucgMgQ=
+			QFO4lcmg6xiuMWUEPEsO9+8cc0Y=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -455,7 +467,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -500,7 +512,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			u7U/h1AH/kEcjuMDRCdodbqrUzc=
+			c0UwQBjj3lYqkqErp4HQ9NgyWiM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -572,7 +584,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -617,7 +629,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			o24k5/GKSX8Y02of59pFgzy/Qlo=
+			SW18fGwr2QrQ7XSud1HOobb6jyA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -680,6 +692,10 @@
 		<data>
 		aCz+PqqdDD8OpTSxzZ0j/pBoF2U=
 		</data>
+		<key>Resources/icons10.10.plist</key>
+		<data>
+		QPLctDR9wRSWtrhNhKvOBXhvlNU=
+		</data>
 		<key>Resources/it.lproj/About.strings</key>
 		<dict>
 			<key>hash</key>
@@ -693,7 +709,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -738,7 +754,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4ohvxK6GOFCx6IHaChS7leJVWnk=
+			D9gsVZO6wkGryIAPu0tTY4JwouQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -810,7 +826,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -855,7 +871,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			asFqgQ5Qt/7nGbApXk/pR0ohHq8=
+			WkWQ4hx9IcbLkB6dRjuFhv1pTc0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -927,7 +943,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -972,7 +988,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xtzJszjFtiHThAeIbnQ4D71lDQ8=
+			g+YqC2ahTsIXyNPRRhcxiLRodMw=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1080,7 +1096,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1125,7 +1141,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UJqjEQZ7myPOOorjQIjvL4NhkgA=
+			kpqpByZR3VYn7ewzx0WbcZGT0Zc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1197,7 +1213,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1242,7 +1258,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YzNaS7XvhOKxu8c8I6Q1SYtFzzc=
+			GtbdgV6xj6hkClSY8AbdHGAq07U=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1314,7 +1330,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1359,7 +1375,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v0Rg5SyJt+LhUH14NM3oPeOjusw=
+			gl/df58H54/bD8DdBsK4h9YgOm0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1431,7 +1447,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1476,7 +1492,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6N1jhPIJNUIDB9x7sBhn02G04mw=
+			MTmcYLcwQO8m0Jamo1UbQ/ORVXk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1548,7 +1564,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1557,7 +1573,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Wf9oVC3gGRYIluWc8QVTMhTb8yk=
+			/cIcnZ6J7f7tPB0/VC2X+X3ZA6E=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1593,7 +1609,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FJVqDp0fnMwDXUXf/sXTnt5boP8=
+			HpyI3X0379L7AFYeCF769Dja1W4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1669,7 +1685,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1714,7 +1730,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			AmB4BF5MY/HA3oPQ/TPwLvsSNWE=
+			Bj8tkxBgea+ZE5G9+qCoQzZjoKs=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1830,7 +1846,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vy1D5ive2tK3ai8GxQcYAtIGEYo=
+			vg9ID57uDvF5kaElLMqnsQvnxUY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1893,7 +1909,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1902,7 +1918,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MbLFW7s9yD6mszGSFWxFwzlH0O0=
+			26PPDghQQ6hZjGP6B9OLYbVBiU4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -1938,7 +1954,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			OnovMDySyIzNyvv7bGBmKIgwX6A=
+			pT0w3l++MNRvOGlr/8nCP+knfd4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2010,7 +2026,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2055,7 +2071,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qHZPHedIYeOTN4VrsKM+k83bv50=
+			WOqX7//oaXscyp4TLnVXiw6lBpU=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2141,23 +2157,27 @@
 		</data>
 		<key>Resources/About.nib</key>
 		<data>
-		LyU7NEyHEIo4LrE8SGjRauoyWeg=
+		8lbeoO2g+ElnlMPyztBt/CmHeQU=
 		</data>
 		<key>Resources/AdjustWidthOfColumns.nib</key>
 		<data>
-		X5pwP9UEta2VdR2A946ZSSAwF7U=
+		ztf5k4KkGSMZxYpDMHYl1+wA2Ws=
 		</data>
 		<key>Resources/AttributesMenu.nib</key>
 		<data>
-		TFWxOKEyrUZRbQ0NSxaznqPY7jY=
+		8H2KT15ezPKNuOlho3ag4/GavvA=
 		</data>
 		<key>Resources/BrowserWindow.nib</key>
 		<data>
-		apGrSCdNOTrQ1irUo7XUhh+PzvE=
+		94clEKBlvT4sFrTmfzlTRKB1cfU=
 		</data>
 		<key>Resources/CopyPath.nib</key>
 		<data>
-		TmL9yeV3nF00Q7yp/LwNfR8IOwA=
+		Fipk7Okbje6dMMaTV2gNxBn/5Hg=
+		</data>
+		<key>Resources/CopyQueue.nib</key>
+		<data>
+		VZGt0gcw7edYqlK4bSpGLw+wDXo=
 		</data>
 		<key>Resources/DeletePernamentTemplate.png</key>
 		<data>
@@ -2173,7 +2193,7 @@
 		</data>
 		<key>Resources/EditWindows.nib</key>
 		<data>
-		yjFMCWhlkilLcnr03gyLiPa8/Js=
+		8zP7yyl/E1XCcFAZ2aY8AFcjnS0=
 		</data>
 		<key>Resources/GoUpTemplate.png</key>
 		<data>
@@ -2193,11 +2213,11 @@
 		</data>
 		<key>Resources/Main.nib</key>
 		<data>
-		QRSsah1paW942DQv+AI0nhOWgeI=
+		8THzKDxDpZzKpMYPyj4Zgshqses=
 		</data>
 		<key>Resources/NewFile.nib</key>
 		<data>
-		6aBLMIkeGu4P+eCigqZgzdFfCMg=
+		ttv777bevC132HAZsKKu8vhFVXI=
 		</data>
 		<key>Resources/NewFileTemplates/Untitled.html</key>
 		<data>
@@ -2229,19 +2249,27 @@
 		</data>
 		<key>Resources/PinnableBrowserWindow.nib</key>
 		<data>
-		kaS3JTWtN+C3TrmphIMcCKE28Ec=
+		CRBAaWDYU2nM+cZ784iUlmu2+F0=
 		</data>
 		<key>Resources/Preferences.nib</key>
 		<data>
-		wghhD2fvR8zyYISMgDBXTiK/nbM=
+		tvJyJW2sYFBKBW4gvxjTAPeSmfo=
+		</data>
+		<key>Resources/RightArrowTemplate.png</key>
+		<data>
+		H7vgX//mRlPqHxD9KqAC7Bg2K90=
+		</data>
+		<key>Resources/RightArrowTemplate@2x.png</key>
+		<data>
+		oOz0mpm9EMJEevPgUMbLdA3B6m0=
 		</data>
 		<key>Resources/SaveWindow.nib</key>
 		<data>
-		8vVW/gf45jNMc4Qxp/DKCKck04s=
+		DCi/PW/VMEtK6kcOuIWGAPUYjMc=
 		</data>
 		<key>Resources/Select.nib</key>
 		<data>
-		rRDY8CplAMnC8Ilsy5FAolxBONU=
+		cgRjxhojMdOPYBiFh7IAH+Q6ANY=
 		</data>
 		<key>Resources/SelectToolbarButtonTemplate.png</key>
 		<data>
@@ -2257,7 +2285,7 @@
 		</data>
 		<key>Resources/StatusItemHelp.nib</key>
 		<data>
-		AszT+6wAUKlD83A6sQJ6YpYyWFQ=
+		uyPbuy8KGD8+du6sy5zE1S8pegE=
 		</data>
 		<key>Resources/SymbolicLinkTemplate.png</key>
 		<data>
@@ -2273,15 +2301,15 @@
 		</data>
 		<key>Resources/TabView.nib</key>
 		<data>
-		AQMl8QMaIGd2KMsqG2aDbg0RS4o=
+		qROuntgyRnBshq9PKByTYzpLN1M=
 		</data>
 		<key>Resources/TabViewOpera.nib</key>
 		<data>
-		fWJA7cnyDZ7MAHddieehszIj+aw=
+		+lAEwBW6nyAXhxkNzEwcq02rjfY=
 		</data>
 		<key>Resources/Tabs.nib</key>
 		<data>
-		jV0CASC7Engfn4IeVcQzfRT8V6U=
+		3rXN2/Q/EqA6wMo4xEwr80Xi/ho=
 		</data>
 		<key>Resources/TerminalToolbarButtonTemplate.png</key>
 		<data>
@@ -2293,7 +2321,7 @@
 		</data>
 		<key>Resources/TextAndBackgroundColor.nib</key>
 		<data>
-		6oAcBc8Oq3yLFw19N+8PgshuFTE=
+		+qIXXzVraDLIEz+d5hCJzQXZiHE=
 		</data>
 		<key>Resources/Tip.png</key>
 		<data>
@@ -2301,11 +2329,11 @@
 		</data>
 		<key>Resources/Toolbar.nib</key>
 		<data>
-		wEQvEcPMSvg/WRZ2s5B9IWreGGQ=
+		j/mHsudWQMl5oWKNQk5OfWI1Z/o=
 		</data>
 		<key>Resources/ToolbarItemSplitButtonView.nib</key>
 		<data>
-		nVzwAMyxE4QbfXvCS2IFsXwNti4=
+		YxW+mvq6UOIMX4N6Hhn8wW80HTI=
 		</data>
 		<key>Resources/Window.png</key>
 		<data>
@@ -2344,7 +2372,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2389,7 +2417,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kPhpmQB428KOjleuRl0sBa2dk5c=
+			yM1f8yaow/7BOM/9AnP+qGcJm9U=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2469,7 +2497,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2514,7 +2542,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Wc8b5fmALfmia82aJtFsBucgMgQ=
+			QFO4lcmg6xiuMWUEPEsO9+8cc0Y=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2586,7 +2614,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2631,7 +2659,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			u7U/h1AH/kEcjuMDRCdodbqrUzc=
+			c0UwQBjj3lYqkqErp4HQ9NgyWiM=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2703,7 +2731,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2748,7 +2776,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			o24k5/GKSX8Y02of59pFgzy/Qlo=
+			SW18fGwr2QrQ7XSud1HOobb6jyA=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2811,6 +2839,10 @@
 		<data>
 		aCz+PqqdDD8OpTSxzZ0j/pBoF2U=
 		</data>
+		<key>Resources/icons10.10.plist</key>
+		<data>
+		QPLctDR9wRSWtrhNhKvOBXhvlNU=
+		</data>
 		<key>Resources/it.lproj/About.strings</key>
 		<dict>
 			<key>hash</key>
@@ -2824,7 +2856,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2869,7 +2901,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4ohvxK6GOFCx6IHaChS7leJVWnk=
+			D9gsVZO6wkGryIAPu0tTY4JwouQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2941,7 +2973,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -2986,7 +3018,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			asFqgQ5Qt/7nGbApXk/pR0ohHq8=
+			WkWQ4hx9IcbLkB6dRjuFhv1pTc0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3058,7 +3090,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3103,7 +3135,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xtzJszjFtiHThAeIbnQ4D71lDQ8=
+			g+YqC2ahTsIXyNPRRhcxiLRodMw=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3211,7 +3243,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3256,7 +3288,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UJqjEQZ7myPOOorjQIjvL4NhkgA=
+			kpqpByZR3VYn7ewzx0WbcZGT0Zc=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3328,7 +3360,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3373,7 +3405,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YzNaS7XvhOKxu8c8I6Q1SYtFzzc=
+			GtbdgV6xj6hkClSY8AbdHGAq07U=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3445,7 +3477,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3490,7 +3522,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v0Rg5SyJt+LhUH14NM3oPeOjusw=
+			gl/df58H54/bD8DdBsK4h9YgOm0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3562,7 +3594,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3607,7 +3639,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6N1jhPIJNUIDB9x7sBhn02G04mw=
+			MTmcYLcwQO8m0Jamo1UbQ/ORVXk=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3679,7 +3711,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3688,7 +3720,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Wf9oVC3gGRYIluWc8QVTMhTb8yk=
+			/cIcnZ6J7f7tPB0/VC2X+X3ZA6E=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3724,7 +3756,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FJVqDp0fnMwDXUXf/sXTnt5boP8=
+			HpyI3X0379L7AFYeCF769Dja1W4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3800,7 +3832,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3845,7 +3877,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			AmB4BF5MY/HA3oPQ/TPwLvsSNWE=
+			Bj8tkxBgea+ZE5G9+qCoQzZjoKs=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -3961,7 +3993,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vy1D5ive2tK3ai8GxQcYAtIGEYo=
+			vg9ID57uDvF5kaElLMqnsQvnxUY=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -4024,7 +4056,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -4033,7 +4065,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MbLFW7s9yD6mszGSFWxFwzlH0O0=
+			26PPDghQQ6hZjGP6B9OLYbVBiU4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -4069,7 +4101,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			OnovMDySyIzNyvv7bGBmKIgwX6A=
+			pT0w3l++MNRvOGlr/8nCP+knfd4=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -4141,7 +4173,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			byRIqo9M6wdiHz8Mwmuhi2o31TU=
+			xY7WFEshaQF2ZVUWXMOBPlBYTAI=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -4186,7 +4218,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qHZPHedIYeOTN4VrsKM+k83bv50=
+			WOqX7//oaXscyp4TLnVXiw6lBpU=
 			</data>
 			<key>optional</key>
 			<true/>

@@ -8,7 +8,7 @@ plist=/tmp/tempBluetooth/IOBluetoothFamily.kext/Contents/PlugIns/BroadcomBluetoo
 /usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:Lenovo_Y580_Bluetooth:idProduct' 57410" $plist
 /usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:Lenovo_Y580_Bluetooth:idVendor' 1161" $plist
 cp -rf /tmp/tempBluetooth/IOBluetoothFamily.kext /System/Library/Extensions
-chown "$USER" "/System/Library/Extensions/IOBluetoothFamily.kext"
+chown -R "$USER" "/System/Library/Extensions/IOBluetoothFamily.kext"
 rm -rf /tmp/tempBluetooth
 
 /usr/libexec/PlistBuddy -c "Set :KextCacheRebuild yes" /tmp/L580CI.plist

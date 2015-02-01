@@ -4,6 +4,6 @@ then
 	mkdir "$HOME/Desktop/Tools"
 	chown "$USER" "$HOME/Desktop/Tools"
 fi
-unzip "${3}/tmp/apps/Localtime-Toggle.pkg.zip" -d "${3}/tmp/apps/"
-cp -f "${3}/tmp/apps/Localtime-Toggle.pkg" "$HOME/Desktop/Tools/"
+unzip "./Localtime-Toggle.pkg.zip"
+cp -f "./Localtime-Toggle.pkg" "$HOME/Desktop/Tools/"
 chown "$USER" "$HOME/Desktop/Tools/Localtime-Toggle.pkg"

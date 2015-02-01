@@ -891,60 +891,6 @@
 							<array>
 								<dict>
 									<key>CHILDREN</key>
-									<array>
-										<dict>
-											<key>CHILDREN</key>
-											<array/>
-											<key>GID</key>
-											<integer>0</integer>
-											<key>PATH</key>
-											<string>Extra tools/Kext Wizzard/tmp/Apps/Kext Wizard.zip</string>
-											<key>PATH_TYPE</key>
-											<integer>1</integer>
-											<key>PERMISSIONS</key>
-											<integer>420</integer>
-											<key>TYPE</key>
-											<integer>3</integer>
-											<key>UID</key>
-											<integer>0</integer>
-										</dict>
-									</array>
-									<key>EXPANDED</key>
-									<true/>
-									<key>GID</key>
-									<integer>0</integer>
-									<key>PATH</key>
-									<string>Extra tools/Kext Wizzard/tmp/Apps</string>
-									<key>PATH_TYPE</key>
-									<integer>1</integer>
-									<key>PERMISSIONS</key>
-									<integer>493</integer>
-									<key>TYPE</key>
-									<integer>3</integer>
-									<key>UID</key>
-									<integer>0</integer>
-								</dict>
-							</array>
-							<key>EXPANDED</key>
-							<true/>
-							<key>GID</key>
-							<integer>0</integer>
-							<key>PATH</key>
-							<string>Extra tools/Kext Wizzard/tmp</string>
-							<key>PATH_TYPE</key>
-							<integer>1</integer>
-							<key>PERMISSIONS</key>
-							<integer>493</integer>
-							<key>TYPE</key>
-							<integer>3</integer>
-							<key>UID</key>
-							<integer>0</integer>
-						</dict>
-						<dict>
-							<key>CHILDREN</key>
-							<array>
-								<dict>
-									<key>CHILDREN</key>
 									<array/>
 									<key>GID</key>
 									<integer>0</integer>
@@ -1004,7 +950,24 @@
 				<key>PREINSTALL_PATH</key>
 				<dict/>
 				<key>RESOURCES</key>
-				<array/>
+				<array>
+					<dict>
+						<key>CHILDREN</key>
+						<array/>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>Extra tools/Kext Wizzard/Kext Wizard.zip</string>
+						<key>PATH_TYPE</key>
+						<integer>1</integer>
+						<key>PERMISSIONS</key>
+						<integer>511</integer>
+						<key>TYPE</key>
+						<integer>3</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+				</array>
 			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
@@ -1430,60 +1393,6 @@
 							<array>
 								<dict>
 									<key>CHILDREN</key>
-									<array>
-										<dict>
-											<key>CHILDREN</key>
-											<array/>
-											<key>GID</key>
-											<integer>0</integer>
-											<key>PATH</key>
-											<string>Extra tools/HWMonitor/tmp/Apps/HWMonitor.zip</string>
-											<key>PATH_TYPE</key>
-											<integer>1</integer>
-											<key>PERMISSIONS</key>
-											<integer>420</integer>
-											<key>TYPE</key>
-											<integer>3</integer>
-											<key>UID</key>
-											<integer>0</integer>
-										</dict>
-									</array>
-									<key>EXPANDED</key>
-									<true/>
-									<key>GID</key>
-									<integer>0</integer>
-									<key>PATH</key>
-									<string>Extra tools/HWMonitor/tmp/Apps</string>
-									<key>PATH_TYPE</key>
-									<integer>1</integer>
-									<key>PERMISSIONS</key>
-									<integer>493</integer>
-									<key>TYPE</key>
-									<integer>3</integer>
-									<key>UID</key>
-									<integer>0</integer>
-								</dict>
-							</array>
-							<key>EXPANDED</key>
-							<true/>
-							<key>GID</key>
-							<integer>0</integer>
-							<key>PATH</key>
-							<string>Extra tools/HWMonitor/tmp</string>
-							<key>PATH_TYPE</key>
-							<integer>1</integer>
-							<key>PERMISSIONS</key>
-							<integer>493</integer>
-							<key>TYPE</key>
-							<integer>3</integer>
-							<key>UID</key>
-							<integer>0</integer>
-						</dict>
-						<dict>
-							<key>CHILDREN</key>
-							<array>
-								<dict>
-									<key>CHILDREN</key>
 									<array/>
 									<key>GID</key>
 									<integer>0</integer>
@@ -1543,7 +1452,24 @@
 				<key>PREINSTALL_PATH</key>
 				<dict/>
 				<key>RESOURCES</key>
-				<array/>
+				<array>
+					<dict>
+						<key>CHILDREN</key>
+						<array/>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>Extra tools/HWMonitor/HWMonitor.zip</string>
+						<key>PATH_TYPE</key>
+						<integer>1</integer>
+						<key>PERMISSIONS</key>
+						<integer>511</integer>
+						<key>TYPE</key>
+						<integer>3</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+				</array>
 			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
@@ -1969,60 +1895,6 @@
 							<array>
 								<dict>
 									<key>CHILDREN</key>
-									<array>
-										<dict>
-											<key>CHILDREN</key>
-											<array/>
-											<key>GID</key>
-											<integer>0</integer>
-											<key>PATH</key>
-											<string>Extra tools/Local TIme toggle/tmp/Apps/Localtime-Toggle.pkg.zip</string>
-											<key>PATH_TYPE</key>
-											<integer>1</integer>
-											<key>PERMISSIONS</key>
-											<integer>420</integer>
-											<key>TYPE</key>
-											<integer>3</integer>
-											<key>UID</key>
-											<integer>0</integer>
-										</dict>
-									</array>
-									<key>EXPANDED</key>
-									<true/>
-									<key>GID</key>
-									<integer>0</integer>
-									<key>PATH</key>
-									<string>Extra tools/Local TIme toggle/tmp/Apps</string>
-									<key>PATH_TYPE</key>
-									<integer>1</integer>
-									<key>PERMISSIONS</key>
-									<integer>493</integer>
-									<key>TYPE</key>
-									<integer>3</integer>
-									<key>UID</key>
-									<integer>0</integer>
-								</dict>
-							</array>
-							<key>EXPANDED</key>
-							<true/>
-							<key>GID</key>
-							<integer>0</integer>
-							<key>PATH</key>
-							<string>Extra tools/Local TIme toggle/tmp</string>
-							<key>PATH_TYPE</key>
-							<integer>1</integer>
-							<key>PERMISSIONS</key>
-							<integer>493</integer>
-							<key>TYPE</key>
-							<integer>3</integer>
-							<key>UID</key>
-							<integer>0</integer>
-						</dict>
-						<dict>
-							<key>CHILDREN</key>
-							<array>
-								<dict>
-									<key>CHILDREN</key>
 									<array/>
 									<key>GID</key>
 									<integer>0</integer>
@@ -2082,7 +1954,24 @@
 				<key>PREINSTALL_PATH</key>
 				<dict/>
 				<key>RESOURCES</key>
-				<array/>
+				<array>
+					<dict>
+						<key>CHILDREN</key>
+						<array/>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>Extra tools/Local TIme toggle/Localtime-Toggle.pkg.zip</string>
+						<key>PATH_TYPE</key>
+						<integer>1</integer>
+						<key>PERMISSIONS</key>
+						<integer>511</integer>
+						<key>TYPE</key>
+						<integer>3</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+				</array>
 			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
@@ -3449,22 +3338,6 @@
 										<dict>
 											<key>CHILDREN</key>
 											<array>
-												<dict>
-													<key>CHILDREN</key>
-													<array/>
-													<key>GID</key>
-													<integer>0</integer>
-													<key>PATH</key>
-													<string>OSX Support Files/CommonKexts/Extensions/DummyHDA.kext</string>
-													<key>PATH_TYPE</key>
-													<integer>1</integer>
-													<key>PERMISSIONS</key>
-													<integer>493</integer>
-													<key>TYPE</key>
-													<integer>3</integer>
-													<key>UID</key>
-													<integer>0</integer>
-												</dict>
 												<dict>
 													<key>BUNDLE_CAN_DOWNGRADE</key>
 													<true/>
@@ -7143,60 +7016,6 @@
 							<array>
 								<dict>
 									<key>CHILDREN</key>
-									<array>
-										<dict>
-											<key>CHILDREN</key>
-											<array/>
-											<key>GID</key>
-											<integer>0</integer>
-											<key>PATH</key>
-											<string>Extra tools/MaciASL/tmp/Apps/MaciASL.zip</string>
-											<key>PATH_TYPE</key>
-											<integer>1</integer>
-											<key>PERMISSIONS</key>
-											<integer>420</integer>
-											<key>TYPE</key>
-											<integer>3</integer>
-											<key>UID</key>
-											<integer>0</integer>
-										</dict>
-									</array>
-									<key>EXPANDED</key>
-									<true/>
-									<key>GID</key>
-									<integer>0</integer>
-									<key>PATH</key>
-									<string>Extra tools/MaciASL/tmp/Apps</string>
-									<key>PATH_TYPE</key>
-									<integer>1</integer>
-									<key>PERMISSIONS</key>
-									<integer>493</integer>
-									<key>TYPE</key>
-									<integer>3</integer>
-									<key>UID</key>
-									<integer>0</integer>
-								</dict>
-							</array>
-							<key>EXPANDED</key>
-							<true/>
-							<key>GID</key>
-							<integer>0</integer>
-							<key>PATH</key>
-							<string>Extra tools/MaciASL/tmp</string>
-							<key>PATH_TYPE</key>
-							<integer>1</integer>
-							<key>PERMISSIONS</key>
-							<integer>493</integer>
-							<key>TYPE</key>
-							<integer>3</integer>
-							<key>UID</key>
-							<integer>0</integer>
-						</dict>
-						<dict>
-							<key>CHILDREN</key>
-							<array>
-								<dict>
-									<key>CHILDREN</key>
 									<array/>
 									<key>GID</key>
 									<integer>0</integer>
@@ -7256,7 +7075,24 @@
 				<key>PREINSTALL_PATH</key>
 				<dict/>
 				<key>RESOURCES</key>
-				<array/>
+				<array>
+					<dict>
+						<key>CHILDREN</key>
+						<array/>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>Extra tools/MaciASL/MaciASL.zip</string>
+						<key>PATH_TYPE</key>
+						<integer>1</integer>
+						<key>PERMISSIONS</key>
+						<integer>511</integer>
+						<key>TYPE</key>
+						<integer>3</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+				</array>
 			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
@@ -8902,56 +8738,6 @@
 							<array>
 								<dict>
 									<key>CHILDREN</key>
-									<array>
-										<dict>
-											<key>CHILDREN</key>
-											<array/>
-											<key>GID</key>
-											<integer>0</integer>
-											<key>PATH</key>
-											<string>Extra tools/Clover Configurator/Clover Configurator.zip</string>
-											<key>PATH_TYPE</key>
-											<integer>1</integer>
-											<key>PERMISSIONS</key>
-											<integer>420</integer>
-											<key>TYPE</key>
-											<integer>3</integer>
-											<key>UID</key>
-											<integer>0</integer>
-										</dict>
-									</array>
-									<key>GID</key>
-									<integer>0</integer>
-									<key>PATH</key>
-									<string>Apps</string>
-									<key>PATH_TYPE</key>
-									<integer>0</integer>
-									<key>PERMISSIONS</key>
-									<integer>493</integer>
-									<key>TYPE</key>
-									<integer>2</integer>
-									<key>UID</key>
-									<integer>0</integer>
-								</dict>
-							</array>
-							<key>GID</key>
-							<integer>0</integer>
-							<key>PATH</key>
-							<string>tmp</string>
-							<key>PATH_TYPE</key>
-							<integer>0</integer>
-							<key>PERMISSIONS</key>
-							<integer>493</integer>
-							<key>TYPE</key>
-							<integer>2</integer>
-							<key>UID</key>
-							<integer>0</integer>
-						</dict>
-						<dict>
-							<key>CHILDREN</key>
-							<array>
-								<dict>
-									<key>CHILDREN</key>
 									<array/>
 									<key>GID</key>
 									<integer>0</integer>
@@ -9009,7 +8795,24 @@
 					<integer>1</integer>
 				</dict>
 				<key>RESOURCES</key>
-				<array/>
+				<array>
+					<dict>
+						<key>CHILDREN</key>
+						<array/>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>Extra tools/Clover Configurator/Clover Configurator.zip</string>
+						<key>PATH_TYPE</key>
+						<integer>1</integer>
+						<key>PERMISSIONS</key>
+						<integer>511</integer>
+						<key>TYPE</key>
+						<integer>3</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+				</array>
 			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
@@ -11417,7 +11220,24 @@
 									<array>
 										<dict>
 											<key>CHILDREN</key>
-											<array/>
+											<array>
+												<dict>
+													<key>CHILDREN</key>
+													<array/>
+													<key>GID</key>
+													<integer>0</integer>
+													<key>PATH</key>
+													<string>OSX Support Files/CommonKexts/Extensions/DummyHDA.kext</string>
+													<key>PATH_TYPE</key>
+													<integer>1</integer>
+													<key>PERMISSIONS</key>
+													<integer>493</integer>
+													<key>TYPE</key>
+													<integer>3</integer>
+													<key>UID</key>
+													<integer>0</integer>
+												</dict>
+											</array>
 											<key>GID</key>
 											<integer>0</integer>
 											<key>PATH</key>
@@ -12150,7 +11970,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>You need to have a clean/ 'vanilla' 'AppleHDA' and 'DummyHDA' in the '/System/Library/Extensions' folder. If you don't have the DummyHDA.kext you must select 'Install Kexts'. For the actual patching you must select 'Generate Clover Config.plist' too.</string>
+										<string>This will Install DummyHDA.kext You need to have a umodified/ 'vanilla' 'AppleHDA' in the '/System/Library/Extensions' folder.  For the actual patching you must select 'Generate Clover Config.plist' too.</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
@@ -12170,7 +11990,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Patch AppleHDA</string>
+										<string>Patch Sound</string>
 									</dict>
 								</array>
 								<key>TOOLTIP</key>
@@ -13372,7 +13192,7 @@ Mostly for the 4x40s ProBooks, but should work on every ProBook model without Wi
 			<key>NAME</key>
 			<string>Lenovo Y580 Yosemite Clover Installer</string>
 			<key>REFERENCE_FOLDER_PATH</key>
-			<string>/Users/jesse/Desktop/Clover Lenovo Y580/lenovo-y580-installer-clover-edition</string>
+			<string>/Volumes/HD-Zooi/Clover Lenovo Y580/lenovo-y580-installer-clover-edition</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>

@@ -4,6 +4,6 @@ then
 	mkdir "$HOME/Desktop/Tools"
 	chown "$USER" "$HOME/Desktop/Tools"
 fi
-unzip "${3}/tmp/apps/MaciASL.zip" -d "${3}/tmp/apps/"
-cp -Rf "${3}/tmp/apps/MaciASL.app" "$HOME/Desktop/Tools/"
+unzip "./MaciASL.zip"
+cp -Rf "./MaciASL.app" "$HOME/Desktop/Tools/"
 chown -R "$USER" "$HOME/Desktop/Tools/MaciASL.app"
