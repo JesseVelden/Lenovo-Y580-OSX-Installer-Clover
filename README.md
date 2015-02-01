@@ -12,6 +12,10 @@ OS X support: Yosemite+
 
 ###C h a n g e l o g   
 
+**Version 0.9.7.1 (1 February 2015)**
+
+* Updated Bluetooth Patch with additional id's'
+
 **Version 0.9.7 (1 February 2015)**
 
 * Fixed Sound (AppleHDA) patching

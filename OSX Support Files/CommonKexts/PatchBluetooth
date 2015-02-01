@@ -4,9 +4,16 @@
 mkdir /tmp/tempBluetooth
 cp -r /System/Library/Extensions/IOBluetoothFamily.kext /tmp/tempBluetooth/IOBluetoothFamily.kext
 plist=/tmp/tempBluetooth/IOBluetoothFamily.kext/Contents/PlugIns/BroadcomBluetoothHostControllerUSBTransport.kext/Contents/Info.plist
+
 /usr/libexec/PlistBuddy -c "Copy ':IOKitPersonalities:Broadcom2045FamilyUSBBluetoothHCIController_D' ':IOKitPersonalities:Lenovo_Y580_Bluetooth'" $plist
 /usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:Lenovo_Y580_Bluetooth:idProduct' 57410" $plist
 /usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:Lenovo_Y580_Bluetooth:idVendor' 1161" $plist
+
+/usr/libexec/PlistBuddy -c "Copy ':IOKitPersonalities:Broadcom2045FamilyUSBBluetoothHCIController_D' ':IOKitPersonalities:Lenovo_Y580_Bluetooth_#2'" $plist
+/usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:Lenovo_Y580_Bluetooth_#2:idProduct' 8195" $plist
+/usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:Lenovo_Y580_Bluetooth_#2:idVendor' 1226" $plist
+
+
 cp -rf /tmp/tempBluetooth/IOBluetoothFamily.kext /System/Library/Extensions
 chown -R "$USER" "/System/Library/Extensions/IOBluetoothFamily.kext"
 rm -rf /tmp/tempBluetooth
