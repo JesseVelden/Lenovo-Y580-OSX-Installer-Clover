@@ -1,20 +1,26 @@
 ##Lenovo Y580 OSX Installer w/ Clover
 ###**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
 
-**Maintainer: Jessers123**  
+**Maintainer: MegaCookie (Jessers123)**  
 **[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
-[![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8E4TFKGXLHJLU)
+[![Paypal](https://jessevandervelden.nl/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8E4TFKGXLHJLU)
   
 
 OS X support: Yosemite+
-
-
+  
 ###C h a n g e l o g   
+
+**Version 0.9.8.0 (27 February 2015)**
+
+* New Bluetooth patch on the fly by using a slightly modified ProBookARPT.kext.  
+ Patching won't be needed again after an OS X update!
+* Updated Clover to r3167 and Clover Configurator
+* Enabled USB fixes again within Clover's config.plist
 
 **Version 0.9.7.1 (1 February 2015)**
 
-* Updated Bluetooth Patch with additional id's'
+* Updated Bluetooth Patch with additional id's
 
 **Version 0.9.7 (1 February 2015)**
 
@@ -33,9 +39,9 @@ OS X support: Yosemite+
 * Initial release
 
 
-###C r e d i t s:
+###C r e d i t s
 
-This is based on the **HP ProBook Installer Clover edition** that is currently maintained by **pokenguyen**.  Huge thanks!    
+This is based on the **HP ProBook Installer Clover edition** that is currently maintained by **pokenguyen - nguyenmac (dhnguyenit)**.  Huge thanks!    
 [HP ProBook Installer Clover Edition on Bitbucket](https://bitbucket.org/dhnguyenit/hp-probook-installer-clover-edition)
 
 **Clover Bootloader** is courtesy of the **Clover Team**.  
@@ -96,15 +102,16 @@ The 3rd party AHCI kext is courtesy of **MacMan**.
 The colour profiles are courtesy of **metacollin** and several other sources.  
 The **display_color.py** script is courtesy of **Daniel Fairhead (danthedeckie)**.  
 The **Patching AppleHDA on the fly with Clover** are implemented by the idea of **pokenguyen**
+**Y580ARPT.kext** is the slightly edited **ProBookARPT.kext** which is based on works, courtesy of toleda and RehabMan.
 
 ###Special thanks to:
 
-**pokenguyen** - The current maintainer of the HP ProBook Installer Clover edition.
+**pokenguyen** - The current maintainer of the HP ProBook Installer Clover edition and for his ARPT.kext idea.  
 **BlueKing** - the original creator of HP ProBook Installer.  
 **Tegezee** - the second maintainer of HP ProBook Installer.  
 **philippetev** - the current maintainer of HP ProBook Installer.  
 **RehabMan** - For helping everyone nicely in the forum threads and providing handy tools and kexts. 
-###and all the other users of the Lenovo Y580 forum.
+###and all the users of the Lenovo Y580 forum.
 
 
 **RegexKitLite** Copyright © 2008-2010, **John Engelhart**  

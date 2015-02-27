@@ -1,7 +1,6 @@
 #!/bin/bash
 
 RightNowIs=`/usr/libexec/PlistBuddy -c "Print :CurrentDateTime" /tmp/L580CI.plist`
-PatchAppleHDA=`/usr/libexec/PlistBuddy -c "Print :PatchAppleHDA" /tmp/L580CI.plist`
 BackupDir="$HOME/Desktop/Installer Backups/Backup $RightNowIs"
 
 

@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# THIS FILE WON'T BE USED
+# ADDING BLUETOOTH ID'S IS COVERED BY Y580ARPT.kext
+# SO THIS IS FOR REFERENCE ONLY!
+
 /usr/libexec/PlistBuddy -c "Set :PatchBluetooth yes" /tmp/L580CI.plist
 
 mkdir /tmp/tempBluetooth

@@ -3,61 +3,93 @@
 RightNowIs=`/usr/libexec/PlistBuddy -c "Print :CurrentDateTime" /tmp/L580CI.plist`
 BackupDir="$HOME/Desktop/Installer Backups/Backup $RightNowIs"
 
+exitcode=0
 if [ ! -d /Volumes/EFI/EFI ]
 then
-	mounted=false;
+	DEST_VOL="$3"
 
-	while read line; do
-	mountpoint=`echo "$line" | awk -F'%' '{print substr($3, 4)}'`
-	bsdname=`echo "$line" | awk '{print $1}'`
-	efidevice=`diskutil list $bsdname | grep EFI | tr -s ' ' | awk '{print $NF}'`
-	if [ "$mountpoint" = "${3}" -o "$mountpoint/" = "${3}" ]
-	then
-		case "$efidevice" in
-		"")	echo "This drive $bsdname containing root has no EFI partition.";;
-		*)	echo "Found EFI partition at /dev/$efidevice."
-			if [ "`df -h | grep /dev/$efidevice`" != "" ]
-			then
-				diskutil unmount "/dev/$efidevice" && mkdir -p /Volumes/EFI && mount -t msdos "/dev/$efidevice" /Volumes/EFI
-				echo "Mounted /dev/$efidevice at /Volumes/EFI."
-			else
-				mkdir -p /Volumes/EFI && mount -t msdos "/dev/$efidevice" /Volumes/EFI
-			fi
-			mounted=true;;
-
-		esac
-		break
+	DiskDevice=$(LC_ALL=C diskutil info "$DEST_VOL" 2>/dev/null | \
+	 sed -n 's/.*Part [oO]f Whole: *//p')
+	if [[ -z "$DiskDevice" ]]; then
+	    echo "Can't find volume with the name $DEST_VOL"
+	    exit 1
 	fi
-	done < <(df -h | grep "/dev/")
 
-	if ( ! $mounted )
-	then
-		while read line; do
-			efidevice=`diskutil list $line | grep EFI | tr -s ' ' | awk '{print $NF}'`
-			case "$efidevice" in
-			"")	echo "This drive $line has no EFI partition.";;
-			*)	echo "Found EFI partition at /dev/$efidevice."
-				if [ "`df -h | grep /dev/$efidevice`" != "" ]
-				then
-					diskutil unmount "/dev/$efidevice" && mkdir -p /Volumes/EFI && mount -t msdos "/dev/$efidevice" /Volumes/EFI
-					echo "Mounted /dev/$efidevice at /Volumes/EFI."
-				else
-					mkdir -p /Volumes/EFI && mount -t msdos "/dev/$efidevice" /Volumes/EFI
-				fi
-				break;;
-			esac
-		done < <(diskutil list | grep "/dev/")
+	# Check if the disk is a GPT disk
+	disk_partition_scheme=$(LC_ALL=C diskutil info "$DiskDevice" 2>/dev/null | \
+	 sed -nE 's/.*(Partition Type|Content \(IOContent\)): *//p')
+
+	if [[ "$disk_partition_scheme" = "GUID_partition_scheme" ]]; then
+
+	  plistbuddy='/usr/libexec/PlistBuddy'
+
+	  # Get the index of the ESP device
+	    index=$(LC_ALL=C /usr/sbin/gpt -r show "/dev/$DiskDevice" 2>/dev/null | \
+	     awk 'toupper($7) == "C12A7328-F81F-11D2-BA4B-00A0C93EC93B" {print $3; exit}')
+	    [[ -z "$index" ]] && index=1 # if not found use the index 1
+
+	    # Define the ESPDevice
+	    ESPDevice="${DiskDevice}s${index}"
+
+	    # Get the ESP mount point if the partition is currently mounted
+	    ESPMountPoint=$(LC_ALL=C diskutil info "$ESPDevice" 2>/dev/null | \
+	     sed -n 's/.*Mount Point: *//p')
+
+	    if [[ "$ESPMountPoint" ]]; then
+	        # If already mounted it's okay
+	        exitcode=0
+	    else
+	        # Else try to mount the ESP partition
+	        ESPMountPoint="/Volumes/EFI"
+	        exitcode=1
+
+	        tmpfile=$(mktemp -t fstyp)
+	        LC_ALL=C diskutil info -plist /dev/$ESPDevice > "$tmpfile"
+	        fstype=$($plistbuddy -c "Print FilesystemType" \
+	         "$tmpfile" 2>/dev/null)
+	        rm -f "$tmpfile"
+
+	        if [[ -n "$fstype" ]]; then
+	            [[ ! -d "${ESPMountPoint}" ]] && mkdir -p "${ESPMountPoint}"
+	            mount -t $fstype /dev/$ESPDevice "${ESPMountPoint}" 2>&1
+	            exitcode=$?
+	        fi
+	    fi
+
+	    if [[ $exitcode -ne 0 ]]; then
+	    	/usr/bin/osascript <<EOT
+tell application "Finder"
+    activate
+    display dialog "Can't mount EFI partition ($ESPDevice) !
+
+Check that the partition is well formated in HFS or Fat32.
+	
+For format as Fat32 use command like:"
+sudo newfs_msdos -v EFI -F 32 /dev/r$ESPDevice." buttons {"OK"} default button "OK" with icon note with title "Can't mount EFI!"
+end tell
+EOT
+	        
+	        echo "ERROR: can't mount EFI partition ($ESPDevice) !"
+	        exit 1
+	    fi
 	fi
+
+
 
 
 fi
 
-if [ -d /Volumes/EFI/EFI ]
-then
-	touch /Volumes/EFI/.metadata_never_index
-	if [ ! -d "$BackupDir" ]
-	then
-		mkdir -p "$BackupDir"
-		rsync -ar /Volumes/EFI/EFI "$BackupDir"
-	fi
-fi
+ if [ "$exitcode" == "0" ] && [ ! -d "$BackupDir/EFI" ]
+ then
+ 	touch /Volumes/EFI/.metadata_never_index
+ 	if [ -d /Volumes/EFI/EFI ]
+ 	then
+ 		if [ ! -d "$BackupDir" ]
+	 	then
+	 		mkdir -p "$BackupDir"
+	 		rsync -ar /Volumes/EFI/EFI "$BackupDir"
+	 	fi
+	 fi
+ fi
+
+ exit 0

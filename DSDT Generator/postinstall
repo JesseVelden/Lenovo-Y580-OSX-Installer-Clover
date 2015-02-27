@@ -6,6 +6,8 @@ CloverConfigGenerate=`/usr/libexec/PlistBuddy -c "Print :CloverConfigGenerate" /
 PatchDSDT=`/usr/libexec/PlistBuddy -c "Print :PatchDSDT" /tmp/L580CI.plist`
 CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580CI.plist`
 
+exitcode=0
+
 
 if [ "$CloverConfigGenerate" != "no" ]
 then
@@ -26,6 +28,7 @@ In order to generate a config.plist for Clover, you have to do the following:
 Run Lenovo Y580 Clover Edition again and select correct options with a correct Screen resolution this time ;)." buttons {"OK"} default button "OK" with icon note with title "No Display Type selected!"
 end tell
 EOT
+exitcode=1
 	fi
 fi
 
@@ -83,6 +86,7 @@ Press F4 at Clover screen
 Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "Non-vanilla DSDT! CANT FIND"
 end tell
 EOT
+exitcode=1
 		else
 
 			VanillaCheck=`cat ./DSDT.dsl | grep 'Device (GFX0)'`
@@ -102,6 +106,7 @@ Press F4 at Clover screen
 Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "Non-vanilla DSDT! REAL"
 end tell
 EOT
+exitcode=1
 			else
 				cp ./*.aml /Volumes/EFI/EFI/CLOVER/ACPI/origin/
 
@@ -130,6 +135,7 @@ Press F4 at Clover screen
 Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "SSDT-4 NOT FOUND!"
 end tell
 EOT
+exitcode=1
 				else
 					./patchmatic $file ./NVIDIA_OFF_SSDT.txt ./SSDT-4x.dsl
 					./iasl -p SSDT-4 ./SSDT-4x.dsl
@@ -148,6 +154,7 @@ Press F4 at Clover screen
 Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "CANNOT PATCH SSDT-4!"
 end tell
 EOT
+exitcode=1
 					else
 						cp ./SSDT-4.aml /Volumes/EFI/EFI/CLOVER/ACPI/patched/SSDT-4.aml
 					fi
@@ -170,6 +177,7 @@ Press F4 at Clover screen
 Run Lenovo Y580 Clover Edition again and select correct DSDT options." buttons {"OK"} default button "OK" with icon note with title "Non-vanilla DSDT! PATCHING FAILED"
 end tell
 EOT
+exitcode=1
 				else
 					cp ./DSDT.aml /Volumes/EFI/EFI/CLOVER/ACPI/patched/DSDT.aml
 				fi
@@ -188,5 +196,10 @@ In order to patch your DSDT, you have to do the following:
 Run Lenovo Y580 Clover Edition again and select correct options with a correct Screen resolution this time ;)." buttons {"OK"} default button "OK" with icon note with title "No Display Type selected!"
 end tell
 EOT
+exitcode=1
 	fi
 fi
+
+rm -rf /tmp/tempDSDT
+
+exit $exitcode

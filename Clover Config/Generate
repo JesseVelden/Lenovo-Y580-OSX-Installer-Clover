@@ -533,11 +533,11 @@ printf '\t<dict>\n' >> $config
 printf '\t\t<key>USB</key>\n' >> $config
 printf '\t\t<dict>\n' >> $config
 printf '\t\t\t<key>Inject</key>\n' >> $config
-printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
 printf '\t\t\t<key>FixOwnership</key>\n' >> $config
-printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
 printf '\t\t\t<key>AddClockID</key>\n' >> $config
-printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<true/>\n' >> $config
 printf '\t\t</dict>\n' >> $config
 printf '\t</dict>\n' >> $config
 

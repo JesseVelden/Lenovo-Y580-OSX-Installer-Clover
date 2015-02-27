@@ -1,5 +1,4 @@
 #!/bin/bash
-./BackupESP "$1" "$2" "$3"
 ./ssdtPRGen.sh
 
 cp -f "./ssdt.aml" "/Volumes/EFI/EFI/CLOVER/ACPI/patched/SSDT.aml"

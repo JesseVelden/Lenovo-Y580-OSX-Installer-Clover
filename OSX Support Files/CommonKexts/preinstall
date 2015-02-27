@@ -4,6 +4,13 @@ RightNowIs=`/usr/libexec/PlistBuddy -c "Print :CurrentDateTime" /tmp/L580CI.plis
 BackupDir="$HOME/Desktop/Installer Backups/Backup $RightNowIs"
 
 ./BackupESP "$1" "$2" "$3"
+exitcode=$?
+
+if [ "$exitcode" != "0" ]
+then
+	exit 1
+fi
+
 ./Backup.sh ./list_common ${3}
 
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/*
