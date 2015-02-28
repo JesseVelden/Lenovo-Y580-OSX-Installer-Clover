@@ -11,6 +11,11 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 0.9.8.1 (28 February 2015)**
+
+* Added modified BrcmPatchRAM.kext courtsey of the-darkvoid
+* Change the Bluetooth injector names within Y580ARPT.kext   (Not noticeable)
+
 **Version 0.9.8.0 (27 February 2015)**
 
 * New Bluetooth patch on the fly by using a slightly modified ProBookARPT.kext.  
@@ -94,6 +99,9 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 [The ALXEthernet support thread](http://www.insanelymac.com/forum/topic/284119-experimental-atheros-ar813132515261627172-driver-for-107108/)  
 [The modified ALXEthernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
 
+**BrcmPatchRAM.kext** is courtsey of **the-darkvoid** with modifications by **MegaCookie (Jessers123)**  
+[BrcmPatchRam on Github](https://github.com/the-darkvoid/BrcmPatchRAM)
+
 **ACPIPoller.kext** and the fan reset driver for Clover are courtesy of **RehabMan**.  
 The **patchmatic** utility by **RehabMan** is based of the **MaciASL** source code and uses **RegexKitLite** by **John Engelhart**.  
 The **DSDT generator/patcher** is courtesy of **RehabMan**, **BigDonkey** and **philip_petev**.  
@@ -101,8 +109,8 @@ The **EDID generator** is courtesy of **philip_petev**.
 The 3rd party AHCI kext is courtesy of **MacMan**.  
 The colour profiles are courtesy of **metacollin** and several other sources.  
 The **display_color.py** script is courtesy of **Daniel Fairhead (danthedeckie)**.  
-The **Patching AppleHDA on the fly with Clover** are implemented by the idea of **pokenguyen**
-**Y580ARPT.kext** is the slightly edited **ProBookARPT.kext** which is based on works, courtesy of toleda and RehabMan.
+The **[Patching AppleHDA](http://www.insanelymac.com/forum/topic/298027-guide-aio-guides-for-hackintosh/page-2#entry2030060) on the fly with Clover** are implemented by the idea of **pokenguyen**  
+**Y580ARPT.kext** is the slightly edited **ProBookARPT.kext** is the work of **nguyenmac** and modified by **MegaCookie (Jessers123)** which is based on works, courtesy of **toleda** and **RehabMan**.
 
 ###Special thanks to:
 
