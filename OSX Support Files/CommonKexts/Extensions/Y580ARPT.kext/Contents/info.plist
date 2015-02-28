@@ -125,6 +125,19 @@
 			<key>IOProviderClass</key>
 			<string>IOPCIDevice</string>
 		</dict>
+		<key>BCM20702A0BluetoothHCIController-2003</key>
+		<dict>
+			<key>CFBundleIdentifier</key>
+			<string>com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport</string>
+			<key>IOClass</key>
+			<string>BroadcomBluetoothHostControllerUSBTransport</string>
+			<key>IOProviderClass</key>
+			<string>IOUSBDevice</string>
+			<key>idProduct</key>
+			<integer>8195</integer>
+			<key>idVendor</key>
+			<integer>1226</integer>
+		</dict>
 		<key>BCM20702A0BluetoothHCIController-21e1</key>
 		<dict>
 			<key>CFBundleIdentifier</key>
@@ -151,7 +164,7 @@
 			<key>idVendor</key>
 			<integer>2652</integer>
 		</dict>
-		<key>BCM20702A0BluetoothHCIController-Y580-1</key>
+		<key>BCM20702A0BluetoothHCIController-e042</key>
 		<dict>
 			<key>CFBundleIdentifier</key>
 			<string>com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport</string>
@@ -163,19 +176,6 @@
 			<integer>57410</integer>
 			<key>idVendor</key>
 			<integer>1161</integer>
-		</dict>
-		<key>BCM20702A0BluetoothHCIController-Y580- 2</key>
-		<dict>
-			<key>CFBundleIdentifier</key>
-			<string>com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport</string>
-			<key>IOClass</key>
-			<string>BroadcomBluetoothHostControllerUSBTransport</string>
-			<key>IOProviderClass</key>
-			<string>IOUSBDevice</string>
-			<key>idProduct</key>
-			<integer>8195</integer>
-			<key>idVendor</key>
-			<integer>1226</integer>
 		</dict>
 		<key>Broadcom 802.11 PCI</key>
 		<dict>
