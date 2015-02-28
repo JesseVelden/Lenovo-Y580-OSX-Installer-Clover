@@ -14,7 +14,7 @@ OS X support: Yosemite+
 **Version 0.9.8.1 (28 February 2015)**
 
 * Added modified BrcmPatchRAM.kext courtsey of the-darkvoid
-* Change the Bluetooth injector names within Y580ARPT.kext   (Not noticeable)
+* Change the Bluetooth injector names within Y580ARPT.kext (Cosmetic change only)
 
 **Version 0.9.8.0 (27 February 2015)**
 
