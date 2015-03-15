@@ -11,6 +11,11 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 0.9.8.2 (15 March 2015)**
+
+* Fixed adding Clover's ACPI folders
+* Updated Clover to r3193 & Clover Configurator to 4.22.5
+
 **Version 0.9.8.1 (28 February 2015)**
 
 * Added modified BrcmPatchRAM.kext courtsey of the-darkvoid
@@ -43,7 +48,6 @@ OS X support: Yosemite+
 
 * Initial release
 
-
 ###C r e d i t s
 
 This is based on the **HP ProBook Installer Clover edition** that is currently maintained by **pokenguyen - nguyenmac (dhnguyenit)**.  Huge thanks!    
@@ -54,6 +58,7 @@ This is based on the **HP ProBook Installer Clover edition** that is currently m
 
 The **VoodooPS2Controller** fork is courtesy of **RehabMan**.  
 [The VoodooPS2Controller support thread](http://www.tonymacx86.com/hp-probook/75649-new-voodoops2controller-keyboard-trackpad.html)  
+[VoodooPS2Controller on Github](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)  
 
 The **SSDT generator script** is courtesy of **RevoGirl** and **PikeRAlpha**.  
 [The SSDT generator support thread](http://www.tonymacx86.com/ssdt/86906-ssdt-generation-script-ivybridge-pm.html)  
@@ -72,7 +77,7 @@ The **SSDT generator script** is courtesy of **RevoGirl** and **PikeRAlpha**.
 **ACPIBatteryManager** is modified by **RehabMan**  
 [ACPIBatteryManager modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)
 
-The AHCI patch, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of **bcc9**.  
+The **AHCI patch**, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of **bcc9**.  
 [The AHCI patch support thread](http://www.insanelymac.com/forum/topic/280062-waiting-for-root-device-when-kernel-cache-used-only-with-some-disks-fix/)  
 [The AppleHDA patch support thread](http://www.insanelymac.com/forum/topic/284004-script-to-patch-applehda-binary-for-osx107108/)  
 
@@ -82,6 +87,7 @@ The AHCI patch, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of **b
 **FakeSMC** is courtesy of **RehabMan**, **kozlek**, **netkas**, **slice** and **navi**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/)  
 [The original support thread](http://www.insanelymac.com/forum/topic/275429-hwsensors/)  
+[RehabMan's FakeSMC on Github](https://github.com/RehabMan/OS-X-FakeSMC-kozlek)  
 
 **Trim Enabler** is courtesy of **Cindori**.  
 [The Trim Enabler support forums](http://www.groths.org/forums/)  
@@ -106,8 +112,8 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 The **patchmatic** utility by **RehabMan** is based of the **MaciASL** source code and uses **RegexKitLite** by **John Engelhart**.  
 The **DSDT generator/patcher** is courtesy of **RehabMan**, **BigDonkey** and **philip_petev**.  
 The **EDID generator** is courtesy of **philip_petev**.  
-The 3rd party AHCI kext is courtesy of **MacMan**.  
-The colour profiles are courtesy of **metacollin** and several other sources.  
+The **3rd party AHCI kext** is courtesy of **MacMan**.  
+The **colour profiles** are courtesy of **metacollin** and several other sources.  
 The **display_color.py** script is courtesy of **Daniel Fairhead (danthedeckie)**.  
 The **[Patching AppleHDA](http://www.insanelymac.com/forum/topic/298027-guide-aio-guides-for-hackintosh/page-2#entry2030060) on the fly with Clover** are implemented by the idea of **pokenguyen**  
 **Y580ARPT.kext** is the slightly edited **ProBookARPT.kext** is the work of **nguyenmac** and modified by **MegaCookie (Jessers123)** which is based on works, courtesy of **toleda** and **RehabMan**.

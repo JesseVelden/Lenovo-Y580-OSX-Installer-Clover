@@ -10912,7 +10912,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Install Clover UEFI Bootloader 3167 to EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
+										<string>Install Clover UEFI Bootloader 3193 to EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
