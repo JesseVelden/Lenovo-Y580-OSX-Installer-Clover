@@ -1,0 +1,76 @@
+//Remove : gHome=$(echo $HOME)
+          gDataPath="${gScriptPath}/Data"
+
+gToolPath="${gScriptPath}/Tools"
+//Change:
+	gPath=.
+	gScriptPath="/tmp"
+	gSsdtID="ssdt"
+	gSsdtPR="${gPath}/${gSsdtID}.dsl"
+
+	let gIvyWorkAround=3
+
+	let gAutoCopy=0
+
+	let gCallOpen=0
+
+//Added all Data scripts (https://github.com/Piker-Alpha/ssdtPRGen.sh/tree/master/Data) between:
+	#
+	# Setup used AML encoding values.
+	#
+	AML_SCOPE_OPCODE=10
+	AML_DEVICE_OPCODE=5b82
+	AML_PROCESSOR_SCOPE_OPCODE=5b83
+
+>>>PUT ALL TEXT FROM THE FILES HERE!
+
+//So make sure it’s before this: function _PRINT_MSG():
+
+//After that I’ve added acpiTableExtract
+
+//Edited _findIASL:
+	function _findIasl()
+	{
+	  iasl=./iasl
+	}
+
+//then remove complete function: function _extractAcpiTables
+
+//In initProcessorScope() function:
+	remove: _extractACPITables
+
+//In _getCPUDataByProcessorNumber:
+	//Change after
+	 # Here we check/download/load the processor data file(s) 
+	//And before:
+	 Bail out with error if we failed to locate..
+	>>>>To:
+  		#
+  		# Local function callers
+  		#
+  		__searchList $SANDY_BRIDGE
+
+		  if (!(( $gTypeCPU )));
+		    then
+		      __searchList $IVY_BRIDGE
+		  fi
+
+		  if (!(( $gTypeCPU )));
+		    then
+		      __searchList $HASWELL
+		  fi
+
+		  if (!(( $gTypeCPU )));
+		    then
+ 		     __searchList $BROADWELL
+		  fi
+
+
+//Remove complete function: function _checkLibraryDirectory()
+
+//in function main Remove function calls:
+	 _chekLibraryDirectory
+	 _extractAcpiTables
+
+
+//TODO: Maybe in the future use the new acpiTableExtract and the ~/Library/SSDTPRGen directory?? Not really needed though
