@@ -1,7 +1,6 @@
-//Remove : gHome=$(echo $HOME)
-          gDataPath="${gScriptPath}/Data"
-
-gToolPath="${gScriptPath}/Tools"
+//Remove: gHome=$(echo $HOME)
+	  gDataPath="${gScriptPath}/Data"
+	  gToolPath="${gScriptPath}/Tools"
 //Change:
 	gPath=.
 	gScriptPath="/tmp"
