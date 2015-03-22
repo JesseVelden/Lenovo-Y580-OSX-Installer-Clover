@@ -11,6 +11,12 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 0.9.9.0 (22 March 2015)**
+
+* Updated and fixed SSDTPRGen.sh (v15.6)
+* Updated FakeSMC.kext
+* Clover 3192 -> 3193
+
 **Version 0.9.8.2 (15 March 2015)**
 
 * Fixed adding Clover's ACPI folders
