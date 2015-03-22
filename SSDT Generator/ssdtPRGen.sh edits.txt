@@ -23,9 +23,9 @@
 
 >>>PUT ALL TEXT FROM THE FILES HERE!
 
-//So make sure it’s before this: function _PRINT_MSG():
+//So make sure you’ve added all the data files before this: function _PRINT_MSG():
 
-//After that I’ve added acpiTableExtract
+//After that I’ve added acpiTableExtract see script for details.
 
 //Edited _findIASL:
 	function _findIasl()
@@ -42,7 +42,7 @@
 	//Change after
 	 # Here we check/download/load the processor data file(s) 
 	//And before:
-	 Bail out with error if we failed to locate..
+	 # Bail out with error if we failed to locate..
 	>>>>To:
   		#
   		# Local function callers
