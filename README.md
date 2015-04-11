@@ -11,7 +11,7 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
-**Version 1.0 (22 March 2015)**
+**Version 1.0 (11 April 2015)**
 
 * Support for 10.10.3 by removing Second Stage Patch when generating Clover config.plist
 
