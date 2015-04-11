@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 RightNowIs=`/usr/libexec/PlistBuddy -c "Print :CurrentDateTime" /tmp/L580CI.plist`
 BackupDir="$HOME/Desktop/Installer Backups/Backup $RightNowIs"
 

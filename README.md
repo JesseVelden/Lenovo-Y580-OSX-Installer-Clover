@@ -11,6 +11,10 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 1.0 (22 March 2015)**
+
+* Support for 10.10.3 by removing Second Stage Patch when generating Clover config.plist
+
 **Version 0.9.9.0 (22 March 2015)**
 
 * Updated and fixed SSDTPRGen.sh (v15.6)
