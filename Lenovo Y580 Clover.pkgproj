@@ -3591,7 +3591,7 @@
 																			<key>GID</key>
 																			<integer>0</integer>
 																			<key>PATH</key>
-																			<string>OSX Support Files/CommonKexts/Extensions/BrcmPatchRAM.kext</string>
+																			<string>OSX Support Files/CommonKexts/Extensions/AppleUSBXHCIPCIPortInjector.kext</string>
 																			<key>PATH_TYPE</key>
 																			<integer>1</integer>
 																			<key>PERMISSIONS</key>

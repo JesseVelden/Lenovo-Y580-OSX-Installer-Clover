@@ -3,6 +3,22 @@
 RebuildOn=`/usr/libexec/PlistBuddy -c "Print :KextCacheRebuild" /tmp/L580CI.plist`
 if [ "$RebuildOn" == "yes" ]
 then
+    osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
+    case $osxver in
+    10.9*)	echo "OS X Mavericks $osxver detected."
+                cd /Volumes/EFI/EFI/CLOVER/kexts/10.9/;;
+    10.10*)	echo "OS X Yosemite $osxver detected."
+                cd /Volumes/EFI/EFI/CLOVER/kexts/10.10/;;
+    *)          echo "Unknown or unsupported OS X version, aborting.";;
+    esac
+
+    for file in *.kext; do
+        cp -rf $file /System/Library/Extensions/
+        chmod -R 755 /System/Library/Extensions/$file
+        chown -R root:wheel /System/Library/Extensions/$file
+    done
+
+    #diskutil repairPermissions /
 	touch "${3}/System/Library/Extensions"
 fi
 # setting the Installer Backups folder's owner to the current user
@@ -15,6 +31,15 @@ rm -rf /tmp/L580CI.plist
 rm -rf /tmp/Apps
 # enabling AirDrop
 pmset -a hibernatemode 0
+
+if [ -f /private/var/vm/sleepimage ]; then
+    rm /private/var/vm/sleepimage
+    rm -rf /private/var/vm/sleepimage
+fi
+if [ ! -d /private/var/vm/sleepimage ]; then
+    mkdir /private/var/vm/sleepimage
+fi
+
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 #enabling Diskutility Debug to let users easier mount hidden partitions (e.g. the EFI partition)
 defaults write com.apple.DiskUtility DUDebugMenuEnabled 1

@@ -18,36 +18,24 @@ printf '\t<dict>\n' >> $config
 
 case $CloverResolution in 
 	low)
-		printf '\t\t<key>DualLink</key>\n' >> $config
-		printf '\t\t<integer>0</integer>\n' >> $config
 		printf '\t\t<key>ig-platform-id</key>\n' >> $config
 		printf '\t\t<string>0x01660003</string>\n' >> $config
-		printf '\t\t<key>Inject</key>\n' >> $config
-		printf '\t\t<dict>\n' >> $config
-		printf '\t\t\t<key>Intel</key>\n' >> $config
-		printf '\t\t\t<false/>\n' >> $config
-		printf '\t\t\t<key>ATI</key>\n' >> $config
-		printf '\t\t\t<false/>\n' >> $config
-		printf '\t\t\t<key>NVidia</key>\n' >> $config
-		printf '\t\t\t<false/>\n' >> $config
-		printf '\t\t</dict>\n' >> $config
 		;;
 	high)
-		printf '\t\t<key>DualLink</key>\n' >> $config
-		printf '\t\t<integer>1</integer>\n' >> $config
 		printf '\t\t<key>ig-platform-id</key>\n' >> $config
 		printf '\t\t<string>0x01660004</string>\n' >> $config
-		printf '\t\t<key>Inject</key>\n' >> $config
-		printf '\t\t<dict>\n' >> $config
-		printf '\t\t\t<key>Intel</key>\n' >> $config
-		printf '\t\t\t<false/>\n' >> $config
-		printf '\t\t\t<key>ATI</key>\n' >> $config
-		printf '\t\t\t<false/>\n' >> $config
-		printf '\t\t\t<key>NVidia</key>\n' >> $config
-		printf '\t\t\t<false/>\n' >> $config
-		printf '\t\t</dict>\n' >> $config
 		;;
 esac
+
+printf '\t\t<key>Inject</key>\n' >> $config
+printf '\t\t<dict>\n' >> $config
+printf '\t\t\t<key>Intel</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<key>ATI</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t\t<key>NVidia</key>\n' >> $config
+printf '\t\t\t<false/>\n' >> $config
+printf '\t\t</dict>\n' >> $config
 
 printf '\t</dict>\n' >> $config
 
@@ -87,12 +75,14 @@ chassistype="8"
 chassis="MacBook-Aluminum"
 family="MacBook Pro"
 mobile="true"
+ModelY=""
 
 biosdate="08/08/12"
 biosversion="MBP91.88Z.00D3.B08.1208081132"
 boardprod="Mac-6F01561E16C75D06"
 prodname="MacBookPro9,2"
 serial="C02L"$week_letter$(random_char)$(random_char)$(random_char)"DTY3"
+ModelY=2
 
 # check existing serial number
 if [ -f /Volumes/EFI/EFI/CLOVER/config.plist ]
@@ -184,7 +174,7 @@ printf '\t<key>Boot</key>\n' >> $config
 printf '\t<dict>\n' >> $config
 
 printf '\t\t<key>Arguments</key>\n' >> $config
-printf '\t\t<string>dart=0 nv_disable=1 kext-dev-mode=1</string>\n' >> $config
+printf '\t\t<string>>kext-dev-mode=1 dart=0 -gux_defer_usb2 nv_disable=1 rootless=0</string>\n' >> $config
 
 printf '\t\t<key>Debug</key>\n' >> $config
 printf '\t\t<false/>\n' >> $config
@@ -193,7 +183,7 @@ printf '\t\t<string>LegacyBiosDefault</string>\n' >> $config
 printf '\t\t<key>Log</key>\n' >> $config
 printf '\t\t<false/>\n' >> $config
 printf '\t\t<key>NeverHibernate</key>\n' >> $config
-printf '\t\t<false/>\n' >> $config
+printf '\t\t<true/>\n' >> $config
 printf '\t\t<key>Timeout</key>\n' >> $config
 printf '\t\t<integer>5</integer>\n' >> $config
 printf '\t\t<key>XMPDetection</key>\n' >> $config
@@ -297,22 +287,20 @@ printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Enable Trim on SSD</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
-# Issues with the 10.10.3 update so it's commented out.
-#
-#printf '\t\t\t<dict>\n' >> $config
-#printf '\t\t\t\t<key>Name</key>\n' >> $config
-#printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
-#printf '\t\t\t\t<key>Find</key>\n' >> $config
-#printf '\t\t\t\t<data>\n' >> $config
-#printf '\t\t\t\tAQAAdRc=\n' >> $config
-#printf '\t\t\t\t</data>\n' >> $config
-#printf '\t\t\t\t<key>Replace</key>\n' >> $config
-#printf '\t\t\t\t<data>\n' >> $config
-#printf '\t\t\t\tAQAAdBc=\n' >> $config
-#printf '\t\t\t\t</data>\n' >> $config
-#printf '\t\t\t\t<key>Comment</key>\n' >> $config
-#printf '\t\t\t\t<string>Second Stage patch 10.10</string>\n' >> $config
-#printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tQYjE6xE=\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tQYjE6zE=\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>Second Stage patch 10.10</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
 
 
 printf '\t\t\t<dict>\n' >> $config
@@ -330,6 +318,55 @@ printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
+case $CloverResolution in 
+	low)
+		printf '\t\t\t<dict>\n' >> $config
+		printf '\t\t\t\t<key>Name</key>\n' >> $config
+		printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+		printf '\t\t\t\t<key>Find</key>\n' >> $config
+		printf '\t\t\t\t<data>\n' >> $config
+		printf '\t\t\t\tBAYAAAAEAACBAAAA\n' >> $config
+		printf '\t\t\t\t</data>\n' >> $config
+		printf '\t\t\t\t<key>Replace</key>\n' >> $config
+		printf '\t\t\t\t<data>\n' >> $config
+		printf '\t\t\t\tBAYAAAAIAAAGAAAA\n' >> $config
+		printf '\t\t\t\t</data>\n' >> $config
+		printf '\t\t\t\t<key>Comment</key>\n' >> $config
+		printf '\t\t\t\t<string>Patch audio HDMI HD4000 1366x768</string>\n' >> $config
+		printf '\t\t\t</dict>\n' >> $config
+		;;
+	high)
+		printf '\t\t\t<dict>\n' >> $config
+		printf '\t\t\t\t<key>Name</key>\n' >> $config
+		printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+		printf '\t\t\t\t<key>Find</key>\n' >> $config
+		printf '\t\t\t\t<data>\n' >> $config
+		printf '\t\t\t\tBABmAQEDAQEAAAAC\n' >> $config
+		printf '\t\t\t\t</data>\n' >> $config
+		printf '\t\t\t\t<key>Replace</key>\n' >> $config
+		printf '\t\t\t\t<data>\n' >> $config
+		printf '\t\t\t\tBABmAQECBAIAAAAE\n' >> $config
+		printf '\t\t\t\t</data>\n' >> $config
+		printf '\t\t\t\t<key>Comment</key>\n' >> $config
+		printf '\t\t\t\t<string>Patch HDMI port HD4000 1600x900 #1</string>\n' >> $config
+		printf '\t\t\t</dict>\n' >> $config
+
+		printf '\t\t\t<dict>\n' >> $config
+		printf '\t\t\t\t<key>Name</key>\n' >> $config
+		printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
+		printf '\t\t\t\t<key>Find</key>\n' >> $config
+		printf '\t\t\t\t<data>\n' >> $config
+		printf '\t\t\t\tMAIAAAAAAAABAAAAQAAAAAAAAAABAAAAQAAAAAAAAAABAAAAQAAAAAAAAAAAAAAA\n' >> $config
+		printf '\t\t\t\t</data>\n' >> $config
+		printf '\t\t\t\t<key>Replace</key>\n' >> $config
+		printf '\t\t\t\t<data>\n' >> $config
+		printf '\t\t\t\tMAIAAAIFAAAABAAABwQAAAMEAAAABAAAgQAAAAQGAAAABAAAgQAAAAAAAAAAAgAR\n' >> $config
+		printf '\t\t\t\t</data>\n' >> $config
+		printf '\t\t\t\t<key>Comment</key>\n' >> $config
+		printf '\t\t\t\t<string>Patch DP port HD4000 1600x900 #2</string>\n' >> $config
+		printf '\t\t\t</dict>\n' >> $config
+		;;
+esac
 
 printf '\t\t\t<dict>\n' >> $config
 printf '\t\t\t\t<key>Name</key>\n' >> $config
@@ -376,41 +413,25 @@ printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Patch audio HDMI HD4000 -  port 0406</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
-if [ "$CloverResolution" == "high" ]
-then
-	printf '\t\t\t<dict>\n' >> $config
-	printf '\t\t\t\t<key>Name</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
-	printf '\t\t\t\t<key>Find</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tBABmAQEDAQEAAAAC\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Replace</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tBABmAQECBAIAAAAE\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>Patch HDMI-DP port HD4000 1600x900+ #1</string>\n' >> $config
-	printf '\t\t\t</dict>\n' >> $config
-
-	printf '\t\t\t<dict>\n' >> $config
-	printf '\t\t\t\t<key>Name</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleIntelFramebufferCapri</string>\n' >> $config
-	printf '\t\t\t\t<key>Find</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tMAIAAAAAAAABAAAAQAAAAAAAAAABAAAAQAAAAAAAAAABAAAAQAAAAAAAAAAAAAAA\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Replace</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tMAIAAAIFAAAABAAABwQAAAMEAAAABAAAgQAAAAQGAAAACAAABgAAAAAAAAAAAgAR\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>Patch HDMI-DP port HD4000 1600x900+ #2</string>\n' >> $config
-	printf '\t\t\t</dict>\n' >> $config
-fi
 
 if [ "$PatchAppleHDA" != "no" ]
 	then
+
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tgxnUEQ==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tAAAAAA==\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>AppleHDA Patch 10.11</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+
 	printf '\t\t\t<dict>\n' >> $config
 	printf '\t\t\t\t<key>Name</key>\n' >> $config
 	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config

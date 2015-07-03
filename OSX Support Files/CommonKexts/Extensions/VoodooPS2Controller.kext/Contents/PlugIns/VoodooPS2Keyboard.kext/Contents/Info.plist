@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>14A389</string>
+	<string>14D136</string>
 	<key>CFBundleExecutable</key>
 	<string>VoodooPS2Keyboard</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.8.13, Copyright Apple Computer, Inc. 2000-2003, RehabMan 2012-2013</string>
+	<string>1.8.15, Copyright Apple Computer, Inc. 2000-2003, RehabMan 2012-2013</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.rehabman.voodoo.driver.PS2Keyboard</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -21,11 +21,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.8.13</string>
+	<string>1.8.15</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>6A1046a</string>
+	<string>6D1002</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
@@ -33,9 +33,9 @@
 	<key>DTSDKName</key>
 	<string>macosx10.8</string>
 	<key>DTXcode</key>
-	<string>0610</string>
+	<string>0631</string>
 	<key>DTXcodeBuild</key>
-	<string>6A1046a</string>
+	<string>6D1002</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>ApplePS2Keyboard</key>
@@ -127,7 +127,7 @@
 						<key>Breakless PS2</key>
 						<array>
 							<string>e01e;Touchpad Fn+f3 is breakless</string>
-							<string>e06e;REVIEW: temporary for case that macro inversion doesn't work...</string>
+							<string>e06e;REVIEW: temporary for case that macro inversion does not work...</string>
 						</array>
 						<key>Custom ADB Map</key>
 						<array>
@@ -268,6 +268,8 @@
 					<key>Custom PS2 Map</key>
 					<array>
 						<string>;Items must be strings in the form of scanfrom=scanto (in hex)</string>
+						<string>e027=0;disable discrete fnkeys toggle</string>
+						<string>e028=0;disable discrete trackpad toggle</string>
 					</array>
 					<key>HIDF12EjectDelay</key>
 					<integer>250</integer>
@@ -556,8 +558,10 @@
 					<dict>
 						<key>Breakless PS2</key>
 						<array>
+							<string>e064</string>
 							<string>e065</string>
 							<string>e068</string>
+							<string>e06a</string>
 							<string>e027</string>
 						</array>
 						<key>Custom ADB Map</key>
@@ -566,7 +570,7 @@
 							<string>e064=6b;F14</string>
 							<string>e065=71;F15</string>
 							<string>e068=4f;F18</string>
-							<string>e0f9=65;special F9</string>
+							<string>e0f2=65;special F9</string>
 							<string>e0fb=91;brightness down</string>
 							<string>e0fc=90;brightness up</string>
 							<string>e06a=70;video mirror</string>
@@ -583,7 +587,7 @@
 							<string>e030=e030</string>
 							<string>e064=e064</string>
 							<string>e065=e065</string>
-							<string>e066=e037</string>
+							<string>e066=e028</string>
 							<string>e067=e067</string>
 							<string>e068=e068</string>
 							<string>e069=e0f0</string>
@@ -625,7 +629,7 @@
 							<string>3d=e030</string>
 							<string>3e=e064</string>
 							<string>3f=e065</string>
-							<string>40=e037</string>
+							<string>40=e028</string>
 							<string>41=e067</string>
 							<string>42=e068</string>
 							<string>43=e0f1</string>
@@ -721,7 +725,7 @@
 		<key>com.apple.kpi.unsupported</key>
 		<string>8.0.0</string>
 		<key>org.rehabman.voodoo.driver.PS2Controller</key>
-		<string>1.8.13</string>
+		<string>1.8.15</string>
 	</dict>
 	<key>OSBundleRequired</key>
 	<string>Console</string>

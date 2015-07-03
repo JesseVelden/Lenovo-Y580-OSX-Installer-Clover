@@ -2,10 +2,17 @@
 set -x
 
 ./BackupESP "$1" "$2" "$3"
+exitcode=$?
+
+if [ "$exitcode" != "0" ]
+then
+	exit 1
+fi
 
 if [ -d /Volumes/EFI/EFI ]
 then
 	rm /Volumes/EFI/EFI/Clover/drivers64UEFI/VBoxHfs*
+	rm /Volumes/EFI/EFI/Clover/drivers64UEFI/EmuVariableUefi-64.efi
 	rm /Volumes/EFI/EFI/Clover/drivers64UEFI/OsxAptioFix2Drv-64.efi
 	rm -rf /Volumes/EFI/EFI/CLOVER/themes/Universe
 	rm -rf /Volumes/EFI/EFI/Boot/BOOTX64.efi
@@ -18,3 +25,4 @@ then
 fi
 
 mkdir -p /Library/Logs/CloverEFI
+
