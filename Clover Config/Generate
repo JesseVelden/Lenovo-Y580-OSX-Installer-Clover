@@ -3,7 +3,6 @@
 # generate Clover config file
 CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580CI.plist`
 osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
-PatchAppleHDA=`/usr/libexec/PlistBuddy -c "Print :PatchAppleHDA" /tmp/L580CI.plist`
 
 config="/tmp/config.plist"	
 # header 
@@ -66,6 +65,13 @@ then
 			boardserial="$mlb"
 		fi
 	fi
+
+	#THIS IS METHOD BELOW IS FOR AN ERROR IN PREVIOUS GENERATE FILES. PLEASE REMOVE WHEN REUSING!
+	if [[ "$boardserial" != C022* ]] || [ ${#myvar} -lt 13 ] 
+	then
+		boardserial=""
+	fi
+	
 else
 	boardserial=""
 fi
@@ -174,7 +180,7 @@ printf '\t<key>Boot</key>\n' >> $config
 printf '\t<dict>\n' >> $config
 
 printf '\t\t<key>Arguments</key>\n' >> $config
-printf '\t\t<string>>kext-dev-mode=1 dart=0 -gux_defer_usb2 nv_disable=1 rootless=0</string>\n' >> $config
+printf '\t\t<string>kext-dev-mode=1 dart=0 -gux_defer_usb2 nv_disable=1 rootless=0</string>\n' >> $config
 
 printf '\t\t<key>Debug</key>\n' >> $config
 printf '\t\t<false/>\n' >> $config
@@ -413,70 +419,65 @@ printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Patch audio HDMI HD4000 -  port 0406</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tgxnUEQ==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAAAAAA==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>AppleHDA Patch 10.11</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
 
-if [ "$PatchAppleHDA" != "no" ]
-	then
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\thAjsEA==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAAAAAA==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
 
-	printf '\t\t\t<dict>\n' >> $config
-	printf '\t\t\t\t<key>Name</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
-	printf '\t\t\t\t<key>Find</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tgxnUEQ==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Replace</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tAAAAAA==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleHDA Patch 10.11</string>\n' >> $config
-	printf '\t\t\t</dict>\n' >> $config
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\thQjsEA==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\tAAAAAA==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
 
-	printf '\t\t\t<dict>\n' >> $config
-	printf '\t\t\t\t<key>Name</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
-	printf '\t\t\t\t<key>Find</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\thAjsEA==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Replace</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tAAAAAA==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
-	printf '\t\t\t</dict>\n' >> $config
-
-	printf '\t\t\t<dict>\n' >> $config
-	printf '\t\t\t\t<key>Name</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
-	printf '\t\t\t\t<key>Find</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\thQjsEA==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Replace</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\tAAAAAA==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
-	printf '\t\t\t</dict>\n' >> $config
-
-	printf '\t\t\t<dict>\n' >> $config
-	printf '\t\t\t\t<key>Name</key>\n' >> $config
-	printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
-	printf '\t\t\t\t<key>Find</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\thBnUEQ==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Replace</key>\n' >> $config
-	printf '\t\t\t\t<data>\n' >> $config
-	printf '\t\t\t\taQLsEA==\n' >> $config
-	printf '\t\t\t\t</data>\n' >> $config
-	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
-	printf '\t\t\t</dict>\n' >> $config
-fi
+printf '\t\t\t<dict>\n' >> $config
+printf '\t\t\t\t<key>Name</key>\n' >> $config
+printf '\t\t\t\t<string>AppleHDA</string>\n' >> $config
+printf '\t\t\t\t<key>Find</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\thBnUEQ==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Replace</key>\n' >> $config
+printf '\t\t\t\t<data>\n' >> $config
+printf '\t\t\t\taQLsEA==\n' >> $config
+printf '\t\t\t\t</data>\n' >> $config
+printf '\t\t\t\t<key>Comment</key>\n' >> $config
+printf '\t\t\t\t<string>ALC 282</string>\n' >> $config
+printf '\t\t\t</dict>\n' >> $config
 
 printf '\t\t</array>\n' >> $config
 
