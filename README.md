@@ -11,6 +11,17 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 1.1 (5 July 2015)**
+
+* Updated FakeSMC.kext, VoodooPS2Controller.kext, BrcmPatchRam.kext (with the new BrcmBluetoothInjector.kext)
+* Clover updated to r3242
+* Updated Clover Configurator & XtraFinder
+* Added some boot arguments for USB fixes (and 10.11)
+* Fixed Board serial bug when generating Clover's Config.plist (iMessage finally working)
+* Sound patching in Clover's config.plist & common kexts isn't a choice anymore, it will be patched automatically
+* Changed second stage patch for supporting new OS X versions when generating Clover's config.plist
+* Some early 10.11 support
+
 **Version 1.0 (11 April 2015)**
 
 * Support for 10.10.3 by removing Second Stage Patch when generating Clover config.plist
