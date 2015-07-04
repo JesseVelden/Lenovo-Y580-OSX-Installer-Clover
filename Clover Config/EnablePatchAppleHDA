@@ -1,4 +1,0 @@
-#!/bin/sh
-# triggering kext cache rebuilding
-/usr/libexec/PlistBuddy -c "Set :PatchAppleHDA yes" /tmp/L580CI.plist
-/usr/libexec/PlistBuddy -c "Set :KextCacheRebuild yes" /tmp/L580CI.plist
