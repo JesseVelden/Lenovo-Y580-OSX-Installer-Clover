@@ -16,6 +16,18 @@ then
 	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/10.10
 fi
 
+#THESE ARE IMPORTANT
+if [ ! -d /Volumes/EFI/EFI/CLOVER/ACPI/origin ]
+then
+	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/ACPI/origin
+fi
+
+if [ ! -d /Volumes/EFI/EFI/CLOVER/ACPI/patched ]
+then
+	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/ACPI/patched
+fi
+#//
+
 if [ ! -d "$HOME"/Library/LaunchAgents ]
 then
 	mkdir -p "$HOME"/Library/LaunchAgents
