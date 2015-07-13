@@ -10490,7 +10490,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Contains the common kexts. - If you want to have a patched AppleHDA, you must select 'Patch Sound' every time you want to reinstall these kexts!</string>
+										<string>Installs/ updates the most the common kexts</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
@@ -10510,7 +10510,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Install Kexts</string>
+										<string>Install/ update Kexts</string>
 									</dict>
 								</array>
 								<key>TOOLTIP</key>
