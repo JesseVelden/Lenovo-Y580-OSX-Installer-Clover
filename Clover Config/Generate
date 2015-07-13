@@ -66,8 +66,8 @@ then
 		fi
 	fi
 
-	#THIS IS METHOD BELOW IS FOR AN ERROR IN PREVIOUS GENERATE FILES. PLEASE REMOVE WHEN REUSING!
-	if [[ "$boardserial" != C022* ]] || [ ${#myvar} -lt 13 ] 
+	#THIS IS METHOD BELOW IS MADE FOR AN ERROR IN PREVIOUS GENERATE FILES FOR THIS L580 INSTALLER. PLEASE REMOVE WHEN REUSING!
+	if [[ "$boardserial" != C022* ]] || [ ${#boardserial} -lt 13 ] 
 	then
 		boardserial=""
 	fi
