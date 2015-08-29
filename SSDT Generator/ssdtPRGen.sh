@@ -1,13 +1,10 @@
 #!/bin/bash
 #
-# Edited by MegaCookie (Jessers123) for offline usage for the Y580 Installer (uses the old ACPIExtract method)
-#
-#
 # Script (ssdtPRGen.sh) to create ssdt-pr.dsl for Apple Power Management Support.
 #
 # Version 0.9 - Copyright (c) 2012 by RevoGirl
 #
-# Version 15.6 - Copyright (c) 2014 by Pike <PikeRAlpha@yahoo.com>
+# Version 15.9 - Copyright (c) 2014 by Pike <PikeRAlpha@yahoo.com>
 #
 # Readme......: https://github.com/Piker-Alpha/ssdtPRGen.sh/blob/master/README.md
 #
@@ -28,7 +25,7 @@
 #
 # Script version info.
 #
-gScriptVersion=15.6
+gScriptVersion=15.9
 
 #
 # The script expects '0.5' but non-US localizations use '0,5' so we export
@@ -104,7 +101,7 @@ let gBaseFrequency=1600
 #
 # This is the default processor label (verified by _setProcessorLabel).
 #
-gProcLabel="CPU0"
+gProcLabel="CPU"
 
 #
 # The Processor scope will be initialised by _initProcessorScope).
@@ -168,18 +165,17 @@ STYLE_UNDERLINED="[4m"
 #
 # Other global variables.
 #
-
 gRevision='0x000'${gScriptVersion:0:2}${gScriptVersion:3:1}'00'
 
 #
 # Path and filename setup.
 #
-
-gPath=.
-gScriptPath="/tmp"
+gHome="$(pwd)"
+gPath="$(pwd)"
+gDataPath="${gPath}/Data"
+gToolPath="${gPath}/Tools"
 gSsdtID="ssdt"
 gSsdtPR="${gPath}/${gSsdtID}.dsl"
-
 
 let gDesktopCPU=1
 let gMobileCPU=2
@@ -192,10 +188,12 @@ let gACST_CPU1=7
 
 gTargetMacModel=""
 
+let USER_DEFINED=1
 let SANDY_BRIDGE=2
 let IVY_BRIDGE=4
 let HASWELL=8
 let BROADWELL=16
+let SKYLAKE=32
 
 #
 # Global variable used as target cpu/bridge type.
@@ -204,6 +202,8 @@ let gBridgeType=-1
 
 let gTypeCPU=0
 let gProcessorStartIndex=0
+let gLfm=0
+let gTdp=0
 gProcessorData="Unknown CPU"
 gProcessorNumber=""
 gBusFrequency=100
@@ -230,6 +230,7 @@ let PROCESSOR_LABEL_LENGTH_ERROR=6
 let PROCESSOR_NAMES_ERROR=7
 let PROCESSOR_DECLARATION_ERROR=8
 let FILE_NOT_FOUND_ERROR=9
+let LFM_ERROR=10
 
 #
 # First OS version number that no longer requires extra Low Frequency Mode P-States.
@@ -258,782 +259,6 @@ AML_PROCESSOR_SCOPE_OPCODE=5b83
 #
 #--------------------------------------------------------------------------------
 #
-
-#
-# This file includes all currently supported Haswell processor models. You can add missing 
-# models like this:
-#
-# Processor Number, Max TDP, Low Frequency Mode, Clock Speed, Max Turbo Frequency, Cores, Threads
-#
-# Notes:
-#
-#        A "low frequency mode" of 0 means that the frequency is unconfirmed (use AppleIntelInfo.kext).
-#        Processors without turbo support should set Max Turbo Frequency equal to the Clock Speed.
-#
-#
-# Please report missing processor data at: https://github.com/Piker-Alpha/ssdtPRGen.sh/issues
-#
-
-#
-# Change this to 0 and ssdtPRGen.sh won't check for updates and/or download the data file.
-#
-
-let gHaswellCPUDataVersion=150
-
-#
-# Haswell Xeon processor data.
-#
-
-gServerHaswellCPUList=(
-# E3-1200 v3 Xeon Processor Series
-'E3-1285L v3',65,800,3100,3900,4,8
-'E3-1286L v3',65,800,3200,4000,4,8
-'E3-1285 v3',84,800,3600,4000,4,8
-'E3-1286 v3',84,800,3700,4100,4,8
-'E3-1280 v3',82,800,3600,4000,4,8
-'E3-1281 v3',82,800,3700,4100,4,8
-'E3-1275 v3',84,800,3500,3900,4,8
-'E3-1276 v3',84,800,3600,4000,4,8
-'E3-1270 v3',80,800,3500,3900,4,8
-'E3-1271 v3',80,800,3600,4000,4,8
-'E3-1268L v3',45,800,2300,3300,4,8
-'E3-1265L v3',45,800,2500,3700,4,8
-'E3-1245 v3',84,800,3400,3800,4,8
-'E3-1246 v3',84,800,3500,3900,4,8
-'E3-1240 v3',80,800,3400,3800,4,8
-'E3-1241 v3',80,800,3500,3900,4,8
-'E3-1230L v3',25,800,1800,2800,4,8
-'E3-1230 v3',80,800,3300,3700,4,8
-'E3-1231 v3',80,800,3400,3800,4,8
-'E3-1225 v3',80,800,3200,3600,4,4
-'E3-1226 v3',80,800,3300,3700,4,4
-'E3-1220 v3',80,800,3100,3500,4,4
-'E3-1220L v3',13,800,1100,1500,2,4
-# E5-1600 v3 Xeon Processor Series (AVX2 Turbo Frequency)
-'E5-1620 v3',140,1200,3500,3600,4,8
-'E5-1630 v3',140,1200,3700,3800,4,8
-'E5-1650 v3',140,1200,3500,3800,6,12
-'E5-1660 v3',140,1200,3000,3500,8,16
-'E5-1680 v3',140,1200,3200,3800,8,16
-# E5-2600 v3 Xeon Processor Series (AVX2 Turbo Frequency)
-'E5-2683 v3',120,1200,2000,3000,14,28
-'E5-2695 v3',120,1200,2300,3300,14,28
-'E5-2697 v3',145,1200,2600,3600,14,28
-'E5-2698 v3',135,1200,2300,3600,16,32
-'E5-2699 v3',145,1200,2300,3600,18,36
-'E5-2628L v3',75,1200,2000,2500,10,20
-'E5-2650 v3',105,1200,2300,3000,10,20
-'E5-2660 v3',105,1200,2600,3300,10,20
-'E5-2670 v3',120,1200,2300,3100,12,24
-'E5-2690 v3',135,1200,2600,3500,12,24
-'E5-2609 v3',85,1200,1900,1900,6,6
-'E5-2643 v3',135,1200,3400,3700,6,12
-'E5-2648L v3',75,1200,1900,2500,12,24
-'E5-2650L v3',65,1200,1800,2500,12,24
-'E5-2658 v3',105,1200,2200,2900,12,24
-'E5-2680 v3',120,1200,2500,3300,12,24
-'E5-2687W v3',160,1200,3100,3500,10,20
-'E5-2603 v3',85,1200,1600,1600,6,6
-'E5-2608L v3',52,1200,2000,2000,6,12
-'E5-2618L v3',75,1200,2300,3400,6,12
-'E5-2620 v3',85,1200,2400,3200,6,12
-'E5-2623 v3',105,1200,3000,3500,4,8
-'E5-2630 v3',85,1200,2400,3200,8,16
-'E5-2630L v3',55,1200,1800,2900,8,16
-'E5-2637 v3',135,1200,3500,3700,4,8
-'E5-2640 v3',90,1200,2600,2400,8,16
-'E5-2667 v3',135,1200,3200,3600,8,16
-)
-
-#
-# Haswell desktop processor data.
-#
-
-gDesktopHaswellCPUList=(
-# Haswell-E Processor Series (socket 2011-3)
-i7-5960X,140,1200,3000,3400,8,16
-i7-5930K,140,1200,3500,3900,6,12
-i7-5820K,140,1200,3300,3700,6,12
-# Socket 1150 (Standard Power)
-i7-4790K,88,800,4000,4400,4,8
-i5-4690K,88,800,3500,3900,4,4
-i7-4790,84,800,3600,4000,4,8
-i7-4770K,84,800,3500,3900,4,8
-i7-4771,84,800,3500,3900,4,8
-i7-4770,84,800,3400,3900,4,8
-i5-4590K,84,800,3300,3700,4,4
-i5-4590,84,800,3300,3700,4,4
-i5-4670K,84,800,3400,3800,4,4
-i5-4670,84,800,3400,3800,4,4
-i5-4570,84,800,3200,3600,4,4
-i5-4440,84,800,3100,3300,4,4
-i5-4440S,65,800,2800,3300,4,4
-i5-4430,84,800,3000,3200,4,4
-# Socket 1150 (Low Power)
-i7-4790S,65,800,3200,4000,4,8
-i7-4790T,45,800,2700,3900,4,8
-i7-4785T,35,800,2200,3200,4,8
-i7-4770S,65,800,3100,3900,4,8
-i7-4770T,45,800,2500,3700,4,8
-i7-4765T,35,800,2000,3000,4,8
-i5-4690,84,800,3500,3900,4,4
-i5-4690S,65,800,3200,3900,4,4
-i5-4690T,45,800,2500,3500,4,4
-i5-4670S,65,800,3100,3800,4,4
-i5-4670T,45,800,2300,3300,4,4
-i5-4590,84,800,3300,3700,4,4
-i5-4590S,65,800,3000,3700,4,4
-i5-4590T,35,800,3000,3700,4,4
-i5-4570S,65,800,2900,3600,4,4
-i5-4570T,35,800,2900,3600,4,4
-i5-4570TE,35,800,2700,3300,2,4
-i5-4460,84,800,3200,3400,4,4
-i5-4460T,35,800,1900,2700,4,4
-i5-4460S,65,800,2900,3600,4,4
-i5-4430S,65,800,2700,3200,4,4
-# BGA
-i7-4770R,65,800,3200,3900,4,8
-i5-4670R,65,800,3000,3700,4,4
-#FCLGA1150
-i3-4130,54,800,3400,3400,2,4
-i3-4130T,35,800,2900,2900,2,4
-i3-4150,54,800,3500,3500,2,4
-i3-4150T,35,800,3000,3000,2,4
-i3-4160,54,800,3600,3600,2,4
-i3-4160T,35,800,3100,3100,2,4
-i3-4330,54,800,3500,3500,2,4
-i3-4330T,35,800,3000,3000,2,4
-i3-4330TE,35,800,2400,2400,2,4
-i3-4340,54,800,3600,3600,2,4
-i3-4340TE,35,800,2600,2600,2,4
-i3-4350,54,800,3600,3600,2,4
-i3-4350T,35,800,3100,3100,2,4
-i3-4360,54,800,3700,3700,2,4
-i3-4360T,35,800,3200,3200,2,4
-i3-4370,54,800,3800,3800,2,4
-)
-
-#
-# Haswell mobile processor data.
-#
-
-gMobileHaswellCPUList=(
-# Socket FCBGA1364
-i7-4980HQ,47,800,2800,4000,4,8
-i7-4960HQ,47,800,2600,3800,4,8
-i7-4950HQ,47,800,2400,3600,4,8
-i7-4870HQ,47,800,2500,3700,4,8
-i7-4860HQ,47,800,2400,3600,4,8
-i7-4850HQ,47,800,2300,3500,4,8
-i7-4770HQ,47,800,2200,3400,4,8
-i7-4760HQ,47,800,2100,3300,4,8
-i7-4750HQ,47,800,2000,3200,4,8
-i7-4702HQ,37,800,2200,3200,4,8
-i7-4700HQ,47,800,2400,3400,4,8
-i7-4710HQ,47,800,2500,3500,4,8
-i7-4712HQ,37,800,2300,3300,4,8
-i7-4700EC,43,800,2700,2700,4,8
-i7-4702EC,27,800,2000,2000,4,8
-# Extreme Edition Series - socket FCPGA946
-i7-4930MX,57,800,3000,3900,4,8
-# Socket FCPGA946
-i7-4910MQ,47,800,2900,3900,4,8
-i7-4900MQ,47,800,2800,3800,4,8
-i7-4810MQ,47,800,2800,3800,4,8
-i7-4800MQ,47,800,2700,3700,4,8
-i7-4702MQ,37,800,2200,3200,4,8
-i7-4700MQ,47,800,2400,3400,4,8
-i7-4710MQ,47,800,2500,3500,4,8
-i7-4712MQ,37,800,2300,3300,4,8
-i7-4610M,37,800,3000,3700,4,8
-i7-4600M,37,800,2900,3300,4,8
-i5-4200M,37,800,2500,3100,2,4
-# Socket FCBGA1168
-i7-4650U,15,800,1700,3300,2,4
-i7-4650U,15,800,1700,3300,2,4
-i7-4600U,15,800,2100,3300,2,4
-i7-4610Y,11.5,800,1700,2900,2,4
-i7-4578U,28,800,3000,3500,2,4
-i7-4558U,28,800,2800,3300,2,4
-i7-4550U,15,800,1500,3000,2,4
-i7-4500U,15,800,1800,3000,2,4
-i7-4510U,15,800,2000,3100,2,4
-i5-4360U,15,800,1500,3000,2,4
-i5-4350U,15,800,1400,2900,2,4
-i5-4310U,15,800,2000,3000,2,4
-i5-4308U,28,800,2800,3300,2,4
-i5-4300U,15,800,1900,2900,2,4
-i5-4302Y,11.5,800,1600,2300,2,4
-i5-4300Y,11.5,800,1600,2300,2,4
-i5-4288U,28,800,2600,3100,2,4
-i5-4278U,28,800,2600,3100,2,4
-i5-4258U,28,800,2400,2900,2,4
-i5-4250U,15,800,1300,2600,2,4
-i5-4200U,15,800,1600,2600,2,4
-i5-4200Y,11.5,800,1400,1900,2,4
-i5-4202Y,11.5,800,1600,2000,2,4
-i5-4210Y,11.5,800,1500,1900,2,4
-i5-4210U,15,800,1700,2700,2,4
-i5-4220Y,11.5,800,1600,2000,2,4
-i5-4260U,15,800,1400,2700,2,4
-# Socket FCPGA946
-i5-4340M,37,800,2900,3600,2,4
-i5-4330M,37,800,2800,3500,2,4
-i5-4310M,37,800,2700,3400,2,4
-i5-4300M,37,800,2600,3300,2,4
-i5-4210M,37,800,2600,3200,2,4
-i3-4000M,37,800,2400,2400,2,4
-i3-4100M,37,800,2500,2500,2,4
-i3-4110M,37,800,2600,2600,2,4
-# Socket FCBGA1364
-i3-4100E,37,800,2400,2400,2,4
-i3-4110E,37,800,2600,2600,2,4
-i3-4102E,25,800,1600,1600,2,4
-i3-4112E,25,800,1800,1800,2,4
-i5-4400E,37,800,2700,3300,2,4
-i5-4410E,37,800,2900,2900,2,4
-i5-4422E,25,800,1800,2900,2,4
-i5-4402E,25,800,1600,2700,2,4
-i5-4402EC,27,800,2500,2500,2,4
-i5-4200H,47,800,2800,3400,2,4
-i5-4210H,47,800,2900,3500,2,4
-# Socket FCBGA1168
-i3-4005U,15,800,1700,1700,2,4
-i3-4010U,15,800,1700,1700,2,4
-i3-4100U,15,800,1800,1800,2,4
-i3-4010Y,11.5,800,1300,1300,2,4
-i3-4158U,28,800,2000,2000,2,4
-i3-4012Y,11.5,800,1500,1500,2,4
-i3-4020Y,11.5,800,1500,1500,2,4
-i3-4120U,15,800,2000,2000,2,4
-i3-4030U,15,800,1900,1900,2,4
-i3-4025U,15,800,1900,1900,2,4
-i3-4030Y,11.5,800,1600,1600,2,4
-)
-
-#
-# This file includes all currently supported Ivy Bridge processor models. You can add missing 
-# models like this:
-#
-# Processor Number, Max TDP, Low Frequency Mode, Clock Speed, Max Turbo Frequency, Cores, Threads
-#
-# Notes:
-#
-#        A "low frequency mode" of 0 means that the frequency is unconfirmed (use AppleIntelInfo.kext).
-#        Processors without turbo support should set Max Turbo Frequency equal to the Clock Speed.
-#
-#
-# Please report missing processor data at: https://github.com/Piker-Alpha/ssdtPRGen.sh/issues
-#
-
-#
-# Change this to 0 and ssdtPRGen.sh won't check for updates and/or download the data file.
-#
-
-let gIvyBridgeCPUDataVersion=150
-
-#
-# Ivy Bridge Xeon processor data.
-#
-
-gServerIvyBridgeCPUList=(
-# E3-1200 Xeon Processor Series
-'E3-1290 v2',87,1600,3700,4100,4,8
-'E3-1280 v2',69,1600,3600,4000,4,8
-'E3-1275 v2',77,1600,3500,3900,4,8
-'E3-1270 v2',69,1600,3500,3900,4,8
-'E3-1265L v2',45,1600,2500,3500,4,8
-'E3-1245 v2',77,1600,3400,3800,4,8
-'E3-1240 v2',69,1600,3400,3800,4,8
-'E3-1230 v2',69,1600,3300,3700,4,8
-'E3-1225 v2',77,1600,3200,3600,4,4
-'E3-1220 v2',69,1600,3100,3500,4,4
-'E3-1220L v2',17,1600,2300,3500,2,4
-# E5-1600 Xeon Processor Series
-'E5-1620 v2',130,1200,3700,3900,4,8
-'E5-1650 v2',130,1200,3500,3900,6,12
-'E5-1660 v2',130,1200,3700,4000,6,12
-# E5-2600 Xeon Processor Series
-'E5-2687W v2',150,1200,3400,4000,8,16
-'E5-2658 v2 ',95,1200,2400,3000,10,20
-'E5-2648L v2',70,1200,1900,2500,10,20
-'E5-2628L v2',70,1200,1900,2400,8,16
-'E5-2603 v2',80,1200,1800,1800,4,4
-'E5-2637 v2',130,1200,3500,3800,4,8
-'E5-2630L v2',60,1200,2400,2800,6,12
-'E5-2630 v2',80,1200,2600,3100,6,12
-'E5-2620 v2',80,1200,2100,2600,6,12
-'E5-2618L v2',50,1200,2000,2000,6,12
-'E5-2609 v2',80,1200,2500,2500,4,4
-'E5-2697 v2',130,1200,2700,3500,12,24
-'E5-2695 v2',115,1200,2400,3200,12,24
-'E5-2690 v2',130,1200,3000,3600,10,20
-'E5-2680 v2',115,1200,2800,3600,10,20
-'E5-2670 v2',115,1200,2500,3300,10,20
-'E5-2667 v2',130,1200,3300,4000,6,16
-'E5-2660 v2',95,1200,2200,3000,10,20
-'E5-2650L v2',70,1200,1700,2100,10,20
-'E5-2650 v2',95,1200,2600,3400,8,16
-'E5-2643 v2',130,1200,3500,3800,6,12
-'E5-2640 v2',95,1200,2000,2500,8,16
-)
-
-#
-# Ivy Bridge desktop processor data.
-#
-
-gDesktopIvyBridgeCPUList=(
-# Socket 2011 (Premium Power)
-i7-4960X,130,1200,3600,4000,6,12
-i7-4930K,130,1200,3400,3900,6,12
-i7-4820K,130,1200,3700,3900,4,8
-# i7-3700 Desktop Processor Series
-i7-3770T,45,1600,2500,3700,4,8
-i7-3770S,65,1600,3100,3900,4,8
-i7-3770K,77,1600,3500,3900,4,8
-i7-3770,77,1600,3400,3900,4,8
-# i5-3500 Desktop Processor Series
-i5-3570T,45,1600,2300,3300,4,4
-i5-3570K,77,1600,3400,3800,4,4
-i5-3570S,65,1600,3100,3800,4,4
-i5-3570,77,1600,3400,3800,4,4
-i5-3550S,65,1600,3000,3700,4,4
-i5-3550,77,1600,3300,3700,4,4
-# i5-3400 Desktop Processor Series
-i5-3475S,65,1600,2900,3600,4,4
-i5-3470S,65,1600,2900,3600,4,4
-i5-3470,77,1600,3200,3600,4,4
-i5-3470T,35,1600,2900,3600,2,4
-i5-3450S,65,1600,2800,3500,4,4
-i5-3450,77,1600,3100,3500,4,4
-# i5-3300 Desktop Processor Series
-i5-3350P,69,1600,3100,3300,4,4
-i5-3330S,65,1600,2700,3200,4,4
-i5-3333S,65,1600,2700,3200,4,4
-i5-3330S,65,1600,3700,3200,4,4
-i5-3330,77,1600,3000,3200,4,4
-# i3-3200 Desktop Processor Series
-i3-3250,55,1600,3500,0,2,4
-i3-3250T,25,1600,3000,0,2,4
-i3-3245,55,1600,3400,0,2,4
-i3-3240,55,1600,3400,0,2,4
-i3-3240T,35,1600,2900,0,2,4
-i3-3225,55,1600,3300,0,2,4
-i3-3220,55,1600,3300,0,2,4
-i3-3220T,35,1600,2800,0,2,4
-i3-3210,55,1600,3200,0,2,4
-)
-
-#
-# Ivy Bridge mobile processor data.
-#
-
-gMobileIvyBridgeCPUList=(
-# i7-3900 Mobile Processor Extreme Edition
-i7-3940XM,55,1200,3000,3900,4,8
-i7-3920XM,55,1200,2900,3800,4,8
-# i7-3800 Mobile Processor Series
-i7-3840QM,45,1200,2800,3800,4,8
-i7-3820QM,45,1200,2700,3700,4,8
-# i7-3700 Mobile Processor Series
-i7-3740QM,45,1200,2700,3700,4,8
-i7-3720QM,45,1200,2600,3600,4,8
-# i7-3600 Mobile Processor Series
-i7-3689Y,13,0,1500,2600,2,4
-i7-3687U,17,800,2100,3300,2,4
-i7-3667U,17,800,2000,3200,2,4
-i7-3635QM,45,0,2400,3400,4,8
-i7-3620QM,35,0,2200,3200,4,8
-i7-3632QM,35,0,2200,3200,4,8
-i7-3630QM,45,0,2400,3400,4,8
-i7-3615QM,45,0,2300,3300,4,8
-i7-3615QE,45,0,2300,3300,4,8
-i7-3612QM,35,0,2100,3100,4,8
-i7-3612QE,35,0,2100,3100,4,8
-i7-3610QM,45,0,2300,3300,4,8
-i7-3610QE,45,0,2300,3300,4,8
-# i7-3500 Mobile Processor Series
-i7-3555LE,25,0,2500,3200,2,4
-i7-3540M,35,1200,3000,3700,2,4
-i7-3537U,17,800,2000,3100,2,4
-i7-3520M,35,1200,2900,3600,2,4
-i7-3517UE,17,0,1700,2800,2,4
-i7-3517U,17,800,1900,3000,2,4
-# i5-3600 Mobile Processor Series
-i5-3610ME,35,0,2700,3300,2,4
-# i5-3400 Mobile Processor Series
-i5-3439Y,13,0,1500,2300,2,4
-i5-3437U,17,800,1900,2900,2,4
-i5-3427U,17,800,1800,2800,2,4
-# i5-3300 Mobile Processor Series
-i5-3380M,35,1200,2900,3600,2,4
-i5-3360M,35,1200,2800,3500,2,4
-i5-3340M,35,1200,2700,3400,2,4
-i5-3339Y,13,0,1500,2000,2,4
-i5-3337U,17,0,1800,2700,2,4
-i5-3320M,35,1200,2600,3300,2,4
-i5-3317U,17,800,1700,2600,2,4
-# i5-3200 Mobile Processor Series
-i5-3230M,35,1200,2600,3200,2,4
-i5-3210M,35,1200,2500,3100,2,4
-# i3-3200 Mobile Processor Series
-i3-3239Y,13,0,1400,0,2,4
-i3-3227U,17,800,1900,0,2,4
-i3-3217UE,17,0,1600,0,2,4
-i3-3217U,17,0,1800,0,2,4
-# i3-3100 Mobile Processor Series
-i3-3130M,35,1200,2600,0,2,4
-i3-3120ME,35,0,2400,0,2,4
-i3-3120M,35,0,2500,0,2,4
-i3-3110M,35,0,2400,0,2,4
-)
-
-#
-# This file includes all supported Apple models (based on processor type).
-#
-
-#
-# This variable will be used by ssdtPRGen.sh to determine whether or not it 
-# should download the model data file from the Github repository.
-#
-# Note: 0 will make it skip the version check and downloads of the data.
-#
-
-let gModelDataVersion=150
-
-#
-# Sandy Bridge processor based Apple models.
-#
-
-gSandyBridgeModelData=(
-Mac-942B5BF58194151B:iMac12,1
-Mac-942B59F58194171B:iMac12,2
-Mac-8ED6AF5B48C039E1:Macmini5,1
-Mac-4BC72D62AD45599E:Macmini5,2
-Mac-7BA5B2794B2CDB12:Macmini5,3
-Mac-94245B3640C91C81:MacBookPro8,1
-Mac-94245A3940C91C80:MacBookPro8,2
-Mac-942459F5819B171B:MacBookPro8,3
-Mac-C08A6BB70A942AC2:MacBookAir4,1
-Mac-742912EFDBEE19B3:MacBookAir4,2
-)
-
-#
-# Ivy Bridge processor based Apple models.
-#
-
-gIvyBridgeModelData=(
-Mac-00BE6ED71E35EB86:iMac13,1
-Mac-FC02E91DDD3FA6A4:iMac13,2
-Mac-031AEE4D24BFF0B1:Macmini6,1
-Mac-F65AE981FFA204ED:Macmini6,2
-Mac-4B7AC7E43945597E:MacBookPro9,1
-Mac-6F01561E16C75D06:MacBookPro9,2
-Mac-C3EC7CD22292981F:MacBookPro10,1
-Mac-AFD8A9D944EA4843:MacBookPro10,2
-Mac-66F35F19FE2A0D05:MacBookAir5,1
-Mac-2E6FAB96566FE58C:MacBookAir5,2
-Mac-F60DEB81FF30ACF6:MacPro6,1
-)
-
-#
-# Haswell processor based Apple models.
-#
-
-gHaswellModelData=(
-Mac-031B6874CF7F642A:iMac14,1
-Mac-27ADBB7B4CEE8E61:iMac14,2
-Mac-77EB7D7DAF985301:iMac14,3
-# Intel Core i5-4690 @ 3.50 GHz
-Mac-42FD25EABCABB274:iMac15,1
-# Intel Core i7-4790K @ 4.0 GHz
-Mac-FA842E06C61E91C5:iMac15,1
-Mac-189A3D4F975D5FFC:MacBookPro11,1
-Mac-3CBD00234E554E41:MacBookPro11,2
-Mac-2BD1B31983FE1663:MacBookPro11,3
-Mac-35C1E88140C3E6CF:MacBookAir6,1
-Mac-7DF21CB3ED6977E5:MacBookAir6,2
-Mac-F60DEB81FF30ACF6:MacPro6,1
-Mac-35C5E08120C7EEAF:Macmini7,1
-)
-
-#
-# Broadwell processors based Apple models.
-#
-
-gBroadwellModelData=(
-)
-
-
-#
-# This file includes all currently supported Sandy Bridge processor models. You can add missing 
-# models like this:
-#
-# Processor Number, Max TDP, Low Frequency Mode, Clock Speed, Max Turbo Frequency, Cores, Threads
-#
-# Notes:
-#
-#        A "low frequency mode" of 0 means that the frequency is unconfirmed (use AppleIntelInfo.kext).
-#        Processors without turbo support should set Max Turbo Frequency equal to the Clock Speed.
-#
-#
-# Please report missing processor data at: https://github.com/Piker-Alpha/ssdtPRGen.sh/issues
-#
-
-#
-# Change this to 0 and ssdtPRGen.sh won't check for updates and/or download the data file.
-#
-
-let gSandyBridgeCPUDataVersion=150
-
-#
-# Sandy Bridge Xeon processor data.
-#
-
-gServerSandyBridgeCPUList=(
-# E5-2600 Xeon Processor Series
-E5-2648L,70,1200,1800,2100,8,16
-E5-2658,95,1200,2100,2400,8,16
-E5-2687W,150,1200,3100,3800,8,16
-E5-2680,130,1200,2700,3500,8,16
-E5-2660,95,1200,2200,3000,8,16
-E5-2650L,70,1200,1800,2300,8,16
-E5-2630L,60,1200,2000,2500,6,12
-E5-2643,130,1200,3300,3500,4,8
-E5-2609,80,1200,2400,2400,4,4
-E5-2667,130,1200,2900,3500,6,12
-E5-2650,95,1200,2000,2800,8,16
-E5-2640,95,1200,2500,3000,6,12
-E5-2603,80,1200,1900,1800,4,4
-E5-2630,95,1200,2300,2800,6,12
-E5-2620,95,1200,2000,2500,6,12
-E5-2670,115,1200,2600,3300,8,16
-E5-2690,135,1200,2900,3800,8,16
-E5-2665,115,1200,2400,3100,8,16
-E5-2637,80,1200,3000,3500,2,2
-# E5-4600 Xeon Processor Series
-E5-4610,95,1200,2400,2900,6,12
-E5-4640,95,1200,2400,2800,8,16
-E5-4607,95,1200,2200,2200,6,12
-E5-4650L,115,1200,2600,3100,8,16
-E5-4620,95,1200,2200,2600,8,16
-E5-4617,130,1200,2900,3400,6,6
-E5-4603,95,1200,2000,2000,4,8
-E5-4650,130,1200,2700,3300,8,16
-# E5-1600 Xeon Processor Series
-E5-1660,130,0,3300,3900,6,12
-E5-1650,130,0,3200,3800,6,12
-E5-1620,130,0,3600,3800,4,8
-# E3-1200 Xeon Processor Series
-E3-1290,95,0,3600,4000,4,8
-E3-1280,95,0,3500,3900,4,8
-E3-1275,95,0,3400,3800,4,8
-E3-1270,80,0,3400,3800,4,8
-E3-1260L,45,0,2400,3300,4,8
-E3-1245,95,0,3300,3700,4,8
-E3-1240,80,0,3300,3700,4,8
-E3-1235,95,0,3200,3600,4,8
-E3-1230,80,0,3200,3600,4,8
-E3-1225,95,0,3100,3400,4,4
-E3-1220L,20,0,2200,3400,2,4
-E3-1220,80,0,3100,3400,4,4
-)
-
-#
-# Sandy Bridge desktop processor data.
-#
-
-gDesktopSandyBridgeCPUList=(
-i7-35355,120,1600,2666,2666,4,4
-# i7 Desktop Extreme Series
-i7-3970X,150,1200,3500,4000,6,12
-i7-3960X,130,1200,3300,3900,6,12
-i7-3930K,130,1200,3200,3800,6,12
-i7-3820,130,1200,3600,3800,4,8
-# i7 Desktop series
-i7-2600S,65,1600,2800,3800,4,8
-i7-2600,95,1600,3400,3800,4,8
-i7-2600K,95,1600,3400,3800,4,8
-i7-2700K,95,1600,3500,3900,4,8
-# i5 Desktop Series
-i5-2300,95,1600,2800,3100,4,4
-i5-2310,95,1600,2900,3200,4,4
-i5-2320,95,1600,3000,3300,4,4
-i5-2380P,95,1600,3100,3400,4,4
-i5-2390T,35,1600,2700,3500,2,4
-i5-2400S,65,1600,2500,3300,4,4
-i5-2405S,65,1600,2500,3300,4,4
-i5-2400,95,1600,3100,3400,4,4
-i5-2450P,95,1600,3200,3500,4,4
-i5-2500T,45,1600,2300,3300,4,4
-i5-2500S,65,1600,2700,3700,4,4
-i5-2500,95,1600,3300,3700,4,4
-i5-2500K,95,1600,3300,3700,4,4
-i5-2550K,95,1600,3400,3800,4,4
-# i3 1200 Desktop Series
-i3-2130,65,1600,3400,0,2,4
-i3-2125,65,1600,3300,0,2,4
-i3-2120T,35,1600,2600,0,2,4
-i3-2120,65,1600,3300,0,2,4
-i3-2115C,25,1600,2000,0,2,4
-i3-2105,65,1600,3100,0,2,4
-i3-2102,65,1600,3100,0,2,4
-i3-2100T,35,1600,2500,0,2,4
-i3-2100,65,1600,3100,0,2,4
-)
-
-#
-# Sandy Bridge mobile processor data.
-#
-
-gMobileSandyBridgeCPUList=(
-# i7 Mobile Extreme Series
-i7-2960XM,55,800,2700,3700,4,8
-i7-2920XM,55,800,2500,3500,4,8
-# i7 Mobile Series
-i7-2860QM,45,800,2500,3600,4,8
-i7-2820QM,45,800,2300,3400,4,8
-i7-2760QM,45,800,2400,3500,4,8
-i7-2720QM,45,800,2200,3300,4,8
-i7-2715QE,45,800,2100,3000,4,8
-i7-2710QE,45,800,2100,3000,4,8
-i7-2677M,17,800,1800,2900,2,4
-i7-2675QM,45,800,2200,3100,4,8
-i7-2670QM,45,800,2200,3100,4,8
-i7-2675M,17,800,1600,2700,2,4
-i7-2655LE,25,800,2200,2900,2,4
-i7-2649M,25,800,2300,3200,2,4
-i7-2640M,35,800,2800,3500,2,4
-i7-2637M,17,800,1700,2800,2,4
-i7-2635QM,45,800,2000,2900,4,8
-i7-2630QM,45,800,2000,2900,4,8
-i7-2629M,25,800,2100,3000,2,4
-i7-2620M,35,800,2700,3400,2,4
-i7-2617M,17,800,1500,2600,2,4
-i7-2610UE,17,800,1500,2400,2,4
-# i5 Mobile Series
-i5-2467M,17,800,1600,2300,2,4
-i5-2450M,35,800,2300,3100,2,4
-i5-2435M,35,800,2400,3000,2,4
-i5-2430M,35,800,2400,3000,2,4
-i5-2410M,35,800,2300,2900,2,4
-i5-2557M,17,800,1700,2700,2,4
-i5-2540M,35,800,2600,3300,2,4
-i5-2537M,17,800,1400,2300,2,4
-i5-2520M,35,800,2500,3200,2,4
-i5-2515E,35,800,2500,3100,2,4
-i5-2510E,35,800,2500,3100,2,4
-# i3 2300 Mobile Series
-i3-2377M,17,800,1500,0,2,4
-i3-2370M,35,800,2400,0,2,4
-i3-2367M,17,800,1400,0,2,4
-i3-2365M,17,800,1400,0,2,4
-i3-2357M,17,800,1300,0,2,4
-i3-2350M,35,800,2300,0,2,4
-i3-2348M,35,800,2300,0,2,4
-i3-2340UE,17,800,1300,0,2,4
-i3-2330M,35,800,2200,0,2,4
-i3-2330E,35,800,2200,0,2,4
-i3-2328M,35,800,2200,0,2,4
-i3-2312M,35,800,2100,0,2,4
-i3-2310M,35,800,2100,0,2,4
-i3-2310E,35,800,2100,0,2,4
-)
-
-#
-# New Broadwell processors.
-#
-gServerBroadwellCPUList=()
-gDesktopBroadwellCPUList=()
-gMobileBroadwellCPUList=()
-
-#
-#--------------------------------------------------------------------------------
-# https://github.com/Piker-Alpha/RevoBoot/blob/clang/i386/libsaio/acpi/Tools/extractACPITables.c
-#
-
-acpiTableExtract="
-\x50\x4B\x03\x04\x14\x00\x08\x00\x08\x00\x80\xB9\x53\x45\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x00\x10\x00\x61\x63
-\x70\x69\x54\x61\x62\x6C\x65\x45\x78\x74\x72\x61\x63\x74\x55\x58\x0C\x00\x34\x29\x44\x54\x20\x29\x44\x54\xF5\x01\x14\x00\xED\x5A
-\x7F\x6C\x1B\xD5\x1D\x7F\x76\xD2\x24\x6B\xD3\xDA\x21\x6C\x6B\x35\xD8\x4C\xD7\x40\xCA\x50\x9C\x6E\x54\x2A\x1A\xDB\x72\x75\x1C\xEC
-\x36\x21\x21\x49\xBB\xA8\x1A\xBA\x9E\x9D\xE7\xDA\xE4\x7C\x8E\xEE\x9E\xD7\x18\xA9\x53\x46\x1A\x94\x93\x1B\x66\x4D\x0C\xF5\x8F\x49
-\x14\x6D\x42\x1A\x02\x29\x7F\x20\x0D\x3A\xA9\x44\x5B\x7F\x21\x26\xD8\xF8\x6B\x12\x08\xD0\x04\xE8\x82\xBA\xA9\x9A\xA6\x52\x55\x10
-\xEF\xFB\x7D\xF7\x1C\x9F\xCF\x8E\xAB\x69\x7F\xEE\xBE\xD2\x7B\xDF\x1F\xEF\x7D\x3F\xF7\xBD\x7B\x3F\xEE\xDD\x7B\xF7\xCE\xAD\x7F\xAC
-\xB7\x13\xE2\x6B\x21\x64\xDE\x4F\x08\xB9\x03\xD2\x6C\x1B\x21\x8B\x24\x44\x90\x76\x41\x8A\x41\x92\xE5\x31\xE9\x91\xE8\xB1\xE8\xF8
-\x28\xA9\x23\x5F\xBD\xA9\x8E\x10\xA7\xD7\x8F\x38\x93\xD1\xA9\xC9\x06\xFE\x41\x97\x83\xD0\x21\x36\xB2\x05\x52\x9B\x30\xCB\x32\xA3
-\x73\xAC\x5A\xCD\x8D\xB7\xD2\x69\xE3\xFD\xDC\x57\xD5\x5B\x9D\xB8\xAD\x64\xDE\xA9\xCA\xB2\xC1\xF2\x09\x63\x53\xBC\xEF\xEE\xB0\xF1
-\x8E\xB9\xF4\x0A\x75\x08\xBC\x6A\x7C\x88\x27\xA7\xA9\x3A\x4B\xF5\x06\x78\x67\x84\xFF\x8B\x0E\xDD\xDF\x34\xBE\xA4\xC1\xF4\x8C\x76
-\x62\xB3\xF8\x02\x36\x5E\xBF\x43\x77\x92\xBF\x56\x05\xFF\xBC\x76\x32\xA3\x4D\xCB\x19\x2D\x95\x6B\x80\x97\x10\x78\x31\x87\xDE\x8C
-\x64\x99\xA6\xE5\x94\xAE\x64\x69\xE3\xF8\x56\x5C\x78\xA8\xB7\x34\xC1\xC3\x7E\xB2\xE4\x43\x9C\x41\x69\x52\x72\x14\x04\x5D\xFD\xC4
-\xC5\xB1\x9F\x20\x6E\xA5\xAD\x65\x59\x53\x65\xA3\x90\x4D\xE4\x54\x79\x96\xE9\x9B\xE2\x05\x1D\xBA\x33\x2E\x6C\x4F\xE7\xAD\xCB\xF2
-\x89\x1C\xAB\xD1\x6B\xF1\x82\x2E\xBC\x60\x03\xBC\xAE\x1A\x7F\x55\x69\x16\x5F\x48\xE0\xCD\x39\x74\x27\x1E\xDE\x6F\x77\x0D\x5E\x32
-\xE5\xEC\x28\x6E\xBC\xB3\x02\x2F\xE4\xD0\x6F\xD7\x0E\xF6\xB8\x1F\x8E\x3F\x7A\x38\x3A\x18\xAF\xB4\x69\xC8\xD5\x0E\x02\x70\xA0\xAD
-\x1A\x97\x73\x7C\xEC\x86\x79\xA5\x5F\xD4\xEB\x00\xD6\x01\x7C\xC9\x51\x5E\x02\x3D\x0D\x0E\x37\xEF\xB1\xFB\x30\xF6\xD7\x9D\x90\x2C
-\x70\xFC\x2A\xF0\xD5\x3D\x00\x00\xE5\xDB\x40\x1E\x73\xC5\xE8\x17\xA9\x9B\x6C\x4E\x07\xF6\xF0\x18\xEA\x68\x87\x08\x1D\xA6\x07\x12
-\xCE\x1B\x7A\x58\xCD\x24\xC2\xD3\x05\x75\x5A\x94\x7F\x43\xC4\xD1\xC9\x9E\xFA\xF3\xF7\xDA\xBF\x1F\xF9\xFD\xD3\x6F\x3E\x3C\x73\xF3
-\xBE\xCB\x7B\x2A\xB7\xDE\xB1\x95\xA7\xFB\x49\xED\xD4\xD5\x0B\xE1\xA2\x1F\xCE\x3B\x4E\x42\x75\x4A\x60\xDA\x63\xB2\xDB\x87\x4F\x2A
-\x3C\x51\x30\x18\xCD\x86\x87\x33\x09\x5D\xD1\x0B\xE1\x21\x1C\x4A\x27\x73\xFA\x8C\x11\x8E\x8F\x1E\xCE\xB0\xBE\x54\xC5\x10\x3E\x4A
-\x75\x23\x93\xD3\x8C\xB0\x64\x17\x6D\xE0\xA6\x9D\xB8\xDD\x16\xB0\xE7\x9A\xE1\x46\x72\x3A\x1D\xCA\xE5\xB5\x69\x85\x01\x5C\xE3\x0B
-\xD4\xD6\x11\xD7\x39\xE0\xBC\x4E\xCB\xEF\x08\x8F\xBF\xF2\xEC\x20\xD9\x97\xEC\x3B\xD8\x07\xCF\x31\x93\xB0\xEF\xFB\x5E\xF1\x7C\x7A
-\x77\xDB\xED\xBF\x57\xE8\xFD\xA2\x51\xBE\xE3\xD0\x5F\x6B\xD2\x8E\x1E\x79\xE4\x91\x47\x1E\xFD\x7F\xD3\x91\x98\xF9\x89\xF4\x63\xE9
-\xA8\x74\x44\x9A\x9C\x88\x2D\x5C\x9B\x8A\x2D\xFF\xE0\x09\x78\x21\x59\x27\xE1\x75\x1A\x2B\x6E\x1F\x84\x45\x4D\xF1\xA1\x98\x79\xD9
-\x3A\x0E\x86\xC5\xD5\xC0\x69\xC9\x2E\xF8\x76\x0B\xB2\xAE\xD8\xF2\xFE\x17\x40\x32\xAF\x98\xA7\x9E\xDD\xF7\xA6\xB5\x1F\x0B\xCD\x3F
-\x49\x17\xD6\xCB\xE5\x72\x6C\xF1\xBD\xC0\x69\x3F\xB7\x7C\x68\x3D\x04\x3C\x6E\x5E\x89\x99\x74\xFE\xD0\x72\xEB\x97\xB8\x16\x8C\x2D
-\x7C\x74\x3D\x6E\x7E\x1C\xDF\x7B\x71\x18\x72\xF3\x93\xF8\xDE\x4B\xC3\xE6\x35\xA8\x1C\x33\x1F\x5F\x1A\x36\x3F\x1D\x36\x3F\xB3\x3A
-\xC0\x6D\x64\xB1\xFC\x3A\xC6\x1A\x78\xE6\x37\x90\xEF\x5B\x8D\x2D\x3F\xBE\x12\xF8\xD6\x69\x1E\xBF\x19\x7D\x39\x5E\x3C\x45\xAC\xB7
-\x11\xCF\x8C\x9E\xE3\xCA\x15\x5B\x39\x1B\x2F\x3E\xBC\x67\xDF\x0D\xEB\x2F\x5C\xFD\x70\xDF\x8D\xF3\x21\x94\x96\xB7\xBF\xC2\x63\x59
-\xED\x5F\xB5\xFE\x60\x17\x5D\xF0\xC1\x72\xEB\xFC\x6F\xC1\x0C\x36\xBC\x96\x64\x5E\x7E\xFD\x4B\xB8\x05\x69\x61\xBD\xCC\xEE\x8E\x15
-\xA3\x67\xCD\x3F\x0E\x9A\x9F\xC7\x8A\xF9\x73\xD6\xF3\x50\x0E\xB2\xB5\x08\xBC\x38\xF2\x72\x7C\xE1\x62\x47\x7C\xE1\x52\x47\xBC\xFC
-\x8E\x79\x35\xB0\x38\x83\x37\x5E\x3C\xB5\x64\xBE\x65\x8D\x23\x78\x91\xCE\x4B\xE6\x07\xC5\x53\xCF\x5A\xDD\xC2\x6F\x02\xF8\x1B\x50
-\xAB\x6C\xC5\x41\x2A\x95\x7B\x2C\xB8\x6E\xB9\xE7\x33\x9E\x5F\xE3\xF9\x3F\x79\x7E\x9D\xE7\xFF\xE2\xF9\xBF\x79\x7E\x83\xE7\x37\x79
-\x7E\x8B\xE7\x5F\xF0\x7C\x9D\xE7\xB8\x90\x28\xF7\xF8\x79\xDE\x0A\xF9\xF0\xF2\xDD\x79\x28\x90\x26\xCA\x3D\x14\x78\x09\xD7\x35\x64
-\xED\x53\xB8\x72\xFA\xEB\x28\xBD\x8F\xD2\x0F\x51\x7A\x17\x25\x05\xA5\xAB\x28\x3D\x89\xD2\x05\x94\x7E\x89\xD2\xAB\x28\xE1\xF2\x64
-\xED\x25\x94\x2E\xA1\x74\x0E\xA5\x35\x94\x9E\x43\xE9\x16\x4A\x67\x38\x32\x5C\x69\xED\x29\x94\x1E\x40\x69\x0E\x25\x6C\xFB\x35\x0D
-\xA5\x21\x94\xA6\x51\x9A\x40\xE9\x18\x3E\xE2\xD9\x59\x95\x4A\x91\xB1\xF8\x98\xAA\xB0\x54\x4E\xCF\x46\xE7\xE0\x53\x8F\x11\x34\x85
-\x26\x95\x84\x4A\x0D\x12\x66\xD9\xD9\x70\x8F\xD1\xA7\x64\x55\xBE\x1A\xBE\x4B\xF4\x5E\x27\xC7\x55\x14\xAE\x12\x1F\x24\x76\xC2\x2F
-\x4B\x22\x64\x5C\x99\x77\x82\x67\x50\xAC\xA5\xFF\x3A\xB5\x45\x2C\xAA\xEF\x14\x08\xBE\x27\xC7\x89\x6F\x2E\xE8\x0B\x76\xB6\x77\x94
-\xA0\xEC\x01\x81\xFA\xD1\x17\x65\x4E\x95\xEF\x5F\x22\xED\x08\x3E\xED\x8F\x6C\x6F\x1B\x59\x68\x3F\xD3\xB6\xBC\xE5\x99\xD6\x5F\x34
-\x5B\xF6\xD7\xD1\xAF\x2B\xDF\xAB\x82\xAF\x08\x7E\x5E\xF0\x8B\x82\xBF\x2D\xF8\xDF\x04\xFF\xBB\xE0\xD7\x04\xBF\x51\xF9\x6E\x16\xDF
-\x83\x5B\x05\xBF\x53\xF0\x6F\x0A\xDE\x1B\xA8\xFD\x7E\xB8\xDA\x6E\xF3\x43\xC2\xBE\xED\xBF\x09\xDE\x23\x8F\x3C\xF2\xC8\x23\x8F\x3C
-\xF2\xC8\x23\x8F\x3C\xF2\xC8\x23\x8F\x3C\xE2\xD4\xB5\x3B\x74\x3C\x70\xF0\x31\xD2\x35\x20\xCF\xC4\x47\x47\x14\x83\x51\x7D\x2C\xA7
-\xB3\x41\x9A\x52\xF2\x2A\x23\x8F\xE9\x3B\x4B\x77\x0C\xC8\xB2\x1C\x19\x8A\xE4\x34\x83\x29\x1A\x9B\xE0\xC7\x8C\x11\x55\x31\x8C\x71
-\x9A\xA2\x3A\xD5\x92\x94\xCC\xCF\x95\x00\x21\x32\x24\xA9\x6A\x2E\xA9\xB0\x9C\x5E\x01\x98\xBF\xBE\x6E\xEF\x48\x94\x7D\xA5\xEE\x01
-\x3C\x61\xB3\x4F\xC8\x13\x19\x6D\x9A\xEA\x64\xDE\x2A\x6F\x14\x63\x3C\x7A\x08\x22\x89\x8F\x8E\x26\x9E\xA0\x49\x36\x4E\x55\xAA\x18
-\x94\x94\x88\xDE\xCB\xCD\xE3\xF4\x44\xC6\x60\x7A\x21\xAA\x41\x16\xD1\xA9\xC2\x68\x64\x68\x4C\xCF\xE1\x06\x4C\x01\xAB\xF5\xF3\x6A
-\x13\x54\xFF\x69\x26\x49\x1F\xA1\x6C\x44\x61\xC9\x34\x44\x2B\x2C\x58\xE5\x80\xB3\x4A\xA5\x1C\x0B\x06\xE0\x3E\x23\x43\x83\x0A\x53
-\xC0\xF1\x60\x81\xD1\x31\xA6\xA3\x3D\xE6\xB4\x0F\x53\xED\x04\x4B\xA3\x79\xCC\x36\x67\x92\x78\x42\xA6\xE8\x05\x28\x8C\xE4\xF2\x1A
-\xC3\xB2\xA9\xFA\xB2\xC3\xB4\x60\x48\xDA\xF4\x51\x45\xCD\x53\x03\xEB\x1C\xE7\x75\x1C\xB7\x98\xE6\x06\xFB\xE9\x22\x98\x2D\x89\x20
-\x66\xBB\xB1\x11\x8C\x59\x30\xB1\x94\x9C\x4C\xCF\xA0\x71\x0E\x8C\x49\x35\x67\xBB\xCF\xFB\x40\xA3\x73\x19\x1E\xC0\x12\x2A\xF0\x58
-\x34\x54\x4A\xA8\x9C\xD4\x33\x0C\xEB\x55\xC8\x27\x93\x2D\xC4\x2F\x67\xD3\xE0\x43\x93\x79\x46\xE5\x34\x55\xB0\x45\xEE\xC9\x2A\x19
-\x8D\xF4\xE0\xF6\x54\x0B\x59\xD9\x25\xAA\x57\x84\x5B\x1F\x74\xE2\xEF\x18\xAF\x91\xEA\xF1\x31\x1E\x89\xE2\xD6\xCC\x4F\x88\xBD\xA9
-\x55\x82\x3A\x68\x3F\x20\xEC\x6D\xC2\xBE\x2B\x99\xCB\xF6\x29\xB8\x7B\x56\x3D\x73\xEC\xAB\x9E\x64\x92\x16\xE1\xF7\xA0\xCB\x6F\x67
-\xD5\xAF\xEE\x58\xB2\xE2\xD3\xEB\xF2\xD9\xE6\x38\x8E\xE4\xD8\x68\x0C\xF8\xEC\x93\x5A\xAC\xF8\x35\xAE\x57\xFF\x17\xB9\xCB\xB6\x6F
-\xFC\x2E\xD1\xE7\xD2\x7F\xE4\xD2\x8F\xB8\x74\xC3\xA5\xFF\xCC\xA5\xFF\xCA\xD6\x37\xB6\xB6\x5E\x74\xE9\x57\x5C\xFA\xC7\x2E\xFD\x73
-\x17\xDE\x2E\xBB\x70\x63\x2F\xAF\xD7\xA5\x87\x5D\xFA\x7E\x5F\xAD\xFF\x21\x5F\x2D\xFE\x71\x57\xFD\x94\x4B\xCF\xBA\x74\x3C\xCB\xFD
-\x0A\xA4\xAD\xC4\xDE\x93\xB3\xBB\x8B\xFD\xFF\x45\xE5\x7F\x1D\xDC\xBA\xDB\x4E\xEC\xB3\x76\xDC\x3F\xC7\x7F\x8B\x70\x53\x59\xEC\x61
-\x0E\x60\x6B\x74\xFD\x8F\x58\x21\x22\x37\xE8\xC3\x32\xEF\xC3\xF5\xA3\xB9\x6E\x1C\x37\x1E\xC1\xCD\xC7\xAE\x63\xD4\x6E\x32\x5E\xEB
-\x26\xB0\xDB\x4E\x5D\x4D\x27\xAD\x06\xD3\xD5\xED\x27\x64\xD7\x6C\x21\xE6\x09\x7B\x82\x68\x38\x51\x37\x9E\xFF\xED\x49\x44\xCC\x1E
-\x75\xB3\x37\x21\xFF\x01\x50\x4B\x07\x08\x28\x51\x4F\x88\x48\x07\x00\x00\x40\x26\x00\x00\x50\x4B\x01\x02\x15\x03\x14\x00\x08\x00
-\x08\x00\x80\xB9\x53\x45\x28\x51\x4F\x88\x48\x07\x00\x00\x40\x26\x00\x00\x10\x00\x0C\x00\x00\x00\x00\x00\x00\x00\x00\x40\xED\x81
-\x00\x00\x00\x00\x61\x63\x70\x69\x54\x61\x62\x6C\x65\x45\x78\x74\x72\x61\x63\x74\x55\x58\x08\x00\x34\x29\x44\x54\x20\x29\x44\x54
-\x50\x4B\x05\x06\x00\x00\x00\x00\x01\x00\x01\x00\x4A\x00\x00\x00\x96\x07\x00\x00\x00\x00"
-#
-# Removing newline characters.
-#
-strippedData=$(echo "$acpiTableExtract" | tr -d '\n')
-#
-# Writing data to zip file.
-#
-printf "$strippedData" > acpiTableExtract.zip
-#
-# Unzipping command line tool.
-#
-unzip -qu acpiTableExtract.zip -d .
-#
-# Extracting ACPI tables.
-#
-./acpiTableExtract
-
 
 function _PRINT_MSG()
 {
@@ -1158,7 +383,7 @@ function _getPBlockAddress()
   #
   # Get Processor Control Block (P_BLK) address from offset: 152/0x98 in facp.aml
   #
-  local data=$(xxd -s 152 -l 4 -ps "${gScriptPath}/facp.aml")
+  local data=$(xxd -s 152 -l 4 -ps "${gPath}/facp.aml")
   #
   # Convert data to Little Endian
   #
@@ -1279,7 +504,7 @@ function _injectDebugInfo()
   echo '        {'                                                                    >> "$gSsdtPR"
   echo '            Store ("ssdtPRGen version....: '$gScriptVersion' / '$gProductName' '$gProductVersion' ('$gBuildVersion')", Debug)'  >> "$gSsdtPR"
   echo '            Store ("target processor.....: '$gProcessorNumber'", Debug)'      >> "$gSsdtPR"
-  echo '            Store ("running processor....: '$gBrandString'", Debug)'          >> "$gSsdtPR"
+  echo '            Store ("source processor.....: '$gBrandString'", Debug)'          >> "$gSsdtPR"
   echo '            Store ("baseFrequency........: '$gBaseFrequency'", Debug)'        >> "$gSsdtPR"
   echo '            Store ("frequency............: '$frequency'", Debug)'             >> "$gSsdtPR"
   echo '            Store ("busFrequency.........: '$gBusFrequency'", Debug)'         >> "$gSsdtPR"
@@ -1386,7 +611,12 @@ function _printScopeStart()
 
       if [[ $lowFrequencyPStates -gt 0 ]];
         then
-          printf "        Name (APLF, 0x%02x)\n" $lowFrequencyPStates                 >> "$gSsdtPR"
+          if [[ $lowFrequencyPStates -gt 1 ]];
+            then
+              printf "        Name (APLF, 0x%02x)\n" $lowFrequencyPStates             >> "$gSsdtPR"
+            else
+              printf "        Name (APLF, One)\n"                                     >> "$gSsdtPR"
+           fi
         else
           # Prevent optimization warning.
           echo "        Name (APLF, Zero)"                                            >> "$gSsdtPR"
@@ -1601,10 +831,9 @@ function _printMethodDSM()
 
       if [[ $gDebug -eq 1 ]];
         then
-          #
-          # Note: This will be called twice!
-          #
-          echo '            Store ("Method '${gProcessorNames[0]}'._DSM Called", Debug)'  >> "$gSsdtPR"
+          local debugScopeName=$(echo $scope | sed -e 's/^\\//')
+
+          echo '            Store ("Method '$debugScopeName'.'${gProcessorNames[0]}'._DSM Called", Debug)'  >> "$gSsdtPR"
           echo ''                                                                         >> "$gSsdtPR"
       fi
 
@@ -1704,7 +933,9 @@ function _printScopeACST()
 
   if (( $gDebug ));
     then
-      echo '            Store ("Method '${gProcessorNames[$targetCPU]}'.ACST Called", Debug)'  >> "$gSsdtPR"
+     local debugScopeName=$(echo $scope | sed -e 's/^\\//')
+
+      echo '            Store ("Method '$debugScopeName'.'${gProcessorNames[$targetCPU]}'.ACST Called", Debug)'  >> "$gSsdtPR"
   fi
   #
   # Are we injecting C-States for CPU1?
@@ -1787,141 +1018,145 @@ function _printScopeACST()
 
   let hintCode=0x00
 
-    echo "            /* Low Power Modes for ${gProcessorNames[$1]} */"                 >> "$gSsdtPR"
-  printf "            Return (Package (0x%02x)\n" $pkgLength                            >> "$gSsdtPR"
-    echo '            {'                                                                >> "$gSsdtPR"
-    echo '                One,'                                                         >> "$gSsdtPR"
-  printf "                0x%02x,\n" $numberOfCStates                                   >> "$gSsdtPR"
-    echo '                Package (0x04)'                                               >> "$gSsdtPR"
-    echo '                {'                                                            >> "$gSsdtPR"
-    echo '                    ResourceTemplate ()'                                      >> "$gSsdtPR"
-    echo '                    {'                                                        >> "$gSsdtPR"
-    echo '                        Register (FFixedHW,'                                  >> "$gSsdtPR"
-    echo '                            0x01,               // Bit Width'                 >> "$gSsdtPR"
-    echo '                            0x02,               // Bit Offset'                >> "$gSsdtPR"
-  printf "                            0x%016x, // Address\n" $hintCode                  >> "$gSsdtPR"
-    echo '                            0x01,               // Access Size'               >> "$gSsdtPR"
-    echo '                            )'                                                >> "$gSsdtPR"
-    echo '                    },'                                                       >> "$gSsdtPR"
-    echo '                    One,'                                                     >> "$gSsdtPR"
-    echo '                    '$latency_C1','                                           >> "$gSsdtPR"
-    echo '                    0x03E8'                                                   >> "$gSsdtPR"
+    echo "            /* Low Power Modes for ${gProcessorNames[$1]} */"               >> "$gSsdtPR"
+  printf "            Return (Package (0x%02x)\n" $pkgLength                          >> "$gSsdtPR"
+    echo '            {'                                                              >> "$gSsdtPR"
+    echo '                One,'                                                       >> "$gSsdtPR"
+  printf "                0x%02x,\n" $numberOfCStates                                 >> "$gSsdtPR"
+    echo '                Package (0x04)'                                             >> "$gSsdtPR"
+    echo '                {'                                                          >> "$gSsdtPR"
+    echo '                    ResourceTemplate ()'                                    >> "$gSsdtPR"
+    echo '                    {'                                                      >> "$gSsdtPR"
+    echo '                        Register (FFixedHW,'                                >> "$gSsdtPR"
+    echo '                            0x01,               // Bit Width'               >> "$gSsdtPR"
+    echo '                            0x02,               // Bit Offset'              >> "$gSsdtPR"
+  printf "                            0x%016x, // Address\n" $hintCode                >> "$gSsdtPR"
+    echo '                            0x01,               // Access Size'             >> "$gSsdtPR"
+    echo '                            )'                                              >> "$gSsdtPR"
+    echo '                    },'                                                     >> "$gSsdtPR"
+    echo '                    One,'                                                   >> "$gSsdtPR"
+    echo '                    '$latency_C1','                                         >> "$gSsdtPR"
+    echo '                    0x03E8'                                                 >> "$gSsdtPR"
 
-    if (($C2)); then
-        let hintCode+=0x10
-        echo '                },'                                                       >> "$gSsdtPR"
-        echo ''                                                                         >> "$gSsdtPR"
-        echo '                Package (0x04)'                                           >> "$gSsdtPR"
-        echo '                {'                                                        >> "$gSsdtPR"
-        echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
-        echo '                    {'                                                    >> "$gSsdtPR"
-        echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
-        echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
-        echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
-      printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
-        echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
-        echo '                            )'                                            >> "$gSsdtPR"
-        echo '                    },'                                                   >> "$gSsdtPR"
-        echo '                    0x02,'                                                >> "$gSsdtPR"
-        echo '                    '$latency_C2','                                       >> "$gSsdtPR"
-        echo '                    0x01F4'                                               >> "$gSsdtPR"
-    fi
+  if (($C2));
+    then
+      let hintCode+=0x10
+      echo '                },'                                                       >> "$gSsdtPR"
+      echo ''                                                                         >> "$gSsdtPR"
+      echo '                Package (0x04)'                                           >> "$gSsdtPR"
+      echo '                {'                                                        >> "$gSsdtPR"
+      echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
+      echo '                    {'                                                    >> "$gSsdtPR"
+      echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
+      echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
+      echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
+    printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
+      echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
+      echo '                            )'                                            >> "$gSsdtPR"
+      echo '                    },'                                                   >> "$gSsdtPR"
+      echo '                    0x02,'                                                >> "$gSsdtPR"
+      echo '                    '$latency_C2','                                       >> "$gSsdtPR"
+      echo '                    0x01F4'                                               >> "$gSsdtPR"
+  fi
 
-    if (($C3)); then
-        let hintCode+=0x10
-        local power_C3=0x01F4
-        #
-        # Is this for CPU1?
-        #
-        if (($1)); then
-            if [[ ${gModelID:0:7} == "iMac13," ]];
-                then
-                    local power_C3=0x15E
-                    latency_C3=0xA9
-                else
-                    local power_C3=0xC8
-                    let hintCode+=0x10
-            fi
-        fi
-
-        echo '                },'                                                       >> "$gSsdtPR"
-        echo ''                                                                         >> "$gSsdtPR"
-        echo '                Package (0x04)'                                           >> "$gSsdtPR"
-        echo '                {'                                                        >> "$gSsdtPR"
-        echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
-        echo '                    {'                                                    >> "$gSsdtPR"
-        echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
-        echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
-        echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
-      printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
-        echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
-        echo '                            )'                                            >> "$gSsdtPR"
-        echo '                    },'                                                   >> "$gSsdtPR"
-        echo '                    0x03,'                                                >> "$gSsdtPR"
-        echo '                    '$latency_C3','                                       >> "$gSsdtPR"
-        echo '                    '$power_C3                                            >> "$gSsdtPR"
-    fi
-
-    if (($C6)); then
-        let hintCode+=0x10
-        echo '                },'                                                       >> "$gSsdtPR"
-        echo ''                                                                         >> "$gSsdtPR"
-        echo '                Package (0x04)'                                           >> "$gSsdtPR"
-        echo '                {'                                                        >> "$gSsdtPR"
-        echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
-        echo '                    {'                                                    >> "$gSsdtPR"
-        echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
-        echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
-        echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
-      printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
-        echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
-        echo '                            )'                                            >> "$gSsdtPR"
-        echo '                    },'                                                   >> "$gSsdtPR"
-        echo '                    0x06,'                                                >> "$gSsdtPR"
-        echo '                    '$latency_C6','                                       >> "$gSsdtPR"
-        echo '                    0x015E'                                               >> "$gSsdtPR"
-    fi
-
-	if (($C7)); then
-        #
-        # If $hintCode is already 0x30 then use 0x31 otherwise 0x30
-        #
-        if [ $hintCode -eq 48 ];
+  if (($C3));
+    then
+      let hintCode+=0x10
+      local power_C3=0x01F4
+      #
+      # Is this for CPU1?
+      #
+      if (($1));
+        then
+          if [[ ${gModelID:0:7} == "iMac13," ]];
             then
-                let hintCode+=0x01
+              local power_C3=0x15E
+              latency_C3=0xA9
             else
-                let hintCode+=0x10
-        fi
-        echo '                },'                                                       >> "$gSsdtPR"
-        echo ''                                                                         >> "$gSsdtPR"
-        echo '                Package (0x04)'                                           >> "$gSsdtPR"
-        echo '                {'                                                        >> "$gSsdtPR"
-        echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
-        echo '                    {'                                                    >> "$gSsdtPR"
-        echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
-        echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
-        echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
-      printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
-        echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
-        echo '                            )'                                            >> "$gSsdtPR"
-        echo '                    },'                                                   >> "$gSsdtPR"
-        echo '                    0x07,'                                                >> "$gSsdtPR"
-        echo '                    '$latency_C7','                                       >> "$gSsdtPR"
-        echo '                    0xC8'                                                 >> "$gSsdtPR"
-    fi
+              local power_C3=0xC8
+              let hintCode+=0x10
+          fi
+      fi
 
-    echo '                }'                                                            >> "$gSsdtPR"
-    echo '            })'                                                               >> "$gSsdtPR"
-    echo '        }'                                                                    >> "$gSsdtPR"
+      echo '                },'                                                       >> "$gSsdtPR"
+      echo ''                                                                         >> "$gSsdtPR"
+      echo '                Package (0x04)'                                           >> "$gSsdtPR"
+      echo '                {'                                                        >> "$gSsdtPR"
+      echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
+      echo '                    {'                                                    >> "$gSsdtPR"
+      echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
+      echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
+      echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
+    printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
+      echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
+      echo '                            )'                                            >> "$gSsdtPR"
+      echo '                    },'                                                   >> "$gSsdtPR"
+      echo '                    0x03,'                                                >> "$gSsdtPR"
+      echo '                    '$latency_C3','                                       >> "$gSsdtPR"
+      echo '                    '$power_C3                                            >> "$gSsdtPR"
+  fi
 
+  if (($C6));
+    then
+      let hintCode+=0x10
+      echo '                },'                                                       >> "$gSsdtPR"
+      echo ''                                                                         >> "$gSsdtPR"
+      echo '                Package (0x04)'                                           >> "$gSsdtPR"
+      echo '                {'                                                        >> "$gSsdtPR"
+      echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
+      echo '                    {'                                                    >> "$gSsdtPR"
+      echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
+      echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
+      echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
+    printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
+      echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
+      echo '                            )'                                            >> "$gSsdtPR"
+      echo '                    },'                                                   >> "$gSsdtPR"
+      echo '                    0x06,'                                                >> "$gSsdtPR"
+      echo '                    '$latency_C6','                                       >> "$gSsdtPR"
+      echo '                    0x015E'                                               >> "$gSsdtPR"
+  fi
+
+  if (($C7));
+    then
+      #
+      # If $hintCode is already 0x30 then use 0x31 otherwise 0x30
+      #
+      if [ $hintCode -eq 48 ];
+        then
+          let hintCode+=0x01
+        else
+          let hintCode+=0x10
+      fi
+      echo '                },'                                                       >> "$gSsdtPR"
+      echo ''                                                                         >> "$gSsdtPR"
+      echo '                Package (0x04)'                                           >> "$gSsdtPR"
+      echo '                {'                                                        >> "$gSsdtPR"
+      echo '                    ResourceTemplate ()'                                  >> "$gSsdtPR"
+      echo '                    {'                                                    >> "$gSsdtPR"
+      echo '                        Register (FFixedHW,'                              >> "$gSsdtPR"
+      echo '                            0x01,               // Bit Width'             >> "$gSsdtPR"
+      echo '                            0x02,               // Bit Offset'            >> "$gSsdtPR"
+    printf "                            0x%016x, // Address\n" $hintCode              >> "$gSsdtPR"
+      echo '                            0x03,               // Access Size'           >> "$gSsdtPR"
+      echo '                            )'                                            >> "$gSsdtPR"
+      echo '                    },'                                                   >> "$gSsdtPR"
+      echo '                    0x07,'                                                >> "$gSsdtPR"
+      echo '                    '$latency_C7','                                       >> "$gSsdtPR"
+      echo '                    0xC8'                                                 >> "$gSsdtPR"
+  fi
+
+  echo '                }'                                                            >> "$gSsdtPR"
+  echo '            })'                                                               >> "$gSsdtPR"
+  echo '        }'                                                                    >> "$gSsdtPR"
   #
   # Do we need to add a closing bracket?
   #
-  if [[ $gBridgeType -eq $SANDY_BRIDGE && $gXcpm -ne 1 ]];
+  # Note: The injected _DSM method will otherwise take care of it.
+  #
+  if [[ $gBridgeType -le $SANDY_BRIDGE && $gXcpm -ne 1 ]];
     then
-      echo '    }'                                                                      >> "$gSsdtPR"
-#   else
-#     echo ''                                                                           >> "$gSsdtPR"
+      echo '    }'                                                                    >> "$gSsdtPR"
   fi
 }
 
@@ -2752,8 +1987,11 @@ function _initProcessorScope()
   #
   # Local variable declarations.
   #
-  local filename="${gScriptPath}/dsdt.dat"
+  local filename="${gPath}/dsdt.dat"
   #
+  #
+  #
+  _extractAcpiTables
   #
   # Note: Dry runs can be done with help of; xxd -c 256 -ps [path]dsdt.aml | tr -d '\n' > ~/Library/ssdtPRGen/dsdt.dat
   #       You may also need to change the CPU ID to get a match.
@@ -2770,7 +2008,7 @@ function _initProcessorScope()
   #
   # Note: Comment this out for dry runs!
   #
-  xxd -ps "${gScriptPath}/DSDT.aml" | tr -d '\n' > "$filename"
+  xxd -ps "${gPath}/DSDT.aml" | tr -d '\n' > "$filename"
   #
   # Check for Device()s with enclosed Name (_HID, "ACPI0004") objects.
   #
@@ -2978,9 +2216,9 @@ function _getCPUtype()
 function _getCPUModel()
 {
   #
-  # Returns the hexadecimal value of machdep.cpu.model
+  # Return the hexadecimal value of machdep.cpu.model
   #
-  echo 0x$(echo "obase=16; `sysctl machdep.cpu.model | sed -e 's/^machdep.cpu.model: //'`" | bc)
+  echo 0x$(sysctl machdep.cpu.model | awk '{ printf("%X", $2) }')
 }
 
 
@@ -2991,9 +2229,9 @@ function _getCPUModel()
 function _getCPUSignature()
 {
   #
-  # Returns the hexadecimal value of machdep.cpu.signature
+  # Return the hexadecimal value of machdep.cpu.signature
   #
-  echo 0x$(echo "obase=16; `sysctl machdep.cpu.signature | sed -e 's/^machdep.cpu.signature: //'`" | bc)
+  echo 0x$(sysctl machdep.cpu.signature | awk '{ printf("%X", $2) }')
 }
 
 
@@ -3018,7 +2256,58 @@ function _getSystemType()
 
 function _findIasl()
 {
- iasl=./iasl
+  #
+  # Do we have to call IASL?
+  #
+  if (( $gCallIasl ));
+    then
+      #
+      # Yes. Do a quick lookup of iasl (should also be there after the first run).
+      #
+      if [ ! -f "${gToolPath}/iasl" ];
+        then
+          _debugPrint 'Downloading iasl.zip ...'
+          curl -o "${gPath}/iasl.zip" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/master/Tools/iasl.zip
+          #
+          # Unzip command line tool.
+          #
+          _debugPrint 'Unzipping iasl.zip ...'
+          unzip -qu "${gPath}/iasl.zip" -d "${gToolPath}/"
+          #
+          #  Checking/setting executing bit.
+          #
+          _debugPrint 'Setting executing bit of iasl ...'
+
+          if [ ! -x "${gToolPath}/iasl" ];
+            then
+              printf "Fixing executing bit of iasl ...\n"
+              chmod +x "${gToolPath}/iasl"
+#           else
+#             printf "Enter password to set file permissions for: ${gToolPath}/iasl\n"
+#             sudo chmod +x "${gToolPath}/iasl"
+#             sudo -k
+          fi
+          #
+          # Remove downloaded zip file.
+          #
+          _debugPrint 'Cleanups ...'
+          rm "${gPath}/iasl.zip"
+          _debugPrint 'Done.'
+      fi
+
+      iasl="${gToolPath}/iasl"
+  fi
+}
+
+
+#
+#--------------------------------------------------------------------------------
+#
+
+function _extractAcpiTables()
+{
+  "$gToolPath"/patchmatic -extract
+  find . -name "SSDT*.aml" -delete
 }
 
 
@@ -3044,7 +2333,7 @@ function _checkSourceFilename
       if [[ "$gDestinationFile" != "ssdt_pr.aml" ]];
         then
           gSsdtID="ssdt_pr"
-          gSsdtPR="${gScriptPath}/${gSsdtID}.dsl"
+          gSsdtPR="${gPath}/${gSsdtID}.dsl"
           gDestinationFile="ssdt_pr.aml"
           _debugPrint "ACPI target filename changed to: ${gDestinationFile}\n"
       fi
@@ -3075,7 +2364,6 @@ function _setDestinationPath
       sudo mount_hfs /dev/disk0s1 /Volumes/EFI
       let gUnmountEFIPartition=1
   fi
-
   #
   # Check for RevoBoot (legacy) setup on EFI volume.
   #
@@ -3136,7 +2424,7 @@ function _getCPUNumberFromBrandString
   # Get CPU brandstring
   #
   gBrandString=$(echo `sysctl machdep.cpu.brand_string` | sed -e 's/machdep.cpu.brand_string: //')
-
+# gBrandString="Intel(R) Xeon(R) CPU X5560 @ 2.80GHz"
   #
   # Show brandstring (this helps me to debug stuff).
   #
@@ -3242,11 +2530,43 @@ function _getCPUNumberFromBrandString
           fi
         else
           #
-          # All other non-Xeon processor models.
+          # Is this a Pentium processor model?
           #
-          gProcessorNumber="${data[2]}"
+          if [[ "${data[1]}" == "Pentium(R)" ]];
+            then
+              #
+              # Yes. Use fourth value from brandstring ("Intel(R) Pentium(R) CPU G3420 @ 3.20GHz")
+              #
+              gProcessorNumber="${data[3]}"
+            else
+              #
+              # No. Use third value from brandstring for all other processor models.
+              #
+              gProcessorNumber="${data[2]}"
+          fi
       fi
   fi
+}
+
+
+#
+#--------------------------------------------------------------------------------
+#
+
+function _haveConfigFile
+{
+  if [ ! -f "${1}" ];
+    then
+     return 0
+  fi
+
+  if [ $(wc -c "${1}" | awk '{print $1}') -lt 100 ];
+    then
+      rm "$1"
+      return 0
+  fi
+
+  return 1
 }
 
 
@@ -3265,6 +2585,8 @@ function _getCPUDataByProcessorNumber
     let targetType=0
 
     case $1 in
+        1) local cpuSpecLists=("gUserDefinedCPUList[@]")
+           ;;
         2) local cpuSpecLists=("gDesktopSandyBridgeCPUList[@]" "gMobileSandyBridgeCPUList[@]" "gServerSandyBridgeCPUList[@]")
            ;;
         4) local cpuSpecLists=("gDesktopIvyBridgeCPUList[@]" "gMobileIvyBridgeCPUList[@]" "gServerIvyBridgeCPUList[@]")
@@ -3273,9 +2595,11 @@ function _getCPUDataByProcessorNumber
            ;;
        16) local cpuSpecLists=("gDesktopBroadwellCPUList[@]" "gMobileBroadwellCPUList[@]" "gServerBroadwellCPUList[@]")
            ;;
+       32) local cpuSpecLists=("gDesktopSkylakeCPUList[@]" "gMobileSkylakeCPUList[@]" "gServerSkylakeCPUList[@]")
+           ;;
     esac
 
-    for cpuList in ${cpuSpecLists[@]}
+    for cpuList in "${cpuSpecLists[@]}"
     do
       let targetType+=1
       local targetCPUList=("${!cpuList}")
@@ -3285,7 +2609,7 @@ function _getCPUDataByProcessorNumber
         IFS=","
         data=($cpuData)
 
-        if [[ ${data[0]} == $gProcessorNumber ]];
+        if [[ "${data[0]}" == "${gProcessorNumber}" ]];
           then
             gProcessorData="$cpuData"
             let gTypeCPU=$targetType
@@ -3294,45 +2618,109 @@ function _getCPUDataByProcessorNumber
             #
             if [[ $gBridgeType -eq -1 ]];
               then
-                let gBridgeType=$1
+                if [[ "${#data[@]}" -ge 8 ]];
+                  then
+                    let gBridgeType="${data[7]}"
+                  else
+                    let gBridgeType=$1
+                fi
+            fi
+            #
+            # Do we have a custom bclk/bus frequency?
+            #
+            if [[ "${#data[@]}" -eq 9 ]];
+              then
+                let gBusFrequency="${data[8]}"
             fi
 
             IFS=$ifs
-            return
+            return 1
         fi
       done
     done
 
     IFS=$ifs
+    return 0
   }
+  #
+  # From here on we check/download/load the processor data file(s).
+  #
+  if [ -f "${gDataPath}/User Defined.cfg" ];
+    then
+      _debugPrint 'Checking user defined processor data ...\n'
+      source "${gDataPath}/User Defined.cfg"
+      __searchList $USER_DEFINED
 
-  #
-  # Local function callers
-  #
+      if [[ $? -eq 1 ]];
+        then
+          return
+      fi
+  fi
+
+  if [ ! -f "${gDataPath}/Sandy Bridge.cfg" ];
+    then
+      curl -o "${gDataPath}/Sandy Bridge.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/master/Data/Sandy%20Bridge.cfg
+  fi
+
+  source "${gDataPath}/Sandy Bridge.cfg"
+  _debugPrint "Checking Sandy Bridge processor data ...\n"
   __searchList $SANDY_BRIDGE
 
   if (!(( $gTypeCPU )));
     then
+      if [[ $(_haveConfigFile "${gDataPath}/Ivy Bridge.cfg") ]];
+        then
+          curl -o "${gDataPath}/Ivy Bridge.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/master/Data/Ivy%20Bridge.cfg
+      fi
+
+      source "${gDataPath}/Ivy Bridge.cfg"
+      _debugPrint "Checking Ivy Bridge processor data ...\n"
       __searchList $IVY_BRIDGE
+
+      if (!(( $gTypeCPU )));
+        then
+          if [[ $(_haveConfigFile "${gDataPath}/Haswell.cfg") ]];
+            then
+              curl -o "${gDataPath}/Haswell.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/master/Data/Haswell.cfg
+          fi
+
+          source "${gDataPath}/Haswell.cfg"
+          _debugPrint "Checking Haswell processor data ...\n"
+          __searchList $HASWELL
+
+          if (!(( $gTypeCPU )));
+            then
+              if [[ $(_haveConfigFile "${gDataPath}/Broadwell.cfg") ]];
+                then
+                  curl -o "${gDataPath}/Broadwell.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/Beta/Data/Broadwell.cfg
+              fi
+
+              source "${gDataPath}/Broadwell.cfg"
+              _debugPrint "Checking Broadwell processor data ...\n"
+              __searchList $BROADWELL
+
+              if (!(( $gTypeCPU )));
+                then
+                  if [[ $(_haveConfigFile "${gDataPath}/Skylake.cfg") ]];
+                    then
+                      curl -o "${gDataPath}/Skylake.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/Beta/Data/Skylake.cfg
+                  fi
+
+                  source "${gDataPath}/Skylake.cfg"
+                  _debugPrint "Checking Skylake processor data ...\n"
+                  __searchList $SKYLAKE
+              fi
+          fi
+      fi
   fi
 
-  if (!(( $gTypeCPU )));
-    then
-      __searchList $HASWELL
-  fi
-
-  if (!(( $gTypeCPU )));
-    then
-      __searchList $BROADWELL
-  fi
-
-  #
-  # Bail out with error if we failed to locate the processor data.
-  #
-  if [[ $gTypeCPU -eq 0 ]];
-    then
-      _exitWithError $PROCESSOR_NUMBER_ERROR $2
-  fi
+# if (!(($gTypeCPU)));
+#   then
+    #
+    # Bail out with error if we failed to locate the processor data.
+    #
+#   _exitWithError $PROCESSOR_NUMBER_ERROR $2
+# fi
 }
 
 
@@ -3427,6 +2815,26 @@ function _checkPlatformSupport()
       fi
     else
        _PRINT_MSG 'Warning: /S*/L*/C*/PlatformSupport.plist not found (normal for Snow Leopard)!'
+  fi
+  #
+  # Check for FrequencyVectors in plist.
+  #
+  if [ $gBridgeType == $HASWELL ];
+    then
+       local plist="/System/Library/Extensions/IOPlatformPluginFamily.kext/Contents/PlugIns/X86PlatformPlugin.kext/Contents/Resources/${gBoardID}.plist"
+
+       if [ -e "$plist" ];
+         then
+           local freqVectorMatched=$(grep -c 'FrequencyVectors' "$plist")
+
+           if [ $freqVectorMatched -eq 0 ];
+             then
+               _PRINT_MSG "Warning..: FrequencyVectors missing in ${gBoardID}.plist"
+               printf "\t Download https://github.com/Piker-Alpha/freqVectorsEdit.sh to fix this\n"
+           fi
+         else
+          _PRINT_MSG "Warning: File ${gBoardID}.plist Not Found!"
+       fi
   fi
 }
 
@@ -3681,10 +3089,20 @@ function _initHaswellSetup()
                           gACST_CPU1=31   # C1, C2, C3, C6 and C7
                           ;;
 
+    Mac-06F11FD93F0323C5) gTargetMacModel="MacBookPro11,4"
+                          ;;
+
+    Mac-06F11F11946D27C5) gTargetMacModel="MacBookPro11,5"
+                          ;;
+
     Mac-35C1E88140C3E6CF) gTargetMacModel="MacBookAir6,1"
                           ;;
 
     Mac-7DF21CB3ED6977E5) gTargetMacModel="MacBookAir6,2"
+                          ;;
+
+    Mac-35C5E08120C7EEAF) gSystemType=1
+                          gTargetMacModel="Macmini7,1"
                           ;;
 
     Mac-F60DEB81FF30ACF6) gSystemType=3
@@ -3712,9 +3130,38 @@ function _initBroadwellSetup()
   # Overrides are set below.
   #
   case $gBoardID in
-    Mac-APPLE-BROADWELLS) gSystemType=1
-                          gTargetMacModel="Macmini7,1"
+    Mac-E43C1C25D4880AD6) gTargetMacModel="MacBookPro12,1"
                           ;;
+
+    Mac-9F18E312C5C2BF0B) gTargetMacModel="MacBookAir7,1"
+                          ;;
+
+    Mac-937CB26E2E02BB01) gTargetMacModel="MacBookAir7,2"
+                          ;;
+  esac
+}
+
+
+
+#
+#--------------------------------------------------------------------------------
+#
+
+function _initSkylakeSetup()
+{
+  #
+  # Global variable (re)initialisation.
+  #
+  gSystemType=2
+  gACST_CPU0=253  # C1, C3, C6, C7, C8, C9 and C10
+  gACST_CPU1=31   # C1, C2, C3, C6 and C7
+  #
+  # Overrides are set below.
+  #
+  case $gBoardID in
+    Mac-APPLE-SKYLAKES) gSystemType=1
+                        gTargetMacModel="Macmini7,1"
+                        ;;
   esac
 }
 
@@ -3726,45 +3173,48 @@ function _initBroadwellSetup()
 function _exitWithError()
 {
   case "$1" in
-      2) _PRINT_MSG "\nError: 'MaxTurboFrequency' must be in the range of $frequency-$gMaxOCFrequency ..."
-         _ABORT 2
-         ;;
-      3) _PRINT_MSG "\nError: -t [TDP] must be in the range of 11.5 - 150 Watt ..."
-         _ABORT 3
-         ;;
-      4) _PRINT_MSG "\nError: 'BridgeType' must be 0, 1, 2 or 3 ..."
-         _ABORT 4
-         ;;
-      5) printf "\e[A\e[K"
-         _PRINT_MSG "\nError: Unknown processor model ..."
+      2)  _PRINT_MSG "\nError: 'MaxTurboFrequency' must be in the range of $frequency-$gMaxOCFrequency ..."
+          _ABORT 2
+          ;;
+      3)  _PRINT_MSG "\nError: -t [TDP] must be in the range of 11.5 - 150 Watt ..."
+          _ABORT 3
+          ;;
+      4)  _PRINT_MSG "\nError: 'BridgeType' must be 0, 1, 2 or 3 ..."
+          _ABORT 4
+          ;;
+      5)  printf "\e[A\e[K"
+          _PRINT_MSG "\nError: Unknown processor model ..."
 
-         if [[ $2 -eq 0 ]];
-           then
-             printf "       Visit http://ark.intel.com to gather the required data:\n"
-             printf "       Processor Number\n"
-             printf "       TDP\n"
-             printf "       Low Frequency Mode (use AppleIntelInfo.kext)\n"
-             printf "       Base Frequency\n"
-             printf "       Max Turbo Frequency\n"
-             printf "       Cores\n"
-             printf "       Threads\n"
-         fi
-         _ABORT 5
-         ;;
-      6) _PRINT_MSG "\nError: Processor label length is less than 4 ..."
-         _ABORT 6
-         ;;
-      7) _PRINT_MSG "\nError: Processor label not found ..."
-         _ABORT 7
-         ;;
-      8) _PRINT_MSG "\nError: Processor Declarations not found ..."
-         _ABORT 8
-         ;;
-      9) _PRINT_MSG "\nError: File not found ..."
-         _ABORT 9
-         ;;
-      *) _ABORT 1
-         ;;
+          if [[ $2 -eq 0 ]];
+            then
+              printf "       Visit http://ark.intel.com to gather the required data:\n"
+              printf "       Processor Number\n"
+              printf "       TDP\n"
+              printf "       Low Frequency Mode (use AppleIntelInfo.kext)\n"
+              printf "       Base Frequency\n"
+              printf "       Max Turbo Frequency\n"
+              printf "       Cores\n"
+              printf "       Threads\n"
+          fi
+          _ABORT 5
+          ;;
+      6)  _PRINT_MSG "\nError: Processor label length is less than 3 ..."
+          _ABORT 6
+          ;;
+      7)  _PRINT_MSG "\nError: Processor label not found ..."
+          _ABORT 7
+          ;;
+      8)  _PRINT_MSG "\nError: Processor Declarations not found ..."
+          _ABORT 8
+          ;;
+      9)  _PRINT_MSG "\nError: File not found ..."
+          _ABORT 9
+          ;;
+      10) _PRINT_MSG "\nError: Low Frequency Mode is 0 ..."
+          _ABORT 10
+          ;;
+      *)  _ABORT 1
+          ;;
   esac
 }
 
@@ -3777,6 +3227,8 @@ function _confirmUnsupported()
 {
   _PRINT_MSG "$1"
 
+  return
+  
   read -p "Do you want to continue (y/n)? " unsupportedConfirmed
   case "$unsupportedConfirmed" in
        y|Y) return
@@ -3819,6 +3271,8 @@ function _showSupportedBoardIDsAndModels()
                     ;;
          Broadwell) local modelDataList="gBroadwellModelData[@]"
                     ;;
+         Skylake)   local modelDataList="gSkylakeModelData[@]"
+                    ;;
   esac
   #
   # Split 'modelDataList' into array.
@@ -3855,6 +3309,60 @@ function _showSupportedBoardIDsAndModels()
 #--------------------------------------------------------------------------------
 #
 
+function _checkLibraryDirectory()
+{
+  #
+  # Check directory.
+  #
+  if [ ! -d "${gDataPath}" ];
+    then
+      #
+      # Not there. Check permissions and create the directory.
+      #
+#     if [ -w "${gDataPath}" ];
+#       then
+          mkdir -p "${gDataPath}"
+#       else
+#         printf "Missing write-permission(1)\n"
+#         exit -1
+#         sudo mkdir -p "${gDataPath}"
+#     fi
+  fi
+  #
+  # Fix permissions.
+  #
+# if [ -w "${gPath}" ];
+#   then
+#     chmod -R 755 "${gPath}"
+#   else
+#     printf "Missing write-permission(2)\n"
+#     exit -1
+#     sudo chmod -R 755 "${gPath}"
+# fi
+
+  if [ ! -f "${gDataPath}/Models.cfg" ];
+    then
+#     if [ -w "${gDataPath}" ];
+#       then
+          curl -o "${gDataPath}/Models.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/master/Data/Models.cfg
+#       else
+#         printf "Missing write-permission(3)\n"
+#         exit -1
+#         sudo curl -o "${gDataPath}/Models.cfg" --silent https://raw.githubusercontent.com/Piker-Alpha/ssdtPRGen.sh/master/Data/Models.cfg
+#     fi
+  fi
+  #
+  # Load model data.
+  #
+  source "${gDataPath}/Models.cfg"
+
+# sudo -k
+}
+
+#
+#--------------------------------------------------------------------------------
+#
+
 function _getScriptArguments()
 {
   #
@@ -3870,14 +3378,15 @@ function _getScriptArguments()
       if [[ $# -eq 1 && "$argument" == "-h" || "$argument" == "-help" ]];
         then
           printf "${STYLE_BOLD}Usage:${STYLE_RESET} ./ssdtPRGen.sh [-abcdfhlmptwx]\n"
-          printf "       -${STYLE_BOLD}a${STYLE_RESET}cpi Processor name (example: CPU0 or C000)\n"
+          printf "       -${STYLE_BOLD}a${STYLE_RESET}cpi Processor name (example: CPU0, C000)\n"
           printf "       -${STYLE_BOLD}bclk${STYLE_RESET} frequency (base clock frequency)\n"
           printf "       -${STYLE_BOLD}b${STYLE_RESET}oard-id (example: Mac-F60DEB81FF30ACF6)\n"
-          printf "       -${STYLE_BOLD}c${STYLE_RESET}pu type [0/1/2/3]\n"
+          printf "       -${STYLE_BOLD}c${STYLE_RESET}pu type [0/1/2/3/4]\n"
           printf "          0 = Sandy Bridge\n"
           printf "          1 = Ivy Bridge\n"
           printf "          2 = Haswell\n"
           printf "          3 = Broadwell\n"
+          printf "          4 = Skylake\n"
           printf "       -${STYLE_BOLD}d${STYLE_RESET}ebug output [0/1/3]\n"
           printf "          0 = no debug injection/debug output\n"
           printf "          1 = inject debug statements in: ${gSsdtID}.dsl\n"
@@ -3937,7 +3446,7 @@ function _getScriptArguments()
                                   then
                                     gProcLabel=$(echo "$1" | tr '[:lower:]' '[:upper:]')
                                     _PRINT_MSG "Override value: (-a) label for ACPI Processors, now using '${gProcLabel}'!"
-                                    _updateProcessorNames ${#gProcessorNames[@]}
+                                    _updateProcessorNames "${#gProcessorNames[@]}"
                                   else
                                     _exitWithError $PROCESSOR_LABEL_LENGTH_ERROR
                                 fi
@@ -3950,8 +3459,13 @@ function _getScriptArguments()
 
                          if [[ "$1" =~ ^[0-9]+$ ]];
                            then
-                             _PRINT_MSG "Override value: (-bclk) frequency, now using: ${1} MHz!"
-                             let gBusFrequency=$1
+                             if [[ $1 < 167 ]];
+                               then
+                                 _PRINT_MSG "Override value: (-bclk) frequency, now using: ${1} MHz!"
+                                 let gBusFrequency=$1
+                               else
+                                 _invalidArgumentError "-bclk $1 (use 100, 133 or 166)"
+                             fi
                            else
                              _invalidArgumentError "-bclk $1"
                          fi
@@ -3973,7 +3487,7 @@ function _getScriptArguments()
 
                   -c) shift
 
-                      if [[ "$1" =~ ^[0123]+$ ]];
+                      if [[ "$1" =~ ^[01234]+$ ]];
                         then
                           local detectedBridgeType=$gBridgeType
 
@@ -3989,6 +3503,9 @@ function _getScriptArguments()
                                  ;;
                               3) local bridgeType=$BROADWELL
                                  local bridgeTypeString="Broadwell"
+                                 ;;
+                              4) local bridgeType=$SKYLAKE
+                                 local bridgeTypeString="Skylake"
                                  ;;
                           esac
 
@@ -4081,44 +3598,53 @@ function _getScriptArguments()
 
                       if [[ "$1" =~ ^[a-zA-Z0-9\ \-]+$ ]];
                         then
-                          if [ "$processorNumber" != "$1" ];
+                          if [ "$gProcessorNumber" != "$1" ];
                             then
-                              let gFunctionReturn=0
+                              let gFunctionReturn=1
                               #
                               # Sandy Bridge checks.
                               #
                               if [[ ${1:0:4} == "i3-2" || ${1:0:4} == "i5-2" || ${1:0:4} == "i7-2" ]];
                                 then
-                                  let gFunctionReturn=1
+                                  let gFunctionReturn=2
                               fi
                               #
                               # Ivy Bridge checks.
                               #
                               if [[ ${1:0:4} == "i3-3" || ${1:0:4} == "i5-3" || ${1:0:4} == "i7-3" ]];
                                 then
-                                  let gFunctionReturn=1
+                                  let gFunctionReturn=4
                               fi
                               #
                               # Haswell/Haswell-E checks.
                               #
                               if [[ ${1:0:4} == "i3-4" || ${1:0:4} == "i5-4" || ${1:0:4} == "i7-4" || ${1:0:4} == "i7-5" ]];
                                 then
-                                  let gFunctionReturn=1
+                                  let gFunctionReturn=5
+                              fi
+                              #
+                              # Skylake checks.
+                              #
+                              if [[ ${1:0:4} == "i5-6" || ${1:0:4} == "i7-6" ]];
+                                then
+                                  let gFunctionReturn=5
                               fi
                               #
                               # Xeon check.
                               #
                               if [[ ${1:0:1} == "E" ]];
                                 then
-                                  let gFunctionReturn=1
+                                  let gFunctionReturn=7
                               fi
                               #
                               # Set processor model override and inform user about the change.
                               #
-                              if [ $gFunctionReturn -eq 1 ];
+                              if [ $gFunctionReturn -gt 0 ];
                                 then
                                   gProcessorNumber=$1
                                   _PRINT_MSG "Override value: (-p) processor model, now using: ${gProcessorNumber}!"
+                                else
+                                  gProcessorNumber=$1
                               fi
                           fi
                         else
@@ -4143,8 +3669,12 @@ function _getScriptArguments()
                               BROADWELL) _showSupportedBoardIDsAndModels "Broadwell"
                                          ;;
 
+                              SKYLAKE)   _showSupportedBoardIDsAndModels "Skylake"
+                                         ;;
+
                                       *) if [ "$1" == "" ];
                                            then
+#                                            _showSupportedBoardIDsAndModels "Skylake"
 #                                            _showSupportedBoardIDsAndModels "Broadwell"
                                              _showSupportedBoardIDsAndModels "Haswell"
                                              _showSupportedBoardIDsAndModels "Ivy Bridge"
@@ -4179,7 +3709,7 @@ function _getScriptArguments()
                           ;;
 
 
-                  -t) shift
+                  -t|-tdp) shift
 
                       if [[ "$1" =~ ^[0-9]+$ ]];
                         then
@@ -4283,6 +3813,7 @@ function main()
   echo   '-----------------------------------------------------------'
   printf "Bugs > https://github.com/Piker-Alpha/ssdtPRGen.sh/issues <\n\n"
 
+  _checkLibraryDirectory
   _checkSourceFilename
   _getProcessorNames
   _getScriptArguments "$@"
@@ -4304,7 +3835,7 @@ function main()
   fi
 
   _getCPUNumberFromBrandString $modelSpecified
-  _getCPUDataByProcessorNumber $modelSpecified
+  _getCPUDataByProcessorNumber
   #
   # Check if -c argument wasn't used.
   #
@@ -4362,6 +3893,7 @@ function main()
   fi
 
   _initProcessorScope
+  _extractAcpiTables
 
   case $gBridgeType in
        2) local bridgeTypeString="Sandy Bridge"
@@ -4381,12 +3913,21 @@ function main()
   local cpuSignature=$(_getCPUSignature)
 
   echo "Generating ${gSsdtID}.dsl for a '${gModelID}' with board-id [${gBoardID}]"
-  echo "$bridgeTypeString Core $gProcessorNumber processor [$cpuSignature] setup [0x${cpu_type}]"
+  #
+  # Intel Core processor model?
+  #
+  if [ $modelSpecified -eq 1 ];
+    then
+      echo "Intel $gProcessorNumber processor [$cpuSignature] setup [0x${cpu_type}]"
+    else
+      echo "$bridgeTypeString Core $gProcessorNumber processor [$cpuSignature] setup [0x${cpu_type}]"
+  fi
   #
   # gTypeCPU is greater than 0 when the processor is found in one of the CPU lists
   #
   if [ $gTypeCPU -gt 0 ];
     then
+      printf "Processor matched!\n"
       #
       # Save default (0) delimiter.
       #
@@ -4433,7 +3974,7 @@ function main()
           let lfm=${cpuData[2]}
       fi
       #
-      # Check if -f argument wasn't used.
+      # Check if -f argument is used.
       #
       if [[ $gFrequency -gt 0 ]];
         then
@@ -4448,7 +3989,7 @@ function main()
           let frequency=${cpuData[3]}
       fi
       #
-      # Check if -turbo argument wasn't used.
+      # Check if -turbo argument is used.
       #
       if [[ $gMaxTurboFrequency -gt 0 ]];
         then
@@ -4464,7 +4005,7 @@ function main()
           let maxTurboFrequency=$frequency
       fi
       #
-      # Check if -l argument wasn't used.
+      # Check if -l argument is used.
       #
       if [ $gLogicalCPUs -eq 0 ];
         then
@@ -4508,37 +4049,67 @@ function main()
           fi
       fi
     else
+      printf "Processor NOT matched, checking required arguments!\n"
       #
-      # No CPU data found.
+      # Check if -lfm argument was used.
       #
-      # Note: We only get here when the -p argument wasn't used.
+      if [[ $gLfm -eq 0 ]];
+        then
+          _exitWithError $LFM_ERROR
+      fi
       #
-      # Now check if -l argument wasn't used.
+      # Check if -t argument was used.
+      #
+      if [[ $gTdp -eq 0 ]];
+        then
+          _exitWithError $MAX_TDP_ERROR
+      fi
+      #
+      # No CPU data found. Check if -l argument is used.
       #
       if [ $gLogicalCPUs -eq 0 ];
         then
           #
           # No. Get thread count (logical cores) from the running system.
           #
-          let gLogicalCPUs=$(echo `sysctl machdep.cpu.thread_count` | sed -e 's/^machdep.cpu.thread_count: //')
+          let gLogicalCPUs=$(sysctl machdep.cpu.thread_count | awk '{ print $2 }')
       fi
       #
-      # Check if -f argument wasn't used.
+      # Check if -f argument is used.
       #
       if [ $gFrequency -eq -1 ];
         then
           #
           # No. Get the clock frequency from the running system.
           #
-          let frequency=$(echo `sysctl hw.cpufrequency` | sed -e 's/^hw.cpufrequency: //')
+          let frequency=$(sysctl hw.cpufrequency | awk '{ print($2) / 1000000 }')
+          let gFrequency=frequency
+
+          _PRINT_MSG "Warning: Core Frequency is unknown, now using $gFrequency MHz from sysctl hw.cpufrequency!"
+        else
+          let frequency=$gFrequency
+      fi
+      #
+      # Check if -turbo argument is used.
+      #
+      if [[ $gMaxTurboFrequency -gt 0 ]];
+        then
+          let maxTurboFrequency=$gMaxTurboFrequency
+        else
+          let maxTurboFrequency=$frequency
+          let gMaxTurboFrequency=$frequency
+
+          _PRINT_MSG "Warning: Maximum Turbo Frequency is unknown, now using $gMaxTurboFrequency MHz from Core Frequency!"
       fi
 
-      let frequency=($frequency / 1000000)
+      let gCoreCount=$(sysctl machdep.cpu.core_count | awk '{ print $2 }')
+
+      printf "${gProcessorNumber},${gTdp},${gLfm},${gFrequency},${gMaxTurboFrequency},${gCoreCount},${gLogicalCPUs}\n"
   fi
 
   echo "Number logical CPU's: $gLogicalCPUs (Core Frequency: $frequency MHz)"
 
-  if [ $gLogicalCPUs -gt ${#gProcessorNames[@]} ];
+  if [ $gLogicalCPUs -gt "${#gProcessorNames[@]}" ];
     then
       _updateProcessorNames $gLogicalCPUs
   fi
@@ -4552,8 +4123,9 @@ function main()
   #
   # Get number of Turbo states.
   #
-  # let turboStates=$(printf "%.f" $(echo "scale=1;((($maxTurboFrequency - $frequency) / $gBusFrequency)+0.5)" | bc))
+# let turboStates=$(printf "%.f" $(echo "scale=1;((($maxTurboFrequency - $frequency) / $gBusFrequency)+0.5)" | bc))
   let turboStates=$(echo "(($maxTurboFrequency - $frequency) / $gBusFrequency)" | bc)
+  #
   #
   # Check number of Turbo states.
   #
@@ -4602,6 +4174,9 @@ function main()
                    ;;
        $BROADWELL) local cpuTypeString="09"
                    _initBroadwellSetup
+                   ;;
+       $BKYLAKE)   local cpuTypeString="09"
+                   _initSkylakeSetup
                    ;;
   esac
 
@@ -4686,33 +4261,40 @@ function main()
       #
       if [ $gAutoCopy -eq 1 ];
         then
-          if [ -f "${gScriptPath}/${gSsdtID}.aml" ];
+          if [ -f "${gPath}/${gSsdtID}.aml" ];
             then
               echo -e
-              read -p "Do you want to copy ${gScriptPath}/${gSsdtID}.aml to ${gDestinationPath}${gDestinationFile}? (y/n)? " choice
+              read -p "Do you want to copy ${gPath}/${gSsdtID}.aml to ${gDestinationPath}${gDestinationFile}? (y/n)? " choice
               case "$choice" in
                   y|Y ) if [[ $gIsLegacyRevoBoot -eq 0 ]];
                           then
                             _setDestinationPath
                         fi
-
-                        sudo cp "${gScriptPath}/${gSsdtID}.aml" "${gDestinationPath}${gDestinationFile}"
-                      #
-                      # Check if we need to unmount the EFI volume.
-                      #
-                      if [[ $gIsLegacyRevoBoot -eq 0 && $gUnmountEFIPartition ]];
-                        then
-                          _debugPrint "Unmounting EFI partition...\n"
-                          sudo umount -f /Volumes/EFI
-                          #
-                          # Check return status for Success.
-                          #
-                          # Note: Without this check we may end up removing the whole freaking EFI directory!
-                          #
-                          if [[ $? -eq 0 ]];
-                            then
-                              read -p  "Do you want to remove the temporarily mount point (y/n)? " choice2
-                              case "$choice2" in
+                        #
+                        # Check write permissions.
+                        #
+                        if [ -w "${gDestinationPath}${gDestinationFile}" ];
+                          then
+                            cp "${gPath}/${gSsdtID}.aml" "${gDestinationPath}${gDestinationFile}"
+                          else
+                            sudo cp "${gPath}/${gSsdtID}.aml" "${gDestinationPath}${gDestinationFile}"
+                        fi
+                        #
+                        # Check if we need to unmount the EFI volume.
+                        #
+                        if [[ $gIsLegacyRevoBoot -eq 0 && $gUnmountEFIPartition ]];
+                          then
+                            _debugPrint "Unmounting EFI partition...\n"
+                            sudo umount -f /Volumes/EFI
+                            #
+                            # Check return status for Success.
+                            #
+                            # Note: Without this check we may end up removing the whole freaking EFI directory!
+                            #
+                            if [[ $? -eq 0 ]];
+                              then
+                                read -p  "Do you want to remove the temporarily mount point (y/n)? " choice2
+                                case "$choice2" in
                                     y|Y ) #
                                           # You fool: don't use <em>rm</em> commands in a script!
                                           #
@@ -4726,6 +4308,8 @@ function main()
                               esac
                           fi
                       fi
+
+                      sudo -k
                       ;;
             esac
         fi
