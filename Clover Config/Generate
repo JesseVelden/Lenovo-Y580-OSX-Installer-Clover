@@ -174,13 +174,30 @@ printf '\t\t<key>Trust</key>\n' >> $config
 printf '\t\t<false/>\n' >> $config
 printf '\t</dict>\n' >> $config
 
+# RTVariables section
+
+printf '\t<key>RtVariables</key>\n' >> $config
+printf '\t<dict>\n' >> $config
+
+if ! [[ "$rom" == "*Does Not Exist" ]] && [[ "$rom" != '' ]]
+then
+	printf '\t\t<key>ROM</key>\n' >> $config
+	printf '\t\t<string>'"$rom"'</string>\n' >> $config
+fi
+
+printf '\t\t<key>CsrActiveConfig</key>\n' >> $config
+printf '\t\t<string>0x67</string>\n' >> $config
+printf '\t\t<key>BooterConfig</key>\n' >> $config
+printf '\t\t<string>0x28</string>\n' >> $config
+printf '\t</dict>\n' >> $config
+
 # boot section
 
 printf '\t<key>Boot</key>\n' >> $config
 printf '\t<dict>\n' >> $config
 
 printf '\t\t<key>Arguments</key>\n' >> $config
-printf '\t\t<string>kext-dev-mode=1 dart=0 -gux_defer_usb2 nv_disable=1 rootless=0</string>\n' >> $config
+printf '\t\t<string>kext-dev-mode=1 dart=0 -gux_defer_usb2 nv_disable=1</string>\n' >> $config
 
 printf '\t\t<key>Debug</key>\n' >> $config
 printf '\t\t<false/>\n' >> $config
@@ -308,21 +325,39 @@ printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Second Stage patch 10.10</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
-
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Name</key>\n' >> $config
-printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
-printf '\t\t\t\t<key>Find</key>\n' >> $config
-printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tSIXAdFwPt0g=\n' >> $config
-printf '\t\t\t\t</data>\n' >> $config
-printf '\t\t\t\t<key>Replace</key>\n' >> $config
-printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tQb4PAAAA61k=\n' >> $config
-printf '\t\t\t\t</data>\n' >> $config
-printf '\t\t\t\t<key>Comment</key>\n' >> $config
-printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
+if [[ "$osxver" == 10.10* ]]
+then
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tSIXAdFwPt0g=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tQb4PAAAA61k=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+elif [[ "$osxver" == 10.11* ]]
+then
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tSIX/dEdIiwc=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tQb4PAAAA60Q=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+fi
 
 case $CloverResolution in 
 	low)
@@ -366,10 +401,10 @@ case $CloverResolution in
 		printf '\t\t\t\t</data>\n' >> $config
 		printf '\t\t\t\t<key>Replace</key>\n' >> $config
 		printf '\t\t\t\t<data>\n' >> $config
-		printf '\t\t\t\tMAIAAAIFAAAABAAABwQAAAMEAAAABAAAgQAAAAQGAAAABAAAgQAAAAAAAAAAAgAR\n' >> $config
+		printf '\t\t\t\tMAIAAAIFAAAABAAABwQAAAMEAAAABAAAgQAAAAQGAAAACAAABgAAAAAAAAAAAgAR\n' >> $config
 		printf '\t\t\t\t</data>\n' >> $config
 		printf '\t\t\t\t<key>Comment</key>\n' >> $config
-		printf '\t\t\t\t<string>Patch DP port HD4000 1600x900 #2</string>\n' >> $config
+		printf '\t\t\t\t<string>Patch HDMI port HD4000 1600x900 #2</string>\n' >> $config
 		printf '\t\t\t</dict>\n' >> $config
 		;;
 esac
