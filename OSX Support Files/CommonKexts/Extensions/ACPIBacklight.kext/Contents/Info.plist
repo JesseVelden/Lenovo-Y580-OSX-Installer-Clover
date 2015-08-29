@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0.0d1</string>
+	<string>3.0.1d2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3.0.0d1</string>
+	<string>3.0.1d2</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
@@ -72,7 +72,7 @@
 			<key>RM,Build</key>
 			<string>Release-RehabMan</string>
 			<key>RM,Version</key>
-			<string>ACPIBacklight 1.0</string>
+			<string>ACPIBacklight 3.0.1d2</string>
 		</dict>
 		<key>Haswell Broadwell Handler</key>
 		<dict>
@@ -91,7 +91,7 @@
 			<key>RM,Build</key>
 			<string>Release-RehabMan</string>
 			<key>RM,Version</key>
-			<string>ACPIBacklight 1.0</string>
+			<string>ACPIBacklight 3.0.1d2</string>
 			<key>kFrameBufferType</key>
 			<integer>2</integer>
 		</dict>
@@ -112,7 +112,7 @@
 			<key>RM,Build</key>
 			<string>Release-RehabMan</string>
 			<key>RM,Version</key>
-			<string>ACPIBacklight 1.0</string>
+			<string>ACPIBacklight 3.0.1d2</string>
 			<key>kFrameBufferType</key>
 			<integer>1</integer>
 		</dict>
