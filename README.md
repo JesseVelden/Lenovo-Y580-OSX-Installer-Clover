@@ -11,6 +11,18 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 1.2 (29 August 2015)**
+
+* Some small DSDT fixes (try them by pressing F4 in the Clover Menu, then patch DSDT again)
+* Clover update to 3261
+* Updated SSDT Prgen to 15.9
+* Updated BrcmPatchRam + BrcmBluetoothInjector
+* Updated ACPIBacklight.kext
+* Updated XtraFinder & Clover Configurator
+* Updated Clover config.plist generating with HDMI fixes and some 10.11 stuff.
+* OMT: HDMI Audio finally works too!
+
+
 **Version 1.1 (5 July 2015)**
 
 * Updated FakeSMC.kext, VoodooPS2Controller.kext, BrcmPatchRam.kext (with the new BrcmBluetoothInjector.kext)

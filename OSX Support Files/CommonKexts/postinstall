@@ -9,18 +9,23 @@ then
 	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/10.10
 fi
 
+if [ ! -d /Volumes/EFI/EFI/CLOVER/kexts/10.11 ]
+then
+	mkdir -p /Volumes/EFI/EFI/CLOVER/kexts/10.11
+fi
+
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/*
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/*
+
 cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/* /Volumes/EFI/EFI/CLOVER/kexts/10.10
 cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/* /Volumes/EFI/EFI/CLOVER/kexts/10.11
 
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/AppleUSBXHCIPCIPortInjector.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/AppleUSBXHCIPCIPortInjector.kext
 
-if [ -e "/Volumes/EFI/EFI/CLOVER/kexts/10.11/ACPIBacklight.kext" ]
-then
-    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/ACPIBacklight.kext
-fi
-
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/BrcmBluetoothInjector.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/BrcmBluetoothInjector.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/BrcmPatchRAM.kext
 
 systemsetup -setwakeonnetworkaccess off
 /usr/libexec/PlistBuddy -c "Set :KextCacheRebuild yes" /tmp/L580CI.plist
