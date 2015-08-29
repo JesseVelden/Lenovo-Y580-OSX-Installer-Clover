@@ -14,7 +14,7 @@ into definitionblock code_regex External\s+\(\\TNOT\) remove_matched;
 into_all all code_regex CondRefOf\s+\(\\TNOT\) replaceall_matched begin CondRefOf(TNOT) end;
 
 #MHCF fix - brought to you by Jessers123 =P
-into method label MHCF code_regex And\s+\(Local0,\s+0x60\) remove_matched;
+into method label MHCF code_regex And\s+\(Local0,\s+0x60\) replace_matched begin And (Local0, 0x60, Local0) end;
 
 #ALSO NEEDED FOR GRAPHICS
 #Maintained by: RehabMan for: Laptop Patches
@@ -194,8 +194,9 @@ into device label PNLF code_regex Name\s\(XRGH,.*\)\n removeall_matched;
 into device label PNLF code_regex Name\s\(KLVX,.*\)\n removeall_matched;
 into device label PNLF code_regex . insert
 begin
-    // Use XOPT=1 to disable smooth transitions\n
-    Name (XOPT, Zero)\n
+    // Set XOPT bit 0 to disable smooth transitions\n
+    // Set XOPT bit 1 to wait for native BacklightHandler\n
+    Name (XOPT, 0x02)\n
     // XRGL/XRGH: defines the valid range\n
     Name (XRGL, 40)\n
     Name (XRGH, 1808)\n
