@@ -43,6 +43,7 @@
 	<key>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/iDiskGenericIcon.icns</key>
 	<array>
 		<string>x-applefinder-vnode:CloudDocs%20libraries</string>
+		<string>x-applefinder-vnode:iCloud</string>
 	</array>
 	<key>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AirDrop.icns</key>
 	<array>
