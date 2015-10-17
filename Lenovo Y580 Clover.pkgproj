@@ -3009,6 +3009,22 @@
 						</dict>
 						<dict>
 							<key>CHILDREN</key>
+							<array/>
+							<key>GID</key>
+							<integer>0</integer>
+							<key>PATH</key>
+							<string>OSX Support Files/CommonKexts/Extensions/BrcmPatchRAM.kext</string>
+							<key>PATH_TYPE</key>
+							<integer>1</integer>
+							<key>PERMISSIONS</key>
+							<integer>493</integer>
+							<key>TYPE</key>
+							<integer>3</integer>
+							<key>UID</key>
+							<integer>0</integer>
+						</dict>
+						<dict>
+							<key>CHILDREN</key>
 							<array>
 								<dict>
 									<key>CHILDREN</key>
@@ -3344,23 +3360,7 @@
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
-													<string>OSX Support Files/CommonKexts/Extensions/BrcmBluetoothInjector.kext</string>
-													<key>PATH_TYPE</key>
-													<integer>1</integer>
-													<key>PERMISSIONS</key>
-													<integer>493</integer>
-													<key>TYPE</key>
-													<integer>3</integer>
-													<key>UID</key>
-													<integer>0</integer>
-												</dict>
-												<dict>
-													<key>CHILDREN</key>
-													<array/>
-													<key>GID</key>
-													<integer>0</integer>
-													<key>PATH</key>
-													<string>OSX Support Files/CommonKexts/Extensions/BrcmPatchRAM.kext</string>
+													<string>OSX Support Files/CommonKexts/Extensions/BrcmFirmwareRepo.kext</string>
 													<key>PATH_TYPE</key>
 													<integer>1</integer>
 													<key>PERMISSIONS</key>
@@ -3639,7 +3639,23 @@
 																			<key>GID</key>
 																			<integer>0</integer>
 																			<key>PATH</key>
-																			<string>OSX Support Files/CommonKexts/Extensions/AppleUSBXHCIPCIPortInjector.kext</string>
+																			<string>OSX Support Files/CommonKexts/Extensions/BrcmPatchRAM.kext</string>
+																			<key>PATH_TYPE</key>
+																			<integer>1</integer>
+																			<key>PERMISSIONS</key>
+																			<integer>493</integer>
+																			<key>TYPE</key>
+																			<integer>3</integer>
+																			<key>UID</key>
+																			<integer>0</integer>
+																		</dict>
+																		<dict>
+																			<key>CHILDREN</key>
+																			<array/>
+																			<key>GID</key>
+																			<integer>0</integer>
+																			<key>PATH</key>
+																			<string>OSX Support Files/CommonKexts/Extensions/10.11/BrcmPatchRAM2.kext</string>
 																			<key>PATH_TYPE</key>
 																			<integer>1</integer>
 																			<key>PERMISSIONS</key>
@@ -10470,7 +10486,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Install/ update Clover UEFI Bootloader 3261 to EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
+										<string>Install/ update Clover UEFI Bootloader 3277 to EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
@@ -10577,7 +10593,7 @@
 												<key>LANGUAGE</key>
 												<string>English</string>
 												<key>VALUE</key>
-												<string>Select this if you want to want to patch your DSDT. You must be booted with DSDT=Null in Chameleon/Chimera or you've must pressed F4 in the Clover Bootloader. - DISPLAY TYPE MUST BE SELECTED</string>
+												<string>Select this if you want to want to patch your DSDT. You've must pressed F4 in the Clover Bootloader. - DISPLAY TYPE MUST BE SELECTED</string>
 											</dict>
 										</array>
 										<key>OPTIONS</key>
@@ -11091,43 +11107,6 @@ After their installation, you may find them in a folder on your desktop called "
 							</dict>
 							<dict>
 								<key>DESCRIPTION</key>
-								<array>
-									<dict>
-										<key>LANGUAGE</key>
-										<string>English</string>
-										<key>VALUE</key>
-										<string>This will copy your patched DSDT &amp; SSDT(s) from the /Extra folder (from Chameleon or Chimera) to Clover. Case sensitive!</string>
-									</dict>
-								</array>
-								<key>OPTIONS</key>
-								<dict>
-									<key>HIDDEN</key>
-									<false/>
-									<key>STATE</key>
-									<integer>2</integer>
-								</dict>
-								<key>PACKAGE_UUID</key>
-								<string>3F6C3A8B-2D9C-429E-9B78-0517F302862C</string>
-								<key>REQUIREMENTS</key>
-								<array/>
-								<key>TITLE</key>
-								<array>
-									<dict>
-										<key>LANGUAGE</key>
-										<string>English</string>
-										<key>VALUE</key>
-										<string>Chameleon to Clover</string>
-									</dict>
-								</array>
-								<key>TOOLTIP</key>
-								<array/>
-								<key>TYPE</key>
-								<integer>0</integer>
-								<key>UUID</key>
-								<string>67E6D423-10F9-4587-9148-233C4386A0BD</string>
-							</dict>
-							<dict>
-								<key>DESCRIPTION</key>
 								<array/>
 								<key>OPTIONS</key>
 								<dict>
@@ -11152,6 +11131,44 @@ After their installation, you may find them in a folder on your desktop called "
 						</array>
 						<key>REMOVED</key>
 						<dict>
+							<key>3F6C3A8B-2D9C-429E-9B78-0517F302862C</key>
+							<dict>
+								<key>DESCRIPTION</key>
+								<array>
+									<dict>
+										<key>LANGUAGE</key>
+										<string>English</string>
+										<key>VALUE</key>
+										<string>This will copy your patched DSDT &amp; SSDT(s) from the /Extra folder (from Chameleon or Chimera) to Clover. Case sensitive!</string>
+									</dict>
+								</array>
+								<key>OPTIONS</key>
+								<dict>
+									<key>HIDDEN</key>
+									<false/>
+									<key>STATE</key>
+									<integer>1</integer>
+								</dict>
+								<key>PACKAGE_UUID</key>
+								<string>3F6C3A8B-2D9C-429E-9B78-0517F302862C</string>
+								<key>REQUIREMENTS</key>
+								<array/>
+								<key>TITLE</key>
+								<array>
+									<dict>
+										<key>LANGUAGE</key>
+										<string>English</string>
+										<key>VALUE</key>
+										<string>Chameleon to Clover</string>
+									</dict>
+								</array>
+								<key>TOOLTIP</key>
+								<array/>
+								<key>TYPE</key>
+								<integer>0</integer>
+								<key>UUID</key>
+								<string>67E6D423-10F9-4587-9148-233C4386A0BD</string>
+							</dict>
 							<key>8BCB6DCD-C42F-4D72-93D2-5E665FAD5381</key>
 							<dict>
 								<key>DESCRIPTION</key>

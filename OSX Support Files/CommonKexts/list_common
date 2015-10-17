@@ -9,5 +9,6 @@
 /System/Library/Extensions/JMB38X.kext<=>y
 /System/Library/Extensions/VoodooPS2Controller.kext<=>y
 /System/Library/Extensions/Y580ARPT.kext<=>y
-/System/Library/Extensions/BrcmPatchRAM.kext<=>y
 /System/Library/Extensions/BrcmBluetoothInjector.kext<=>y
+/System/Library/Extensions/BrcmPatchRAM.kext<=>y
+/System/Library/Extensions/BrcmPatchRAM2.kext<=>y

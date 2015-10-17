@@ -11,6 +11,16 @@ OS X support: Yosemite+
   
 ###C h a n g e l o g   
 
+**Version 1.3 (18 October 2015) - 10.11 update**
+
+* Clover.config Generate is now 10.11 ready!
+* Some brightness DSDT fixes
+* Clover update to 3277
+* Updated BrcmPatchRam
+* Updated ACPIBacklight.kext
+* Updated ACPIBatteryManager.kext
+* Updated VoodooPS2Controller.kext
+
 **Version 1.2 (29 August 2015)**
 
 * Some small DSDT fixes (try them by pressing F4 in the Clover Menu, then patch DSDT again)
