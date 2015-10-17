@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>14D136</string>
+	<string>14F27</string>
 	<key>CFBundleExecutable</key>
 	<string>VoodooPS2Keyboard</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.8.15, Copyright Apple Computer, Inc. 2000-2003, RehabMan 2012-2013</string>
+	<string>1.8.16, Copyright Apple Computer, Inc. 2000-2003, RehabMan 2012-2013</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.rehabman.voodoo.driver.PS2Keyboard</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -17,15 +17,19 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8</string>
+	<string>1.8.16</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>1.8.15</string>
+	<string>1.8.16</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>6D1002</string>
+	<string>7A1001</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
@@ -33,9 +37,9 @@
 	<key>DTSDKName</key>
 	<string>macosx10.8</string>
 	<key>DTXcode</key>
-	<string>0631</string>
+	<string>0701</string>
 	<key>DTXcodeBuild</key>
-	<string>6D1002</string>
+	<string>7A1001</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>ApplePS2Keyboard</key>
@@ -242,6 +246,28 @@
 							<string>56=2b</string>
 							<string>29=56</string>
 							<string>2b=29</string>
+							<string>e01e=e037</string>
+							<string>e037=e01e</string>
+						</array>
+					</dict>
+					<key>WN09a</key>
+					<dict>
+						<key>Breakless PS2</key>
+						<array>
+							<string>e01b</string>
+							<string>e008</string>
+							<string>e01e</string>
+							<string>e005</string>
+							<string>e06e</string>
+							<string>e006</string>
+						</array>
+						<key>Custom ADB Map</key>
+						<array>
+							<string>e01b=70</string>
+							<string>e06e=83</string>
+						</array>
+						<key>Custom PS2 Map</key>
+						<array>
 							<string>e01e=e037</string>
 							<string>e037=e01e</string>
 						</array>
@@ -725,7 +751,7 @@
 		<key>com.apple.kpi.unsupported</key>
 		<string>8.0.0</string>
 		<key>org.rehabman.voodoo.driver.PS2Controller</key>
-		<string>1.8.15</string>
+		<string>1.8.16</string>
 	</dict>
 	<key>OSBundleRequired</key>
 	<string>Console</string>
