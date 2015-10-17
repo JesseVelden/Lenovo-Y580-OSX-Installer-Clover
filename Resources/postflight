@@ -21,6 +21,9 @@ then
         chown -R root:wheel /System/Library/Extensions/$file
     done
 
+    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/BrcmPatchRAM.kext
+    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/BrcmPatchRAM.kext
+
     #diskutil repairPermissions /
 	touch "${3}/System/Library/Extensions"
 fi
