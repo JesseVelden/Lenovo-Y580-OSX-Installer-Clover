@@ -20,6 +20,7 @@ OS X support: Yosemite+
 * Updated ACPIBacklight.kext
 * Updated ACPIBatteryManager.kext
 * Updated VoodooPS2Controller.kext
+* Removed GenericUSBXHCI.kext for 10.11
 
 **Version 1.2 (29 August 2015)**
 
