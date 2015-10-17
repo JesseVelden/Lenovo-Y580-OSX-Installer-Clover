@@ -310,23 +310,23 @@ printf '\t\t\t\t<key>Comment</key>\n' >> $config
 printf '\t\t\t\t<string>Enable Trim on SSD</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
 
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Name</key>\n' >> $config
-printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
-printf '\t\t\t\t<key>Find</key>\n' >> $config
-printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tQYjE6xE=\n' >> $config
-printf '\t\t\t\t</data>\n' >> $config
-printf '\t\t\t\t<key>Replace</key>\n' >> $config
-printf '\t\t\t\t<data>\n' >> $config
-printf '\t\t\t\tQYjE6zE=\n' >> $config
-printf '\t\t\t\t</data>\n' >> $config
-printf '\t\t\t\t<key>Comment</key>\n' >> $config
-printf '\t\t\t\t<string>Second Stage patch 10.10</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
-
 if [[ "$osxver" == 10.10* ]]
 then
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tQYjE6xE=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tQYjE6zE=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>Second Stage patch 10.10</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+
 	printf '\t\t\t<dict>\n' >> $config
 	printf '\t\t\t\t<key>Name</key>\n' >> $config
 	printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
@@ -339,10 +339,27 @@ then
 	printf '\t\t\t\tQb4PAAAA61k=\n' >> $config
 	printf '\t\t\t\t</data>\n' >> $config
 	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
+	printf '\t\t\t\t<string>Handoff Fix 10.10</string>\n' >> $config
 	printf '\t\t\t</dict>\n' >> $config
-elif [[ "$osxver" == 10.11* ]]
+fi
+
+if [[ "$osxver" == 10.11* ]]
 then
+	printf '\t\t\t<dict>\n' >> $config
+	printf '\t\t\t\t<key>Name</key>\n' >> $config
+	printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
+	printf '\t\t\t\t<key>Find</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tAQAAdRc=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Replace</key>\n' >> $config
+	printf '\t\t\t\t<data>\n' >> $config
+	printf '\t\t\t\tAQAAdBc=\n' >> $config
+	printf '\t\t\t\t</data>\n' >> $config
+	printf '\t\t\t\t<key>Comment</key>\n' >> $config
+	printf '\t\t\t\t<string>Second Stage patch 10.11</string>\n' >> $config
+	printf '\t\t\t</dict>\n' >> $config
+
 	printf '\t\t\t<dict>\n' >> $config
 	printf '\t\t\t\t<key>Name</key>\n' >> $config
 	printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
@@ -355,7 +372,7 @@ then
 	printf '\t\t\t\tQb4PAAAA60Q=\n' >> $config
 	printf '\t\t\t\t</data>\n' >> $config
 	printf '\t\t\t\t<key>Comment</key>\n' >> $config
-	printf '\t\t\t\t<string>Handoff Fix</string>\n' >> $config
+	printf '\t\t\t\t<string>Handoff Fix 10.11</string>\n' >> $config
 	printf '\t\t\t</dict>\n' >> $config
 fi
 
