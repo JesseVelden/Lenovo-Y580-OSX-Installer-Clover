@@ -11376,7 +11376,7 @@ After their installation, you may find them in a folder on your desktop called "
 						<key>LANGUAGE</key>
 						<string>English</string>
 						<key>VALUE</key>
-						<string>Lenovo Y580 Yosemite w/ Clover</string>
+						<string>Lenovo Y580 OS X w/ Clover</string>
 					</dict>
 				</array>
 			</dict>
@@ -11607,7 +11607,7 @@ After their installation, you may find them in a folder on your desktop called "
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Lenovo Y580 Yosemite Clover Installer</string>
+			<string>Lenovo Y580 OS X-Clover Installer</string>
 			<key>REFERENCE_FOLDER_PATH</key>
 			<string>/Volumes/HD-Zooi/Clover Lenovo Y580/lenovo-y580-installer-clover-edition</string>
 		</dict>
