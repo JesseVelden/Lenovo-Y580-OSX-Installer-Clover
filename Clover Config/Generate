@@ -227,43 +227,15 @@ printf '\t\t\t<false/>\n' >> $config
 printf '\t\t\t<key>DropOEM_DSM</key>\n' >> $config
 printf '\t\t\t<false/>\n' >> $config
 printf '\t\t</dict>\n' >> $config
+
 printf '\t\t<key>DropTables</key>\n' >> $config
 printf '\t\t<array>\n' >> $config
 printf '\t\t\t<dict>\n' >> $config
 printf '\t\t\t\t<key>Signature</key>\n' >> $config
-printf '\t\t\t\t<string>SSDT</string>\n' >> $config
-printf '\t\t\t\t<key>TableId</key>\n' >> $config
-printf '\t\t\t\t<string>ApCst</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Signature</key>\n' >> $config
 printf '\t\t\t\t<string>DMAR</string>\n' >> $config
 printf '\t\t\t</dict>\n' >> $config
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Signature</key>\n' >> $config
-printf '\t\t\t\t<string>SSDT</string>\n' >> $config
-printf '\t\t\t\t<key>TableId</key>\n' >> $config
-printf '\t\t\t\t<string>CpuPM</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Signature</key>\n' >> $config
-printf '\t\t\t\t<string>SSDT</string>\n' >> $config
-printf '\t\t\t\t<key>TableId</key>\n' >> $config
-printf '\t\t\t\t<string>Cpu0Ist</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Signature</key>\n' >> $config
-printf '\t\t\t\t<string>SSDT</string>\n' >> $config
-printf '\t\t\t\t<key>TableId</key>\n' >> $config
-printf '\t\t\t\t<string>ApIst</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
-printf '\t\t\t<dict>\n' >> $config
-printf '\t\t\t\t<key>Signature</key>\n' >> $config
-printf '\t\t\t\t<string>SSDT</string>\n' >> $config
-printf '\t\t\t\t<key>TableId</key>\n' >> $config
-printf '\t\t\t\t<string>Cpu0Cst</string>\n' >> $config
-printf '\t\t\t</dict>\n' >> $config
 printf '\t\t</array>\n' >> $config
+
 printf '\t\t<key>SSDT</key>\n' >> $config
 printf '\t\t<dict>\n' >> $config
 printf '\t\t\t<key>DropOem</key>\n' >> $config
@@ -590,8 +562,6 @@ printf '\t\t\t<array>\n' >> $config
 printf '\t\t\t\t<dict>\n' >> $config
 printf '\t\t\t\t<key>FullTitle</key>\n' >> $config
 printf '\t\t\t\t<string>UEFI Internal</string>\n' >> $config
-printf '\t\t\t\t<key>Ignore</key>\n' >> $config
-printf '\t\t\t\t<false/>\n' >> $config
 printf '\t\t\t\t<key>Hidden</key>\n' >> $config
 printf '\t\t\t\t<string>Always</string>\n' >> $config
 printf '\t\t\t\t<key>Disabled</key>\n' >> $config
