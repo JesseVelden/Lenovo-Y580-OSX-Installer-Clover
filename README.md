@@ -12,6 +12,11 @@ OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
 
+**Version 1.3.1 (22 October 2015)**
+
+* Some Clover.config Generate fixes
+* Bluetooth fixes
+
 **Version 1.3 (18 October 2015) - 10.11 update**
 
 * Clover.config Generate is now 10.11 ready!
@@ -150,8 +155,9 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 [The ALXEthernet support thread](http://www.insanelymac.com/forum/topic/284119-experimental-atheros-ar813132515261627172-driver-for-107108/)  
 [The modified ALXEthernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
 
-**BrcmPatchRAM.kext** is courtsey of **the-darkvoid** with modifications by **MegaCookie (Jessers123)**  
-[BrcmPatchRam on Github](https://github.com/the-darkvoid/BrcmPatchRAM)
+**BrcmPatchRAM.kext** is courtsey of **the-darkvoid** and forked by **Rehabman**
+[BrcmPatchRam on Github](https://github.com/the-darkvoid/BrcmPatchRAM)  
+[Rehabman's fork on Github](https://github.com/RehabMan/OS-X-BrcmPatchRAM)
 
 **ACPIPoller.kext** and the fan reset driver for Clover are courtesy of **RehabMan**.  
 The **patchmatic** utility by **RehabMan** is based of the **MaciASL** source code and uses **RegexKitLite** by **John Engelhart**.  
