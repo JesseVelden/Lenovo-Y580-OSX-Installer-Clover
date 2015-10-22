@@ -6,12 +6,14 @@ then
     osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
     case $osxver in
     10.9*)	echo "OS X Mavericks $osxver detected."
-                cd /Volumes/EFI/EFI/CLOVER/kexts/10.9/;;
+                cd /Volumes/EFI/EFI/CLOVER/kexts/10.9/
+                sudo rm -rf /System/Library/Extensions/BrcmPatchRAM2.kext;;
     10.10*)	echo "OS X Yosemite $osxver detected."
-                cd /Volumes/EFI/EFI/CLOVER/kexts/10.10/;;
-    *)          echo "Unknown or unsupported OS X version, aborting.";;
+                cd /Volumes/EFI/EFI/CLOVER/kexts/10.10/
+                sudo rm -rf /System/Library/Extensions/BrcmPatchRAM2.kext;;
     10.11*) echo "OS X El Capitan $osxver detected."
-            cd /Volumes/EFI/EFI/CLOVER/kexts/10.11/;;
+            cd /Volumes/EFI/EFI/CLOVER/kexts/10.11/
+            sudo rm -rf /System/Library/Extensions/BrcmPatchRAM.kext;;
     *)      echo "Unknown or unsupported OS X version, aborting.";;
     esac
 
