@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CloverRevision</key>
-	<real>3277</real>
+	<integer>3316</integer>
 	<key>InstalledThemes</key>
 	<array>
 		<string>Yosemite</string>
