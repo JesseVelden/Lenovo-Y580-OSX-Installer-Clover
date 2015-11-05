@@ -10409,7 +10409,7 @@
 			ZW50LVN0eWxlLVR5cGUiIGNvbnRlbnQ9InRleHQvY3NzIj4KPHRp
 			dGxlPjwvdGl0bGU+CjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29u
 			dGVudD0iQ29jb2EgSFRNTCBXcml0ZXIiPgo8bWV0YSBuYW1lPSJD
-			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjEzNDMuMTQiPgo8c3R5bGUg
+			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjE0MDQuMTMiPgo8c3R5bGUg
 			dHlwZT0idGV4dC9jc3MiPgo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5
 			Pgo8L2JvZHk+CjwvaHRtbD4K
 			</data>
@@ -10470,7 +10470,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Install/ update Clover UEFI Bootloader 3277 to EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
+										<string>Install/ update Clover UEFI Bootloader 3316 on EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>
