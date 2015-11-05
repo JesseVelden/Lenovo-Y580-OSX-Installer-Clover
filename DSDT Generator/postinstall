@@ -7,24 +7,6 @@ CloverResolution=`/usr/libexec/PlistBuddy -c "Print :CloverResolution" /tmp/L580
 
 exitcode=0
 
-if [ ! -d /Volumes/EFI/EFI/CLOVER/ACPI/origin ] || [ ! -d /Volumes/EFI/EFI/CLOVER/ACPI/patched ]
-then
-	/usr/bin/osascript <<EOT
-tell application "Finder"
-    activate
-    display dialog "If you see this warning message, that means:
-
-You haven't installed Clover yet.
-
-In order to generate a config.plist for Clover, you have to install Clover.
-Run Lenovo Y580 Clover Edition again and select the Clover option this time ;) ." buttons {"OK"} default button "OK" with icon note with title "No Display Type selected!"
-end tell
-EOT
-exitcode=1
-fi
-
-
-
 if [ "$CloverConfigGenerate" != "no" ]
 then
 	if [ "$CloverResolution" != "no" ]
