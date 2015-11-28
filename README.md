@@ -12,6 +12,10 @@ OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
 
+**Version 1.4 (28 November 2015)**
+
+* Fixed Sleep problems
+
 **Version 1.3.1 (22 October 2015)**
 
 * Some Clover.config Generate fixes
