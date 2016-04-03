@@ -12,7 +12,7 @@ OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
 
-**Version 1.5 (3 April 2016)
+**Version 1.5 (3 April 2016)**
 
 * Fixed audio in 10.11.4 (DummyHDA.kext)
 * Updated Clover to r3389
