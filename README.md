@@ -5,12 +5,20 @@
 **[Lenovo Y580 El Capitan support thread](http://www.tonymacx86.com/el-capitan-laptop-guides/175993-guide-lenovo-y580-el-capitan-10-11-using-clover-uefi.html)**  
 **[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
-[![Paypal](https://jessevandervelden.nl/donate.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8E4TFKGXLHJLU)
+[![Paypal](https://jessevandervelden.nl/donate.png)](https://www.paypal.me/JessevanderVelden)
   
 
 OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
+
+**Version 1.5 (3 April 2016)
+
+* Fixed audio in 10.11.4 (DummyHDA.kext)
+* Updated Clover to r3389
+* Updated BrcmPatchRam.kext
+* Updated ACPIBatteryManager.kext
+* Updated Voodoops2controller.kext
 
 **Version 1.4 (28 November 2015)**
 
