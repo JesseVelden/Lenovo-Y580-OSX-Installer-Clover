@@ -136,6 +136,10 @@
 		<string>8.0.0b3</string>
 		<key>com.apple.kpi.private</key>
 		<string>8.0.0b3</string>
+		<key>com.apple.iokit.IOPCIFamily</key>
+		<string>1.1</string>
+		<key>com.apple.iokit.IOACPIFamily</key>
+		<string>1.2.0a1</string>
 	</dict>
 </dict>
 </plist>
