@@ -3639,7 +3639,7 @@
 																			<key>GID</key>
 																			<integer>0</integer>
 																			<key>PATH</key>
-																			<string>OSX Support Files/CommonKexts/Extensions/ALXEthernet.kext</string>
+																			<string>OSX Support Files/CommonKexts/Extensions/AtherosE2200Ethernet.kext</string>
 																			<key>PATH_TYPE</key>
 																			<integer>1</integer>
 																			<key>PERMISSIONS</key>
