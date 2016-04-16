@@ -36,7 +36,12 @@ then
 	then
 		cd /tmp/tempDSDT
 
-		if [ -f /Volumes/CLOVER/EFI/CLOVER/ACPI/origin/DSDT.aml ]
+		if [ -f /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml ]
+		then
+			# get original DSDT from CLOVER USB
+			cp /Volumes/CLOVER\ EFI/EFI/CLOVER/ACPI/origin/DSDT.aml .
+			cp /Volumes/CLOVER\ EFI/EFI/CLOVER/ACPI/origin/SSDT*.aml .
+		elif [ -f /Volumes/CLOVER/EFI/CLOVER/ACPI/origin/DSDT.aml ]
 		then
 			# get original DSDT from CLOVER USB
 			cp /Volumes/CLOVER/EFI/CLOVER/ACPI/origin/DSDT.aml .
