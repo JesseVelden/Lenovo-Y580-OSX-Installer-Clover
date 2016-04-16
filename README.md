@@ -12,6 +12,12 @@ OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
 
+**Version 1.5.1 (April 16, 2016)**
+
+* Fixed DSDT patching problems
+* Updated Clover to r3384
+* Use of AtherosE2200Ethernet.kext instead of ALXEthernet.kext
+
 **Version 1.5 (3 April 2016)**
 
 * Fixed audio in 10.11.4 (DummyHDA.kext)
