@@ -169,11 +169,11 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 **EAPDFix.kext** is courtesy of **EMlyDinEsH**    
 [The EAPDFix support forum](http://forum.osxlatitude.com/index.php?/topic/3084-eapdjack-sense-fix-no-audiojack-sense-issue-after-sleep/)
 
-**ALXEthernet.kext** is courtsey of **Shailua**  modified by **Zephiris** and maintained by **Dolnor**  
-[The ALXEthernet support thread](http://www.insanelymac.com/forum/topic/284119-experimental-atheros-ar813132515261627172-driver-for-107108/)  
-[The modified ALXEthernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
+**AtherosE2200Ethernet.kext** is courtsey of **Mieze**
+[The AtherosE2200Ethernet support thread](http://www.insanelymac.com/forum/topic/300056-solution-for-qualcomm-atheros-ar816x-ar817x-and-killer-e220x/)  
+[AtherosE2200Ethernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
 
-**BrcmPatchRAM.kext** is courtsey of **the-darkvoid** and forked by **Rehabman**
+**BrcmPatchRAM.kext** is courtsey of **the-darkvoid** and forked by **Rehabman**  
 [BrcmPatchRam on Github](https://github.com/the-darkvoid/BrcmPatchRAM)  
 [Rehabman's fork on Github](https://github.com/RehabMan/OS-X-BrcmPatchRAM)
 

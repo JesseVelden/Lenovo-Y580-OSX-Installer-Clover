@@ -30,5 +30,11 @@ rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/BrcmPatchRAM2.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/BrcmPatchRAM2.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/BrcmPatchRAM.kext
 
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/ALXEthernet.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/ALXEthernet.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/ALXEthernet.kext
+
+
+
 systemsetup -setwakeonnetworkaccess off
 /usr/libexec/PlistBuddy -c "Set :KextCacheRebuild yes" /tmp/L580CI.plist
