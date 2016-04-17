@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
-<dictionary>
-	<suite name="XtraFinder Suite" code="XFdr" description="XtraFinder Scripting Addition">
-		<command name="inject" code="XFdrIjct" description="Inject XtraFinder">
-		</command>        
-	</suite>
-</dictionary>
