@@ -12,6 +12,16 @@ OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
 
+**Version 1.5.2 (April 17, 2016)
+
+* Finally DSDT patching is working without problems!
+* Updated MaciASL (and some binaries used for DSDT/ SSDT Patching)
+* Updated Clover Configurator
+* Added the new Windows logo in the default Clover theme
+* Removed XtraFinder (still can be found [here](https://www.trankynam.com/xtrafinder/))
+* Removed HWMonitor (still can be found [here](http://hwsensors.com/)
+
+
 **Version 1.5.1 (April 16, 2016)**
 
 * Fixed DSDT patching problems
@@ -122,18 +132,23 @@ This is based on the **HP ProBook Installer Clover edition** that is currently m
 [HP ProBook Installer Clover Edition on Bitbucket](https://bitbucket.org/dhnguyenit/hp-probook-installer-clover-edition)
 
 **Clover Bootloader** is courtesy of the **Clover Team**.  
-[The Clover support thread](http://www.projectosx.com/forum/index.php?showtopic=2562)  
+[The Clover support thread](http://www.insanelymac.com/forum/topic/284656-clover-general-discussion/)  
+[Clover on SourceForge](https://sourceforge.net/projects/cloverefiboot)
 
 The **VoodooPS2Controller** fork is courtesy of **RehabMan**.  
 [The VoodooPS2Controller support thread](http://www.tonymacx86.com/hp-probook/75649-new-voodoops2controller-keyboard-trackpad.html)  
 [VoodooPS2Controller on Github](https://github.com/RehabMan/OS-X-Voodoo-PS2-Controller)  
 
-The **SSDT generator script** is courtesy of **RevoGirl** and **PikeRAlpha**.  
+The **SSDT generator script** is courtesy of **RevoGirl †** and currently maintend by **PikeRAlpha**.  
 [The SSDT generator support thread](http://www.tonymacx86.com/ssdt/86906-ssdt-generation-script-ivybridge-pm.html)  
+[SSDT PRGen on Github](https://github.com/Piker-Alpha/ssdtPRGen.sh)
 
-**MaciASL** is courtesy of **SJ_UnderWater** forked by **RehabMan**.  
+**MaciASL/ patchmatic** is courtesy of **SJ_UnderWater** forked by **RehabMan**.  
 [The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html)  
 [MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic)     
+
+**iasl binary** is courtesy of **Intel** with changes by **RehabMan**
+[iasl (RehabMan) on Github](https://github.com/RehabMan/Intel-iasl)
 
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/93732-new-kexts-proposed-probook-installer-v6-1-a.html)  
@@ -152,6 +167,9 @@ The **AHCI patch**, **patch-hda.pl** and **patch-hda-codecs.pl** are courtesy of
 **Kext Wizard** is courtesy of **janek202**.   
 [The Kext Wizard support thread](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/)  
 
+**Clover Configurator** is courtesy of **mackie100**  
+[Clover Configurator website](http://mackie100projects.altervista.org/clover-configurator/)  
+
 **FakeSMC** is courtesy of **RehabMan**, **kozlek**, **netkas**, **slice** and **navi**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/)  
 [The original support thread](http://www.insanelymac.com/forum/topic/275429-hwsensors/)  
@@ -169,7 +187,7 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 **EAPDFix.kext** is courtesy of **EMlyDinEsH**    
 [The EAPDFix support forum](http://forum.osxlatitude.com/index.php?/topic/3084-eapdjack-sense-fix-no-audiojack-sense-issue-after-sleep/)
 
-**AtherosE2200Ethernet.kext** is courtsey of **Mieze**
+**AtherosE2200Ethernet.kext** is courtsey of **Mieze**  
 [The AtherosE2200Ethernet support thread](http://www.insanelymac.com/forum/topic/300056-solution-for-qualcomm-atheros-ar816x-ar817x-and-killer-e220x/)  
 [AtherosE2200Ethernet on Github](https://github.com/Dolnor/OSX-ALXEthernet)
 
@@ -184,7 +202,7 @@ The **EDID generator** is courtesy of **philip_petev**.
 The **3rd party AHCI kext** is courtesy of **MacMan**.  
 The **colour profiles** are courtesy of **metacollin** and several other sources.  
 The **display_color.py** script is courtesy of **Daniel Fairhead (danthedeckie)**.  
-The **[Patching AppleHDA](http://www.insanelymac.com/forum/topic/298027-guide-aio-guides-for-hackintosh/page-2#entry2030060) on the fly with Clover** are implemented by the idea of **pokenguyen**  
+The **[Patching AppleHDA](http://www.insanelymac.com/forum/topic/298027-guide-aio-guides-for-hackintosh/page-2#entry2030060) on the fly with Clover** is implemented by the idea of **pokenguyen**  
 **Y580ARPT.kext** is the slightly edited **ProBookARPT.kext** is the work of **nguyenmac** and modified by **MegaCookie (Jessers123)** which is based on works, courtesy of **toleda** and **RehabMan**.
 
 ###Special thanks to:
