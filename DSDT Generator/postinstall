@@ -36,7 +36,7 @@ then
 	then
 		cd /tmp/tempDSDT
 
-		if [ -f /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml ]
+		if [ -f /Volumes/CLOVER\ EFI/EFI/CLOVER/ACPI/origin/DSDT.aml ]
 		then
 			# get original DSDT from CLOVER USB
 			cp /Volumes/CLOVER\ EFI/EFI/CLOVER/ACPI/origin/DSDT.aml .
@@ -53,7 +53,18 @@ then
 			cp /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml .
 			cp /Volumes/EFI/EFI/CLOVER/ACPI/origin/SSDT*.aml .
 		else
-			./patchmatic -extract
+			diskutil mount EFI
+			if [ $? -eq 0 ] 
+			then
+				if [ -f /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml ]
+				then
+					# get original DSDT from EFI partition
+					cp /Volumes/EFI/EFI/CLOVER/ACPI/origin/DSDT.aml .
+					cp /Volumes/EFI/EFI/CLOVER/ACPI/origin/SSDT*.aml .
+				fi
+			else
+				./patchmatic -extract
+			fi
 		fi
 
 		./iasl -da *.aml

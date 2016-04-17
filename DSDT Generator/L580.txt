@@ -1,6 +1,6 @@
 #Just copy everything in here to the patch box in MaciASL and press patch.
-#Then save it with file format  'ACPI ...' in the '/Extra' folder with the name: 'DSDT' 
-#
+#Then save it with file format  'ACPI ...' in the '/Volumes/EFI/CLOVER/ACPI/patched' 
+# as DSDT.aml
 #Full DSDT patch *******************WITHOUT GRAPHICS!!!!!!*****************************
 #Brought to you by: Jessers123. Have fun!
 #Huge thanks to RehabMan for all his fixes!
