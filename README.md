@@ -12,14 +12,14 @@ OS X support: El Capitan, Yosemite
   
 ###C h a n g e l o g   
 
-**Version 1.5.2 (April 17, 2016)
+**Version 1.5.2 (April 17, 2016)**
 
 * Finally DSDT patching is working without problems!
 * Updated MaciASL (and some binaries used for DSDT/ SSDT Patching)
 * Updated Clover Configurator
 * Added the new Windows logo in the default Clover theme
 * Removed XtraFinder (still can be found [here](https://www.trankynam.com/xtrafinder/))
-* Removed HWMonitor (still can be found [here](http://hwsensors.com/)
+* Removed HWMonitor (still can be found [here](http://hwsensors.com/))
 
 
 **Version 1.5.1 (April 16, 2016)**
