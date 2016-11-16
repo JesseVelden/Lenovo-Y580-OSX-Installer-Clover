@@ -6,11 +6,14 @@
 **[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
 [![Paypal](https://jessevandervelden.nl/donate.png)](https://www.paypal.me/JessevanderVelden)
-  
+
 
 OS X support: El Capitan, Yosemite
-  
+
 ###C h a n g e l o g   
+
+**Version 1.5.3 (April 15, 2016)**  
+* Fixed Trackpad issues and updated Voodoops2controller.kext
 
 **Version 1.5.2 (April 17, 2016)**
 
@@ -147,12 +150,12 @@ The **SSDT generator script** is courtesy of **RevoGirl †** and currently main
 [The MaciASL support thread](http://www.tonymacx86.com/dsdt/83565-native-dsdt-aml-ide-compiler-maciasl-open-beta.html)  
 [MaciASL (RehabMan) on Github](https://github.com/RehabMan/OS-X-MaciASL-patchmatic)     
 
-**iasl binary** is courtesy of **Intel** with changes by **RehabMan**
+**iasl binary** is courtesy of **Intel** with changes by **RehabMan**  
 [iasl (RehabMan) on Github](https://github.com/RehabMan/Intel-iasl)
 
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/93732-new-kexts-proposed-probook-installer-v6-1-a.html)  
-[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/) 
+[The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/)
 
 **ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**  
 [ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)
@@ -211,7 +214,7 @@ The **[Patching AppleHDA](http://www.insanelymac.com/forum/topic/298027-guide-ai
 **BlueKing** - the original creator of HP ProBook Installer.  
 **Tegezee** - the second maintainer of HP ProBook Installer.  
 **philippetev** - the current maintainer of HP ProBook Installer.  
-**RehabMan** - For helping everyone nicely in the forum threads and providing handy tools and kexts. 
+**RehabMan** - For helping everyone nicely in the forum threads and providing handy tools and kexts.
 ###and all the users of the Lenovo Y580 forum.
 
 
