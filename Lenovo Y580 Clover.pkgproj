@@ -2858,38 +2858,6 @@
 													<key>GID</key>
 													<integer>0</integer>
 													<key>PATH</key>
-													<string>OSX Support Files/CommonKexts/Extensions/BrcmPatchRAM.kext</string>
-													<key>PATH_TYPE</key>
-													<integer>1</integer>
-													<key>PERMISSIONS</key>
-													<integer>493</integer>
-													<key>TYPE</key>
-													<integer>3</integer>
-													<key>UID</key>
-													<integer>0</integer>
-												</dict>
-												<dict>
-													<key>CHILDREN</key>
-													<array/>
-													<key>GID</key>
-													<integer>0</integer>
-													<key>PATH</key>
-													<string>OSX Support Files/CommonKexts/Extensions/10.11/BrcmPatchRAM2.kext</string>
-													<key>PATH_TYPE</key>
-													<integer>1</integer>
-													<key>PERMISSIONS</key>
-													<integer>493</integer>
-													<key>TYPE</key>
-													<integer>3</integer>
-													<key>UID</key>
-													<integer>0</integer>
-												</dict>
-												<dict>
-													<key>CHILDREN</key>
-													<array/>
-													<key>GID</key>
-													<integer>0</integer>
-													<key>PATH</key>
 													<string>OSX Support Files/CommonKexts/Extensions/DummyHDA.kext</string>
 													<key>PATH_TYPE</key>
 													<integer>1</integer>
@@ -2943,6 +2911,22 @@
 													<integer>0</integer>
 													<key>PATH</key>
 													<string>OSX Support Files/CommonKexts/Extensions/USBInjectAll.kext</string>
+													<key>PATH_TYPE</key>
+													<integer>1</integer>
+													<key>PERMISSIONS</key>
+													<integer>493</integer>
+													<key>TYPE</key>
+													<integer>3</integer>
+													<key>UID</key>
+													<integer>0</integer>
+												</dict>
+												<dict>
+													<key>CHILDREN</key>
+													<array/>
+													<key>GID</key>
+													<integer>0</integer>
+													<key>PATH</key>
+													<string>OSX Support Files/CommonKexts/Extensions/VoodooPS2Controller.kext</string>
 													<key>PATH_TYPE</key>
 													<integer>1</integer>
 													<key>PERMISSIONS</key>
@@ -3169,7 +3153,39 @@
 																			<key>GID</key>
 																			<integer>0</integer>
 																			<key>PATH</key>
-																			<string>OSX Support Files/CommonKexts/Extensions/EAPDFix.kext</string>
+																			<string>OSX Support Files/CommonKexts/Extensions/BrcmPatchRAM.kext</string>
+																			<key>PATH_TYPE</key>
+																			<integer>1</integer>
+																			<key>PERMISSIONS</key>
+																			<integer>493</integer>
+																			<key>TYPE</key>
+																			<integer>3</integer>
+																			<key>UID</key>
+																			<integer>0</integer>
+																		</dict>
+																		<dict>
+																			<key>CHILDREN</key>
+																			<array/>
+																			<key>GID</key>
+																			<integer>0</integer>
+																			<key>PATH</key>
+																			<string>OSX Support Files/CommonKexts/Extensions/10.11/BrcmPatchRAM2.kext</string>
+																			<key>PATH_TYPE</key>
+																			<integer>1</integer>
+																			<key>PERMISSIONS</key>
+																			<integer>493</integer>
+																			<key>TYPE</key>
+																			<integer>3</integer>
+																			<key>UID</key>
+																			<integer>0</integer>
+																		</dict>
+																		<dict>
+																			<key>CHILDREN</key>
+																			<array/>
+																			<key>GID</key>
+																			<integer>0</integer>
+																			<key>PATH</key>
+																			<string>OSX Support Files/CommonKexts/Extensions/CodecCommander.kext</string>
 																			<key>PATH_TYPE</key>
 																			<integer>1</integer>
 																			<key>PERMISSIONS</key>
@@ -3206,24 +3222,6 @@
 																			<integer>0</integer>
 																			<key>PATH</key>
 																			<string>OSX Support Files/CommonKexts/Extensions/GenericUSBXHCI.kext</string>
-																			<key>PATH_TYPE</key>
-																			<integer>1</integer>
-																			<key>PERMISSIONS</key>
-																			<integer>493</integer>
-																			<key>TYPE</key>
-																			<integer>3</integer>
-																			<key>UID</key>
-																			<integer>0</integer>
-																		</dict>
-																		<dict>
-																			<key>BUNDLE_CAN_DOWNGRADE</key>
-																			<true/>
-																			<key>CHILDREN</key>
-																			<array/>
-																			<key>GID</key>
-																			<integer>0</integer>
-																			<key>PATH</key>
-																			<string>OSX Support Files/CommonKexts/Extensions/VoodooPS2Controller.kext</string>
 																			<key>PATH_TYPE</key>
 																			<integer>1</integer>
 																			<key>PERMISSIONS</key>
@@ -9410,7 +9408,7 @@
 										<key>LANGUAGE</key>
 										<string>English</string>
 										<key>VALUE</key>
-										<string>Install/ update Clover UEFI Bootloader 3438 on EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
+										<string>Install/ update Clover UEFI Bootloader 3923 on EFI partition. In order to let Clover work, you must select 'Generate Clover Config.plist' too.</string>
 									</dict>
 								</array>
 								<key>OPTIONS</key>

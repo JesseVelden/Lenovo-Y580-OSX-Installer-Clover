@@ -28,13 +28,15 @@ cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/* /Volumes/EFI/EFI/CLOVER/kexts/10.10
 cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/* /Volumes/EFI/EFI/CLOVER/kexts/10.11
 cp -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/* /Volumes/EFI/EFI/CLOVER/kexts/10.12
 
-if ![[ "$osxver" == 10.12* ]]
+if [[ ! "$osxver" == 10.12* ]]
+then
 	rm -rf /System/Library/Extensions/USBInjectAll.kext
 fi
 
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/AppleUSBXHCIPCIPortInjector.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/AppleUSBXHCIPCIPortInjector.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/AppleUSBXHCIPCIPortInjector.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/AppleUSBXHCIPCIPortInjector.kext
 
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/GenericUSBXHCI.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/GenericUSBXHCI.kext
@@ -42,10 +44,17 @@ rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/GenericUSBXHCI.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/BrcmPatchRAM2.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/BrcmPatchRAM2.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/BrcmPatchRAM.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/BrcmPatchRAM.kext
 
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/ALXEthernet.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/ALXEthernet.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/ALXEthernet.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/ALXEthernet.kext
+
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/EAPDFix.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/EAPDFix.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/EAPDFix.kext
+rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/EAPDFix.kext
 
 
 
