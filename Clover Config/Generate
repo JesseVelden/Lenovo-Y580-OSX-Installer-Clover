@@ -334,6 +334,7 @@ then
 fi
 
 if [[ "$osxver" == 10.12* ]]
+then
 	printf '\t\t\t<dict>\n' >> $config
 	printf '\t\t\t\t<key>Name</key>\n' >> $config
 	printf '\t\t\t\t<string>IOGraphicsFamily</string>\n' >> $config
@@ -351,6 +352,7 @@ if [[ "$osxver" == 10.12* ]]
 fi
 
 if [[ "$osxver" == 10.12* || "$osxver" == 10.11* ]]
+then
 	printf '\t\t\t<dict>\n' >> $config
 	printf '\t\t\t\t<key>Name</key>\n' >> $config
 	printf '\t\t\t\t<string>IOBluetoothFamily</string>\n' >> $config
@@ -366,6 +368,7 @@ if [[ "$osxver" == 10.12* || "$osxver" == 10.11* ]]
 	printf '\t\t\t\t<string>Handoff Fix 10.11-10.12</string>\n' >> $config
 	printf '\t\t\t</dict>\n' >> $config
 fi
+
 case $CloverResolution in 
 	low)
 		printf '\t\t\t<dict>\n' >> $config
