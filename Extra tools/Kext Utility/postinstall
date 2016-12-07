@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ ! -r "$HOME/Desktop/Tools" ];
+then
+	mkdir "$HOME/Desktop/Tools"
+	chown "$USER" "$HOME/Desktop/Tools"
+fi
+unzip "./Kext_Utility.app.zip"
+cp -Rf "./Kext Utility.app" "$HOME/Desktop/Tools/"
+chown -R "$USER" "$HOME/Desktop/Tools/Kext Utility.app"

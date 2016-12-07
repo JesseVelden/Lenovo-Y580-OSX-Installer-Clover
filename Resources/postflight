@@ -1,9 +1,10 @@
 #!/bin/bash
 # rebilding the kext cache, if triggered
 RebuildOn=`/usr/libexec/PlistBuddy -c "Print :KextCacheRebuild" /tmp/L580CI.plist`
+osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
+
 if [ "$RebuildOn" == "yes" ]
 then
-    osxver=`/usr/libexec/PlistBuddy -c 'Print ProductVersion' "${3}"/System/Library/CoreServices/SystemVersion.plist`
     case $osxver in
     10.9*)	echo "OS X Mavericks $osxver detected."
                 cd /Volumes/EFI/EFI/CLOVER/kexts/10.9/
@@ -12,8 +13,11 @@ then
                 cd /Volumes/EFI/EFI/CLOVER/kexts/10.10/
                 sudo rm -rf /System/Library/Extensions/BrcmPatchRAM2.kext;;
     10.11*) echo "OS X El Capitan $osxver detected."
-            cd /Volumes/EFI/EFI/CLOVER/kexts/10.11/
-            sudo rm -rf /System/Library/Extensions/BrcmPatchRAM.kext;;
+                cd /Volumes/EFI/EFI/CLOVER/kexts/10.11/
+                sudo rm -rf /System/Library/Extensions/BrcmPatchRAM.kext;;
+    10.12*) echo "MAC OS Sierra $osxver detected."
+                cd /Volumes/EFI/EFI/CLOVER/kexts/10.12/
+                sudo rm -rf /System/Library/Extensions/BrcmPatchRAM.kext;;
     *)      echo "Unknown or unsupported OS X version, aborting.";;
     esac
 
@@ -23,9 +27,10 @@ then
         chown -R root:wheel /System/Library/Extensions/$file
     done
 
-    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/BrcmPatchRAM.kext
-    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/BrcmPatchRAM.kext
-    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/BrcmPatchRAM2.kext
+    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.9/BrcmPatchRAM2.kext
+    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/BrcmPatchRAM2.kext
+    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/BrcmPatchRAM.kext
+    rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/BrcmPatchRAM.kext
 
     #diskutil repairPermissions /
 	touch "${3}/System/Library/Extensions"
@@ -52,3 +57,9 @@ fi
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 #enabling Diskutility Debug to let users easier mount hidden partitions (e.g. the EFI partition)
 defaults write com.apple.DiskUtility DUDebugMenuEnabled 1
+
+case $osxver in
+    10.12*) echo "MAC OS Sierra $osxver detected."
+                sudo spctl --master-disable;;
+    *)      echo "Unknown or unsupported OS X version, aborting.";;
+esac
