@@ -7,10 +7,17 @@
 
 [![Paypal](https://jessevandervelden.nl/donate.png)](https://www.paypal.me/JessevanderVelden)
 
-
+Mac OS support: Sierra  
 OS X support: El Capitan, Yosemite
 
 ###C h a n g e l o g   
+
+**Version 1.6 (December 7, 2016)**  
+* Mac OS Sierra support!
+* Use CodecCommander.kext instead of EAPDFix.kext
+* Added Kext Utility, replacing Kext Wizard
+* Updated Clover to r3923
+* Updated several kexts
 
 **Version 1.5.3 (April 15, 2016)**  
 * Fixed Trackpad issues and updated Voodoops2controller.kext
@@ -197,6 +204,10 @@ The unified **AppleIntelFramebufferCapri.kext** patch is courtesy of **kpkp**.
 **BrcmPatchRAM.kext** is courtsey of **the-darkvoid** and forked by **Rehabman**  
 [BrcmPatchRam on Github](https://github.com/the-darkvoid/BrcmPatchRAM)  
 [Rehabman's fork on Github](https://github.com/RehabMan/OS-X-BrcmPatchRAM)
+
+**Kext Utility** is courtsey of **cvad**  
+[Kext Utility on Insanelymac](http://www.insanelymac.com/forum/topic/140647-latest-kext-utility-macos-sierra-super-speed-edition/)  
+[Cvad's website](http://cvad-mac.narod.ru/index/0-4)
 
 **ACPIPoller.kext** and the fan reset driver for Clover are courtesy of **RehabMan**.  
 The **patchmatic** utility by **RehabMan** is based of the **MaciASL** source code and uses **RegexKitLite** by **John Engelhart**.  
