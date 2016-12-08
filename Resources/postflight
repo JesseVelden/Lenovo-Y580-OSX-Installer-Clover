@@ -17,6 +17,7 @@ then
                 sudo rm -rf /System/Library/Extensions/BrcmPatchRAM.kext;;
     10.12*) echo "MAC OS Sierra $osxver detected."
                 cd /Volumes/EFI/EFI/CLOVER/kexts/10.12/
+                sudo touch /System/Library/Extensions && sudo kextcache -u /
                 sudo rm -rf /System/Library/Extensions/BrcmPatchRAM.kext;;
     *)      echo "Unknown or unsupported OS X version, aborting.";;
     esac

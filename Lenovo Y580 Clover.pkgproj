@@ -2921,6 +2921,8 @@
 													<integer>0</integer>
 												</dict>
 												<dict>
+													<key>BUNDLE_CAN_DOWNGRADE</key>
+													<false/>
 													<key>CHILDREN</key>
 													<array/>
 													<key>GID</key>
