@@ -12,6 +12,10 @@ OS X support: El Capitan, Yosemite
 
 ###C h a n g e l o g   
 
+**Version 1.6.1 (December 9, 2016)**  
+* VoodooPS2Controller.kext to show trackpad in system preferences.
+* Added a new DSDT fix to change brightness with arrow keys. Thanks to parxom for noticing the fix by Rehabman
+
 **Version 1.6 (December 7, 2016)**  
 * Mac OS Sierra support!
 * Use CodecCommander.kext instead of EAPDFix.kext
