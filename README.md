@@ -2,6 +2,7 @@
 ###**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
 
 **Maintainer: MegaCookie (Jessers123)**  
+**[Lenovo Y580 Sierra support thread](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover)**  
 **[Lenovo Y580 El Capitan support thread](http://www.tonymacx86.com/el-capitan-laptop-guides/175993-guide-lenovo-y580-el-capitan-10-11-using-clover-uefi.html)**  
 **[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
