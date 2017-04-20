@@ -232,20 +232,22 @@ The **display_color.py** script is courtesy of **Daniel Fairhead (danthedeckie)*
 The **[Patching AppleHDA](http://www.insanelymac.com/forum/topic/298027-guide-aio-guides-for-hackintosh/page-2#entry2030060) on the fly with Clover** is implemented by the idea of **pokenguyen**  
 **Y580ARPT.kext** is the slightly edited **ProBookARPT.kext** is the work of **nguyenmac** and modified by **MegaCookie (Jessers123)** which is based on works, courtesy of **toleda** and **RehabMan**.
 
-###Special thanks to:
+### Special thanks to:
 
 **pokenguyen** - The current maintainer of the HP ProBook Installer Clover edition and for his ARPT.kext idea.  
 **BlueKing** - the original creator of HP ProBook Installer.  
 **Tegezee** - the second maintainer of HP ProBook Installer.  
 **philippetev** - the current maintainer of HP ProBook Installer.  
-**RehabMan** - For helping everyone nicely in the forum threads and providing handy tools and kexts.
-###and all the users of the Lenovo Y580 forum.
+**RehabMan** - For helping everyone nicely in the forum threads and providing handy tools and kexts.  
+**and all the users of the Lenovo Y580 forum.**
 
 
 **RegexKitLite** Copyright © 2008-2010, **John Engelhart**  
+```
 All rights reserved.  
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:  
 Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.  
 Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.  
 Neither the name of the Zang Industries nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.  
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
