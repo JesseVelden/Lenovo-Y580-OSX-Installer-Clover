@@ -13,6 +13,11 @@ OS X support: El Capitan, Yosemite
 
 ###C h a n g e l o g   
 
+**Version 1.6.3 (April 20, 2017)**  
+* Updated Clover
+* Removed ACPIBacklight.kext in favor of IntelBacklight.kext
+* Updated FakeSMC.kext and AtherosE220Ethernet.kext
+
 **Version 1.6.1 (December 9, 2016)**  
 * VoodooPS2Controller.kext to show trackpad in system preferences.
 * Added a new DSDT fix to change brightness with arrow keys. Thanks to parxom for noticing the fix by Rehabman
@@ -168,6 +173,9 @@ The **SSDT generator script** is courtesy of **RevoGirl †** and currently main
 **GenericUSBXHCI.kext** is courtesy of **Zenith432** and **RehabMan**.  
 [The main support thread](http://www.tonymacx86.com/hp-probook/93732-new-kexts-proposed-probook-installer-v6-1-a.html)  
 [The original GenericUSBXHCI.kext support thread](http://www.insanelymac.com/forum/topic/286860-genericusbxhci-usb-30-driver-for-os-x-with-source/)
+
+**IntelBacklight.kext** is courtesy of **Rehabman**  
+[ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-Intel-Backlight)
 
 **ACPIBacklight** is courtesy of **hotKoffy** and modified by **RehabMan**  
 [ACPIBacklight modified by RehabMan on Github](https://github.com/RehabMan/OS-X-ACPI-Backlight)
