@@ -1,17 +1,17 @@
-##Lenovo Y580 OSX Installer w/ Clover
-###**[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
+## Lenovo Y580 OSX Installer w/ Clover
+### **[Downloads](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/releases)**  
 
 **Maintainer: MegaCookie (Jessers123)**  
 **[Lenovo Y580 Sierra support thread](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover)**  
 **[Lenovo Y580 El Capitan support thread](http://www.tonymacx86.com/el-capitan-laptop-guides/175993-guide-lenovo-y580-el-capitan-10-11-using-clover-uefi.html)**  
 **[Lenovo Y580 Yosemite support thread](http://www.tonymacx86.com/yosemite-laptop-support/144245-yosemite-10-10-x-lenovo-y580.html#post889883)**
 
-[![Paypal](https://jessevandervelden.nl/donate.png)](https://www.paypal.me/JessevanderVelden)
+[![Paypal](https://raw.githubusercontent.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/master/Resources/Goodbye.rtfd/donate.png)](https://www.paypal.me/JessevanderVelden)
 
 Mac OS support: Sierra  
 OS X support: El Capitan, Yosemite
 
-###C h a n g e l o g   
+### C h a n g e l o g   
 
 **Version 1.6.3 (April 20, 2017)**  
 * Updated Clover
