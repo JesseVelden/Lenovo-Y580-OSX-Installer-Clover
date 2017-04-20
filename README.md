@@ -146,7 +146,7 @@ OS X support: El Capitan, Yosemite
 
 * Initial release
 
-###C r e d i t s
+### C r e d i t s
 
 This is based on the **HP ProBook Installer Clover edition** that is currently maintained by **pokenguyen - nguyenmac (dhnguyenit)**.  Huge thanks!    
 [HP ProBook Installer Clover Edition on Bitbucket](https://bitbucket.org/dhnguyenit/hp-probook-installer-clover-edition)
