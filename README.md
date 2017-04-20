@@ -13,6 +13,9 @@ OS X support: El Capitan, Yosemite
 
 ### C h a n g e l o g   
 
+**Version 1.6.4 (April 20, 2017)**  
+* Ensuring the ACPIBacklight.kext was fully removed.
+
 **Version 1.6.3 (April 20, 2017)**  
 * Updated Clover
 * Removed ACPIBacklight.kext in favor of IntelBacklight.kext

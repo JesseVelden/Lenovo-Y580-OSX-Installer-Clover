@@ -61,6 +61,8 @@ rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.10/ACPIBacklight.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.11/ACPIBacklight.kext
 rm -rf /Volumes/EFI/EFI/CLOVER/kexts/10.12/ACPIBacklight.kext
 
+rm -rf /System/Libreary/Extensions/ACPIBacklight.kext
+
 
 
 systemsetup -setwakeonnetworkaccess off
